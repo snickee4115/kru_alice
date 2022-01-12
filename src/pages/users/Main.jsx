@@ -6,6 +6,7 @@ import Logo from '../../components/Logo'
 const Main = () => {
     return (
         <div className='main_container'>
+            
             <img src={Main_image} style={{position:'absolute', bottom:'0px'}}/>
         </div>
     )
