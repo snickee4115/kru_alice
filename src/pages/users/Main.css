@@ -1,9 +1,28 @@
 .main_container{
+    position: relative;
     display: flex;
     flex-direction: column;
     background-color: #FFCCCE;
     height: 100vh;
 }
+
+.main_button{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main_button .button_container{
+    position: absolute;
+    bottom: 0;
+    width: 80%;
+}
+
+
+
+
+
 
 @media screen and (max-width : 400px) {
     
