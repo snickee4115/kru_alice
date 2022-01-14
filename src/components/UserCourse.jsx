@@ -3,18 +3,17 @@ import './UserCourse.css'
 import Cat from '../assets/cat.png'
 
 
-const UserCourse = () => {
+const UserCourse = ({name,course,course_status}) => {
     return (
         <div className='cat_container'>
-            <div className='student_name'>น้องเจแปน</div>
-            
-            <div className=''>COURSE</div>
             <div >
-                เตรียมสอบอังกฤษประถมต้น
+            <div className='student_name'>{name}</div>
             </div>
-            <div>
-                เตรียมสอบอังกฤษประถมปลาย
-            </div>
+            <div className='type' >COURSE</div>
+            <div className='type'>
+                {course}<div>{course_status}</div>
+            </div >
+          
                       
             <img className='cat' src={Cat} ></img>
         </div>
