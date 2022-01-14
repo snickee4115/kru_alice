@@ -7,9 +7,8 @@ import Button from '../../components/Button'
 const Main = () => {
     return (
         <div className='main_container'>
-            <div className='main_button'>
-                <Button name={'ลงชื่อเข้าใช้'} />
-            </div>
+            <Logo/>
+            <img className='main_img' src={Main_image}/>
         </div>
     )
 }

@@ -1,0 +1,19 @@
+.logo_container{
+    display: inline-block;
+}
+
+.logo_name{
+    display: flex;
+   font-size: 80px;
+   color: #986363;
+   line-height: 0.85em;
+   letter-spacing: 2px;
+   font-family: 'Oswald', sans-serif;
+}
+
+.logo_highlight{
+    padding: 0 40px 10px 5px;
+    margin-left: -4px;
+    border-radius: 51px 51px 51px 51px / 64px 64px 64px 64px;
+    background-color: #DC7373;
+}
