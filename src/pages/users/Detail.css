@@ -1,0 +1,28 @@
+.detail_container{
+    background-color: #A8CFD4;
+    height: 100%;
+}
+
+.detail_wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 70px;
+    position: relative;
+    top: 150px;
+}
+.detail_wrapper .cat_container{
+    width: 95%;
+    
+}
+.undo{
+    position: relative;
+    
+
+    
+    left: 75%;  /*standart undo*/
+    padding: 20px;
+
+}
+
+
