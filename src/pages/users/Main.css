@@ -25,6 +25,7 @@
 }
 
 .main_container a{
+    z-index: 1;
     position: relative;
     font-size: 55px;
     font-weight: bold;
