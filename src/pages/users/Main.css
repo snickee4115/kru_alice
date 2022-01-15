@@ -35,7 +35,7 @@
     position: relative;
     /* font-size: 55px; */
     font-size: 80px;
-    font-weight: bold;
+    font-weight: 400;
     color: #000;
     cursor: pointer;
     font-family: 'IBM Plex Sans Thai', sans-serif;
@@ -44,9 +44,9 @@
     left: 100px;
 }
 
-.app_container{
+/* .app_container{
     width: 800px;
-}
+} */
 
 @media screen and (min-width : 0px) and (max-width : 800px){
     .app_container{
