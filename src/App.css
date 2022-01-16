@@ -17,5 +17,5 @@ body{
   position: relative;
   width: 800px;
   border: 1px solid #000;
-  min-height: 100vh;
+  height: 100%;
 }
