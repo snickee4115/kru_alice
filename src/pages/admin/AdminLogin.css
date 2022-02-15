@@ -57,12 +57,11 @@
     -webkit-appearance: none;
 }
 
-.alogin_form_container .button_container{
+.alogin_form_container .login_button{
     width: 90%;
     margin-top: calc(3vh + 5px);
     margin-bottom: 5%;
     padding: 2vh 0px;
-   
 }
 
 @media screen and (min-width : 0px) and (max-width : 800px){

@@ -2,13 +2,15 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Button.css'
 
-const Button = ({ name, to }) => {
+const Button = ({ name, to, type }) => {
     const navigate = useNavigate();
     
     return (
-        <div onClick={()=>navigate(to)} className='button_container'>
-            <div>{name}</div>
-        </div>
+        // <button className="button_container">
+            <button onClick={()=>navigate(to)} className={type+'_button'}>
+                <div>{name}</div>
+            </button>
+        // </button>
     )
 }
 

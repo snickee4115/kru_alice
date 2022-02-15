@@ -75,7 +75,7 @@
     -webkit-appearance: none;
 }
 
-.login_button{
+.login_container .login_button{
     font-family: 'IBM Plex Sans Thai', sans-serif;
     font-weight: 400;
     font-size: calc(1vw + 29px);

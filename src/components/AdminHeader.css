@@ -1,0 +1,18 @@
+.admin_header_container{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    
+}
+
+.admin_header_container .back_button{
+    align-self: flex-end;
+    height: 50px;
+}
+
+.admin_header_container .back_button img{
+    
+}
+.admin_header_container .alogo_img img{
+    width: calc(8vw + 120px);
+}

@@ -14,7 +14,7 @@ const AdminLogin = () => {
         <input type="text" />
         <div>password</div>
         <input type="password" />
-        <Button to='/student_list' name='ลงชื่อเข้าใช้'/>
+        <Button type='login' to='/student_list' name='ลงชื่อเข้าใช้'/>
       </form>
     </div>
   )

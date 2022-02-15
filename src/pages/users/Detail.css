@@ -26,11 +26,12 @@
     padding: 20px;
 
 }
-.detail_logout .button_container{
+.detail_logout .logout_button{
     position: relative;
     bottom: 5%;
     margin-top: 80px;
     width: 80%;
+    color: #000;
     text-decoration: none;
 }
 .detail_logout {

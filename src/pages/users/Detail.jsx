@@ -46,7 +46,7 @@ const Detail = ({ setDisabledLogo }) => {
           layoutId='log_button'
           className='detail_logout'
         >
-          <Button name='ลงชื่อออก'/>
+          <Button type='logout' name='ลงชื่อออก'/>
         </motion.div>
         </Link>
     </motion.div>
