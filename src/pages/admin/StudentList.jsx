@@ -5,9 +5,13 @@ import './StudentList.css'
 import Bin from '../../assets/bin.png'
 import Edit from '../../assets/edit.png'
 import Button from '../../components/Button'
+import PopUp from '../../components/PopUp'
 
 const StudentList = () => {
-
+    const [popup, setPopUp] = useState(false);
+    const toggleModal = () => {
+        setPopUp(!popup);
+    }
     const students = [
         {
             "name": "น้อง แมว",
@@ -22,6 +26,8 @@ const StudentList = () => {
             "tel": "0824356485"
         }
     ]
+
+
   return (
     <div className='student_list_container'>
         <AdminHeader useUndo={false}/>
@@ -31,12 +37,20 @@ const StudentList = () => {
                 <div>
                     <span>
                         <div>{student.name}</div>
-                        <img src={Bin} alt="" />
+                        <img style={{cursor:'pointer'}} onClick={toggleModal} src={Bin} alt="" />
                     </span>
                     <span>
                         <div>{student.tel}</div>
                         <img src={Edit} alt="" />
                     </span>
+                    {popup ?
+                        <PopUp
+                                onClose={() => { setPopUp(!popup) }}
+                                content={'ยืนยันการลบ '+student.name+' ?'}
+                                ok='ยืนยัน'
+                                cancel= 'ยกเลิก'
+                        />
+                        : null}
                 </div>
               )}
               
@@ -49,6 +63,8 @@ const StudentList = () => {
               <Button type='add' name="เพิ่มนักเรียน" />
               <Button type='logout' name="Log out" />
           </div>
+
+          
 
     </div>
   )
