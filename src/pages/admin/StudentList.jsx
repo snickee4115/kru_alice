@@ -12,6 +12,7 @@ const StudentList = () => {
     const toggleModal = () => {
         setPopUp(!popup);
     }
+
     const students = [
         {
             "name": "น้อง แมว",
@@ -27,11 +28,12 @@ const StudentList = () => {
         }
     ]
 
-
   return (
     <div className='student_list_container'>
         <AdminHeader useUndo={false}/>
-        <div className='hi_alice'><p>สวัสดีครู <span>อลิส</span></p></div>
+          <div className='hi_alice'>
+              <p>สวัสดีครู <span>อลิส</span></p>
+          </div>
         <div className="student_detail">
               {students.map((student) => 
                 <div>
@@ -53,18 +55,14 @@ const StudentList = () => {
                         : null}
                 </div>
               )}
-              
         </div>
  
               {/* <Button name="เพิ่มนักเรียน" /> */}
 
-        
           <div className='foot_student_list'>
               <Button type='add' name="เพิ่มนักเรียน" />
-              <Button type='logout' name="Log out" />
+              <Button to='/admin_login' type='logout' name="Log out" />
           </div>
-
-          
 
     </div>
   )
