@@ -6,6 +6,7 @@ import Detail from './pages/users/Detail'
 import Login from './pages/users/Login'
 import Datalist from './pages/users/Datalist'
 import { AnimatePresence, AnimateSharedLayout } from 'framer-motion'
+import AdminLogin from './pages/admin/AdminLogin'
 
 
 
@@ -22,6 +23,7 @@ function App() {
                 <Route path='/login' element={<Login/>}/>
                 <Route path='/detail' element={<Detail setDisabledLogo={setDisabledLogo}/>}/>
                 <Route path='/datalist' element={<Datalist/>}/>
+                <Route path='/admin_login' element={<AdminLogin/>}/>
           </Routes>
           
           </AnimatePresence>

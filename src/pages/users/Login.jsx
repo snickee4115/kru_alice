@@ -13,7 +13,7 @@ const Login = () => {
     return (
             <motion.div
                 
-                initial={go ? { opacity: 0, x: '-25%' } :{ opacity: 0, x: '25%' }}
+                initial={go ? { opacity: 0, x: '-25%' } :{ opacity: 0, x: '100px' }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={go ? { opacity: 0, x: '-25%' } :{ opacity: 0, x: '25%' }}
                 transition={{duration: 0.5 }}

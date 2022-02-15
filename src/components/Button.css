@@ -6,7 +6,8 @@
     align-items: center;
     background-color: #D19090;
     border-radius: 30px;
-    min-height: 100px;
+    /* min-height: 100px; */
+    padding: 2% 0;
     width: 100%;
 }
 

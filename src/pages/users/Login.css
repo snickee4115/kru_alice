@@ -1,8 +1,10 @@
 
 
 .login_container{
+    overflow: auto;
+    border: 1px solid ;
     background-color: #FFCCCE;
-    min-height: 100%;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -12,7 +14,8 @@
 }
 
 .login_logo_container{
-    display: flex;
+    box-sizing:border-box; 
+    display: inline-flex;
     position: relative;
     margin-top: 100px;
     justify-content: center;
@@ -24,15 +27,19 @@
 }
 
 .login_logo .logo_name{
-    font-size: 100px;
+    /* font-size: 100px; */
+    font-size: calc(3vw + 40px);
 }
 
 .login_img{
-    margin-left: -35%;
+    box-sizing:border-box; 
+    margin-left: calc(-1*(6vmax + 100px));
+    /* transform: translateX(20px); */
     margin-top: -50px;
     margin-bottom: 5%;
     position: relative;
-    width: 60%;
+    /* width: 60%; */
+    width: calc(9vw + 200px);
 }
 .login_form_container{
     display: flex;
@@ -45,8 +52,9 @@
 .login_form_container div{
     font-family: 'IBM Plex Sans Thai', sans-serif;
     font-weight: 400;
-    font-size: 38px;
-    margin-bottom: 5%;
+    /* font-size: 38px; */
+    font-size: calc(1vw + 29px);
+    margin-bottom: 1%;
 }
 
 .login_form_container input{
@@ -59,8 +67,8 @@
     outline: none;
     border-radius: 30px;
     border: 0px;
-    margin-bottom: 10%;
-    padding: 4% 0;
+    margin-bottom: 5%;
+    padding: 2.5% 0;
     
 }
 .login_form_container input::-webkit-inner-spin-button{
@@ -70,7 +78,7 @@
 .login_button{
     font-family: 'IBM Plex Sans Thai', sans-serif;
     font-weight: 400;
-    font-size: 36px;
+    font-size: calc(1vw + 29px);
     width: 90%;
     /* height: 80px; */
     background-color: #d19090;
@@ -78,15 +86,14 @@
     border-radius: 30px;
     border: 0;
     cursor: pointer;
-    margin-bottom: 5%;
-    padding: 3% 0;
+    padding: 2% 0;
 }
 @media screen and (min-width : 0px) and (max-width : 800px){
     .app_container{
         width: 100vw;
     }
     .login_logo .logo_name{
-        font-size: 12.5vw;
+        /* font-size: 12.5vw; */
     }
     
     .login_img{
@@ -99,7 +106,7 @@
     .login_form_container input{
         width: 80vw;
         font-size: 3vmax;
-        margin-bottom: 8.5vmax;
+        margin-bottom: 7vmax;
     }
     .login_form_container button{
         width: 90vw;

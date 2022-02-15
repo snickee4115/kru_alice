@@ -4,7 +4,7 @@
 
 .logo_name{
     display: flex;
-   font-size: 80px;
+   /* font-size: 80px; */
    color: #986363;
    line-height: 0.85em;
    letter-spacing: 2px;
