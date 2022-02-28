@@ -6,7 +6,7 @@
     border: 0;
 }
 
-.logout_button, .login_button, .add_button{
+.logout_button, .login_button, .add_button, .ok_button{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -36,4 +36,11 @@
     color: #000;
 }
 
+.ok_button{
+    background-color: #B69B9B;
+    width: 40%;
+    color: #000;
+    font-size: calc(1vw + 18px);
+    padding: 5%;
+}
 

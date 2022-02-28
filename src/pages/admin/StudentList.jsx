@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import AdminLogo from '../../assets/admin_logo.png'
 import AdminHeader from '../../components/AdminHeader'
 import './StudentList.css'
@@ -6,13 +6,19 @@ import Bin from '../../assets/bin.png'
 import Edit from '../../assets/edit.png'
 import Button from '../../components/Button'
 import PopUp from '../../components/PopUp'
+import { Link, useNavigate } from 'react-router-dom'
+import DataContext from '../../data/DataContext'
 
 const StudentList = () => {
     const [popup, setPopUp] = useState(false);
+    const navigate = useNavigate();
     const toggleModal = () => {
         setPopUp(!popup);
     }
-
+    const { setUndo } = useContext(DataContext);
+    useEffect(() => {
+        setUndo(false);
+    })
     const students = [
         {
             "name": "น้อง แมว",
@@ -30,20 +36,20 @@ const StudentList = () => {
 
   return (
     <div className='student_list_container'>
-        <AdminHeader useUndo={false}/>
+        {/* <AdminHeader useUndo={true}/> */}
           <div className='hi_alice'>
               <p>สวัสดีครู <span>อลิส</span></p>
           </div>
         <div className="student_detail">
-              {students.map((student) => 
-                <div>
+              {students.map((student, index) => 
+                <div key={index}>
                     <span>
                         <div>{student.name}</div>
                         <img style={{cursor:'pointer'}} onClick={toggleModal} src={Bin} alt="" />
                     </span>
                     <span>
                         <div>{student.tel}</div>
-                        <img src={Edit} alt="" />
+                        <img onClick={()=> navigate('edit_tel')} style={{cursor:'pointer'}} src={Edit} alt="" />
                     </span>
                     {popup ?
                         <PopUp
