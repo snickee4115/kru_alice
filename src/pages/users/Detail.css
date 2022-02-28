@@ -66,3 +66,26 @@
     height: 69px;
 }
 
+@media screen and (min-width : 0px) and (max-width : 800px){
+    .app_container{
+        width: 100vw;
+    }
+    .detail_logo .logo_name{
+        position: relative;
+        width: 280px;
+        height: 50px;
+        font-size: 70px;
+    }
+    .detail_undo{
+        position: relative;
+        width: 100px;
+        height: 100px;
+        top: 1%;
+        left: 75%;  /*standart undo*/
+        padding: 20px;
+    
+    }
+    
+
+    
+}

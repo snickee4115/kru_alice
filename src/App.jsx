@@ -11,6 +11,8 @@ import StudentList from './pages/admin/StudentList'
 
 
 
+
+
 function App() {
   const location = useLocation();
   const [disabledLogo, setDisabledLogo] = useState(false);
@@ -26,6 +28,8 @@ function App() {
                 <Route path='/datalist' element={<Datalist/>}/>
                 <Route path='/admin_login' element={<AdminLogin/>}/>
                 <Route path='/student_list' element={<StudentList/>}/>
+              
+               
           </Routes>
           
           </AnimatePresence>

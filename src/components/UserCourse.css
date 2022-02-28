@@ -53,3 +53,27 @@
     top:10px;
     border-radius: 30px 30px 30px 30px;
 }
+@media screen and (min-width : 0px) and (max-width : 800px){
+    .app_container{
+        width: 80vw;
+    }
+    .cat{
+        width: 400px;
+        height: 220px;
+        position: absolute;
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+     
+        top: -25%;
+        right: -90px;
+     }
+     .student_name{
+         font-size: 25px;
+
+     }
+     .type{
+        font-size: 20px;
+     }
+
+}
+
