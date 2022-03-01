@@ -1,0 +1,43 @@
+
+.add_student_container{
+    margin-top: 5%;
+}
+
+.form_add_student{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.form_add_student div{
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    font-weight: 400;
+    font-size: calc(1vw + 22px);
+}
+
+.form_add_student input{
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    color: #224DE8;
+    margin: 6% auto;
+    font-weight: 400;
+    text-align: center;
+    font-size: calc(1vw + 17px);
+    padding: 2vh 0px;
+    width: 90%;
+    border-radius: 30px;
+    border: 0;
+    outline: none;
+}
+
+.form_add_student input:nth-child(6){
+    width: 100%;
+}
+
+.form_add_student input::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+}
+
+.form_add_student .ok_button{
+    margin: 5% auto;
+    
+}

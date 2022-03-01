@@ -11,6 +11,7 @@ import StudentList from './pages/admin/StudentList'
 import EditTel from './pages/admin/EditTel'
 import AdminHeader from './components/AdminHeader'
 import Admin from './pages/admin/Admin'
+import AddStudent from './pages/admin/AddStudent'
 
 
 
@@ -34,6 +35,7 @@ function App() {
                 <Route path='student_list' element={<Admin/>}>
                   <Route index element={<StudentList/>}/>
                   <Route  path='edit_tel' element={<EditTel/>}/>
+                  <Route  path='add_student' element={<AddStudent/>}/>
                 </Route>
                 
           </Routes>

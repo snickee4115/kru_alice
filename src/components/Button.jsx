@@ -8,7 +8,7 @@ const Button = ({ name, to, type }) => {
     return (
         // <button className="button_container">
             <button onClick={()=>navigate(to)} className={type+'_button'}>
-                <div>{name}</div>
+                {name}
             </button>
         // </button>
     )

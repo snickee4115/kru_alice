@@ -66,7 +66,7 @@ const StudentList = () => {
               {/* <Button name="เพิ่มนักเรียน" /> */}
 
           <div className='foot_student_list'>
-              <Button type='add' name="เพิ่มนักเรียน" />
+              <Button to='add_student' type='add' name="เพิ่มนักเรียน" />
               <Button to='/admin_login' type='logout' name="Log out" />
           </div>
 
