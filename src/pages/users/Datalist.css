@@ -1,31 +1,21 @@
 .datalist_main {
     background-color: #FFCCCE;
-    min-height: 100vh;
-    position: relative;
-    border:5px solid black;
+    height: 500vh;
+    position: flex;
+    
 }
 .datalist_name{
     position: relative;
-    background: #C4C4C4 ;
-    display: flex;
-    font-family: 'IBM Plex Sans Thai', sans-serif;
-    font-weight: bold;
-    color: #3F27F5;
-    padding: 20px;
-    font-size: 35px;
-    left: 35%;
-    top:10px;
-    border-radius: 30px 30px 30px 30px;
-    justify-content: center;
-    width: 30%;
+    right: -34%;
 
+    
     
 }
 .datalist_undo{
 position: absolute;
 width: 90px;
 height: 90px;
-top: 3.5%;
+top: 1%;
 left: 85%;  /*standart undo*/
 padding: 10px;
 
@@ -63,27 +53,85 @@ padding: 10px;
     display: flex;
     flex-direction: column;
    /* top: 450px; */
-    top:450px;
-    width: 80%;
-    left: 80px;
-    position: absolute;
+    top:350px;
+    width: 95%;
+    left: 20px;
+    position: relative;
     border:1px solid blue;
     border-radius: 30px 30px 30px 30px;
     font-size: 20px;
     background-color: #CFE6CA;
-    height: 80%;
+     height: 90%; 
+     
+    
 }
-.datalist_count{
+.list_data{
     display: flex;
     flex-direction: row;
-   
+    width: 100%;
+
+}
+.datalist_count {
+    position: relative;
+    background: #C4C4C4 ;
+    display: flex;
+    flex-direction: column;
     font-family: 'IBM Plex Sans Thai', sans-serif;
     font-weight: bold;
+    color: #3F27F5;
+    padding: 20px;
     font-size: 30px;
-    border: 1px solid black;
+    left: 10px;
+    top:25px;
     border-radius: 30px 30px 30px 30px;
-    
-    
+    width: 19.5%;
+    height: 98%;
+    align-items: center;
+    }
+.datalist_date{
+    position: relative;
+    background: #C4C4C4 ;
+    display: flex;
+    flex-direction: column;
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    font-weight: bold;
+    color: #3F27F5;
+    padding: 20px;
+    font-size:30px;
+    left: 20px;
+    bottom: 20px;
+    top:25px;
+    border-radius: 30px 30px 30px 30px;
+    width: 50%;
+    height: 98%;
+    align-items: center;
 }
-
+.datalist_time{
+    position: relative;
+    background: #C4C4C4 ;
+    display: flex;
+    flex-direction: column;
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    font-weight: bold;
+    color: #3F27F5;
+    padding: 20px;
+    font-size:30px;
+    left: 29px;
+    top:25px;
+    border-radius: 30px 30px 30px 30px;
+    width: 25%;
+    height: 98%;
+    align-items: center;
+}
+.datalist_result{
+    position: relative;
+    top: 25px;
+    display: flex;
+    flex-direction: column;
+}
+.datalist_infomation{
+    position: relative;
+    top: 30px;
+    font-size: 40px;
+}
     
