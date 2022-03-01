@@ -35,9 +35,7 @@ function App() {
                   <Route index element={<StudentList/>}/>
                   <Route  path='edit_tel' element={<EditTel/>}/>
                 </Route>
-                {/* <Route path='/edit_tel' element={<EditTel/>}/> */}
-                {/* <Route path='/student_list' element={<StudentList/>}/>
-                <Route path='/edit_tel' element={<EditTel/>}/> */}
+                
           </Routes>
           
           </AnimatePresence>

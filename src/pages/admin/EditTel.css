@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     /* margin: 0px 10%; */
-    min-height: 100vh;
+    /* min-height: 100%; */
 }
 
 .edit_tel_container .edit_tel_text{
@@ -36,6 +36,10 @@
     border-radius: 30px;
     border: 0;
     outline: none;
+}
+
+.form_edit_tel input::-webkit-inner-spin-button{
+    -webkit-appearance: none;
 }
 
 .form_edit_tel .ok_button{
