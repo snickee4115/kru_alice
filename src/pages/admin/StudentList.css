@@ -38,6 +38,10 @@
     object-fit: cover;
 }
 
+.student_list_container .student_detail span:nth-child(1) div{
+    cursor: pointer;
+}
+
 .student_list_container .student_detail span:nth-child(1) img{
 
     object-fit: contain;

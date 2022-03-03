@@ -44,12 +44,12 @@ const StudentList = () => {
               {students.map((student, index) => 
                 <div key={index}>
                     <span>
-                        <div>{student.name}</div>
+                        <div onClick={() => navigate('detail_student?'+student.name)}>{student.name}</div>
                         <img style={{cursor:'pointer'}} onClick={toggleModal} src={Bin} alt="" />
                     </span>
                     <span>
                         <div>{student.tel}</div>
-                        <img onClick={()=> navigate('edit_tel')} style={{cursor:'pointer'}} src={Edit} alt="" />
+                        <img onClick={()=> navigate('edit_tel?'+student.name)} style={{cursor:'pointer'}} src={Edit} alt="" />
                     </span>
                     {popup ?
                         <PopUp

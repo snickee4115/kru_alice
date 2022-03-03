@@ -1,0 +1,55 @@
+.detail_student_container{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.detail_student_container .namestu{
+    font-size: calc(1vw + 30px);
+}
+
+.detail_student_container .name_label{
+    display: flex;
+    justify-content: center;
+}
+
+.detail_student_container .course_label_text{
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    font-weight: 400;
+    font-size: calc(1vw + 27px);
+    margin: 5% 0;
+}
+.detail_student_container .student_list_course{
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    font-weight: 400;
+    font-size: calc(1vw + 13px);
+    
+}
+.detail_student_container .wrapper_student_course{
+    
+    /* display: inline-flex;
+    flex-direction: column; */
+}
+.detail_student_container .wrapper_student_course div:nth-child(2) img:nth-child(1){
+    margin-right: 8%;
+}
+.detail_student_container .wrapper_student_course div:nth-child(2) img:nth-child(2){
+    margin-right: 15%;
+}
+
+.hours_over_text{
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    font-weight: 400;
+    font-size: calc(1vw + 13px);
+    color: #D91919;
+    margin: 5% auto;
+}
+
+.detail_student_container .popup_content div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: calc(0.5vw + 19px);
+    /* margin: 0 1%; */
+}
