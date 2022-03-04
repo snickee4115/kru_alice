@@ -14,6 +14,8 @@ import Admin from './pages/admin/Admin'
 import AddStudent from './pages/admin/AddStudent'
 import DetailStudent from './pages/admin/DetailStudent'
 import EditCourseTitle from './pages/admin/EditCourseTitle'
+import AddCourse from './pages/admin/AddCourse'
+import DetailStudentRoutes from './pages/admin/DetailStudentRoutes'
 
 
 function App() {
@@ -35,8 +37,13 @@ function App() {
                   <Route index element={<StudentList/>}/>
                   <Route  path='edit_tel' element={<EditTel/>}/>
                   <Route  path='add_student' element={<AddStudent/>}/>
-                  <Route  path='detail_student' element={<DetailStudent/>}/>
+                  <Route  path='detail_student' element={<DetailStudentRoutes/>}>
+                    <Route  index element={<DetailStudent/>}/>
+                    <Route  path='edit_course_title' element={<EditCourseTitle/>}/>
+                    <Route  path='add_course' element={<AddCourse/>}/>
+                  </Route>
                   <Route  path='detail_student/edit_course_title' element={<EditCourseTitle/>}/>
+                  <Route  path='detail_student/add_course' element={<AddCourse/>}/>
                   
                 </Route>
                 

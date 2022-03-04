@@ -1,0 +1,9 @@
+.detail_student_routes_container .name_label{
+    display: flex;
+    justify-content: center;
+    font-size: calc(1vw + 22px);
+}
+
+.detail_student_routes_container .namestu{
+    font-size: calc(1vw + 30px);
+}

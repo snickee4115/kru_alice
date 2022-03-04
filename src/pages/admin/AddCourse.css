@@ -1,0 +1,55 @@
+
+.add_course_container{
+    margin-top: 5%;
+}
+.add_course_container .name_label{
+    display: flex;
+    justify-content: center;
+    font-size: calc(1vw + 22px);
+}
+.form_add_course{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 5% 0;
+}
+
+.form_add_course div{
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    font-weight: 400;
+    font-size: calc(1vw + 22px);
+}
+
+.form_add_course input, .form_add_course textarea{
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    color: #224DE8;
+    margin: 6% auto;
+    font-weight: 400;
+    text-align: center;
+    font-size: calc(1vw + 17px);
+    padding: 2vh 0px;
+    width: 100%;
+    border-radius: 30px;
+    border: 0;
+    outline: none;
+}
+
+
+
+.form_add_course textarea{
+    color: #5E35B7;
+    font-size: calc(1vw + 13px);
+}
+
+.form_add_course input:nth-child(6){
+    width: 100%;
+}
+
+.form_add_course input::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+}
+
+.form_add_course .ok_button{
+    margin: 5% auto;
+    
+}

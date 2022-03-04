@@ -1,15 +1,13 @@
 import React, { useState } from 'react'
-import Name from '../../components/Name'
 import './DetailStudent.css'
 import Bin from '../../assets/bin.png'
 import Edit from '../../assets/edit.png'
 import Button from '../../components/Button'
 import PopUp from '../../components/PopUp'
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
-import EditCourseTitle from './EditCourseTitle'
+import { useLocation, useNavigate } from 'react-router-dom'
+
 
 const DetailStudent = () => {
-  const location = useLocation()
   const [popUp, setPopUp] = useState(false);
   const navigate = useNavigate();
   const list_course = [
@@ -20,12 +18,7 @@ const DetailStudent = () => {
   ]
   return (
       <div className='detail_student_container'>
-        {/* <Routes>
-          <Route  path='edit_course_title' element={<EditCourseTitle/>}/>
-        </Routes> */}
-          <div className="name_label">
-            <Name name='น้อง แมว'/>
-          </div>
+      
           <div className='course_label_text'>COURSE</div>
           <div className="student_list_course">
             {list_course.map((value) =>
@@ -40,6 +33,7 @@ const DetailStudent = () => {
               )
             }
           </div>
+          
       {popUp ? 
         <PopUp ok='ยืนยัน' cancel='ยกเลิก' onClose={()=> setPopUp(!popUp)} content={
             [
@@ -59,7 +53,7 @@ const DetailStudent = () => {
             <div className='hours_over_text'>
               มีชั่วโมงที่เกินมาในระบบ 1 Hr. 0 Sec.
             </div>
-            <Button name='เพิ่มคอร์ส' type='add'></Button>
+            <Button to='add_course' name='เพิ่มคอร์ส' type='add'></Button>
           </div>
           
         
@@ -68,3 +62,10 @@ const DetailStudent = () => {
 }
 
 export default DetailStudent
+
+const De = () => {
+  return <div>
+    asdasdzzzz
+  </div>
+  
+}
