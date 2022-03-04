@@ -2,6 +2,8 @@
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    /* min-height: 100%; */
+    /* border: 1px solid; */
 }
 
 .detail_student_container .namestu{
@@ -43,6 +45,7 @@
     font-size: calc(1vw + 13px);
     color: #D91919;
     margin: 5% auto;
+    margin-top: 15%;
 }
 
 .detail_student_container .popup_content div{

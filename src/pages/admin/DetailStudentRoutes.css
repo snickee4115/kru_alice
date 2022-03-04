@@ -1,7 +1,16 @@
+.detail_student_routes_container{
+    display: flex;
+    flex-direction: column;
+    /* border: 1px solid; */
+    min-height: 100%;
+    flex-grow: 1;
+}
+
 .detail_student_routes_container .name_label{
     display: flex;
     justify-content: center;
     font-size: calc(1vw + 22px);
+    margin-bottom: 5%;
 }
 
 .detail_student_routes_container .namestu{

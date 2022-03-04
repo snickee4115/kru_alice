@@ -47,7 +47,7 @@ const DetailStudent = () => {
           :null}
       <div style={{
         display: 'flex',
-        flexDirection: 'column', margin: '15% 0',
+        flexDirection: 'column', margin: '5% 0',
         marginTop: 'auto', alignItems:'center'
       }}>
             <div className='hours_over_text'>
