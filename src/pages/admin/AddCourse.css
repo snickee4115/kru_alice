@@ -53,3 +53,12 @@
     margin: 5% auto;
     
 }
+
+.add_course_container .popup_content div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: calc(0.5vw + 19px);
+    /* margin: 0 1%; */
+}

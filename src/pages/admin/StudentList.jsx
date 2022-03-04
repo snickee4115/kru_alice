@@ -10,10 +10,10 @@ import { Link, useNavigate } from 'react-router-dom'
 import DataContext from '../../data/DataContext'
 
 const StudentList = () => {
-    const [popup, setPopUp] = useState(false);
+    const [popUp, setPopUp] = useState(false);
     const navigate = useNavigate();
     const toggleModal = () => {
-        setPopUp(!popup);
+        setPopUp(!popUp);
     }
     const { setUndo } = useContext(DataContext);
     useEffect(() => {
@@ -51,9 +51,10 @@ const StudentList = () => {
                         <div>{student.tel}</div>
                         <img onClick={()=> navigate('edit_tel?'+student.name)} style={{cursor:'pointer'}} src={Edit} alt="" />
                     </span>
-                    {popup ?
+                    {popUp ?
                         <PopUp
-                                onClose={() => { setPopUp(!popup) }}
+                                onOk={() => { setPopUp(!popUp) }}
+                                onCancel={() => { setPopUp(!popUp) }}
                                 content={'ยืนยันการลบ '+student.name+' ?'}
                                 ok='ยืนยัน'
                                 cancel= 'ยกเลิก'

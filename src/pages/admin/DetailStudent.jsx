@@ -35,7 +35,12 @@ const DetailStudent = () => {
           </div>
           
       {popUp ? 
-        <PopUp ok='ยืนยัน' cancel='ยกเลิก' onClose={()=> setPopUp(!popUp)} content={
+        <PopUp
+          ok='ยืนยัน'
+          cancel='ยกเลิก'
+          onOk={() => { setPopUp(!popUp) }}
+          onCancel={() => { setPopUp(!popUp) }}
+          content={
             [
             <div>
                 <div>ยืนยันการลบ</div>
