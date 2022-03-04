@@ -16,6 +16,7 @@ import DetailStudent from './pages/admin/DetailStudent'
 import EditCourseTitle from './pages/admin/EditCourseTitle'
 import AddCourse from './pages/admin/AddCourse'
 import DetailStudentRoutes from './pages/admin/DetailStudentRoutes'
+import AuthProvider from './context/auth'
 
 
 function App() {
@@ -23,35 +24,37 @@ function App() {
   const [disabledLogo, setDisabledLogo] = useState(false);
   return (
   
-      <div className="app_container">
-        <AnimateSharedLayout >
-          <AnimatePresence >
-            {/* <AdminHeader useUndo={true}/> */}
-            <Routes key={location.pathname} location={location}>
-                <Route exact path='/' element={<Main disabledLogo={disabledLogo} setDisabledLogo={setDisabledLogo}/>}/>
-                <Route path='login' element={<Login/>}/>
-                <Route path='detail' element={<Detail setDisabledLogo={setDisabledLogo}/>}/>
-                <Route path='datalist' element={<Datalist/>}/>
-                <Route path='admin_login' element={<AdminLogin/>}/>
-                <Route path='student_list' element={<Admin/>}>
-                  <Route index element={<StudentList/>}/>
-                  <Route  path='edit_tel' element={<EditTel/>}/>
-                  <Route  path='add_student' element={<AddStudent/>}/>
-                  <Route  path='detail_student' element={<DetailStudentRoutes/>}>
-                    <Route  index element={<DetailStudent/>}/>
-                    <Route  path='edit_course_title' element={<EditCourseTitle/>}/>
-                    <Route  path='add_course' element={<AddCourse/>}/>
+      <AuthProvider>
+        <div className="app_container">
+          <AnimateSharedLayout >
+            <AnimatePresence >
+              {/* <AdminHeader useUndo={true}/> */}
+              <Routes key={location.pathname} location={location}>
+                  <Route exact path='/' element={<Main disabledLogo={disabledLogo} setDisabledLogo={setDisabledLogo}/>}/>
+                  <Route path='login' element={<Login/>}/>
+                  <Route path='detail' element={<Detail setDisabledLogo={setDisabledLogo}/>}/>
+                  <Route path='datalist' element={<Datalist/>}/>
+                  <Route path='admin_login' element={<AdminLogin/>}/>
+                  <Route path='student_list' element={<Admin/>}>
+                    <Route index element={<StudentList/>}/>
+                    <Route  path='edit_tel' element={<EditTel/>}/>
+                    <Route  path='add_student' element={<AddStudent/>}/>
+                    <Route  path='detail_student' element={<DetailStudentRoutes/>}>
+                      <Route  index element={<DetailStudent/>}/>
+                      <Route  path='edit_course_title' element={<EditCourseTitle/>}/>
+                      <Route  path='add_course' element={<AddCourse/>}/>
+                    </Route>
+                    <Route  path='detail_student/edit_course_title' element={<EditCourseTitle/>}/>
+                    <Route  path='detail_student/add_course' element={<AddCourse/>}/>
+        
                   </Route>
-                  <Route  path='detail_student/edit_course_title' element={<EditCourseTitle/>}/>
-                  <Route  path='detail_student/add_course' element={<AddCourse/>}/>
-                  
-                </Route>
-                
-          </Routes>
-          
-          </AnimatePresence>
-        </AnimateSharedLayout>
-      </div>
+        
+            </Routes>
+        
+            </AnimatePresence>
+          </AnimateSharedLayout>
+        </div>
+      </AuthProvider>
 
   )
 }
