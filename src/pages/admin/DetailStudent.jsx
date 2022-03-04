@@ -5,11 +5,13 @@ import Bin from '../../assets/bin.png'
 import Edit from '../../assets/edit.png'
 import Button from '../../components/Button'
 import PopUp from '../../components/PopUp'
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
+import EditCourseTitle from './EditCourseTitle'
 
 const DetailStudent = () => {
-
+  const location = useLocation()
   const [popUp, setPopUp] = useState(false);
-
+  const navigate = useNavigate();
   const list_course = [
     { title: 'เตรียมสอบอังกฤษประถมต้น', hours:'9/10'},
     { title: 'เตรียมสอบอังกฤษประถมปลาย', hours:'5/10'},
@@ -18,6 +20,9 @@ const DetailStudent = () => {
   ]
   return (
       <div className='detail_student_container'>
+        {/* <Routes>
+          <Route  path='edit_course_title' element={<EditCourseTitle/>}/>
+        </Routes> */}
           <div className="name_label">
             <Name name='น้อง แมว'/>
           </div>
@@ -28,7 +33,7 @@ const DetailStudent = () => {
                     <div>{value.title}</div>
                     <div>
                       <img style={{cursor:'pointer'}} src={Bin} onClick={()=> setPopUp(!popUp)}/>
-                      <img src={Edit} />
+                      <img style={{cursor:'pointer'}} onClick={()=>navigate('edit_course_title')} src={Edit} />
                       <span style={{ color: value.hours.length > 5 ? '#D91919' : '#3C00E9' }}>{value.hours}</span>
                     </div>
                 </div>

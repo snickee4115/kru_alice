@@ -13,9 +13,7 @@ import AdminHeader from './components/AdminHeader'
 import Admin from './pages/admin/Admin'
 import AddStudent from './pages/admin/AddStudent'
 import DetailStudent from './pages/admin/DetailStudent'
-
-
-
+import EditCourseTitle from './pages/admin/EditCourseTitle'
 
 
 function App() {
@@ -38,6 +36,8 @@ function App() {
                   <Route  path='edit_tel' element={<EditTel/>}/>
                   <Route  path='add_student' element={<AddStudent/>}/>
                   <Route  path='detail_student' element={<DetailStudent/>}/>
+                  <Route  path='detail_student/edit_course_title' element={<EditCourseTitle/>}/>
+                  
                 </Route>
                 
           </Routes>
