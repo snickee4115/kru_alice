@@ -52,8 +52,11 @@ const DetailStudent = () => {
           :null}
       <div style={{
         display: 'flex',
-        flexDirection: 'column', margin: '5% 0',
-        marginTop: 'auto', alignItems:'center'
+        flexDirection: 'column',
+        // margin: '5% 0',
+        marginBottom: 'calc(3vh + 5px)',
+        marginTop: 'calc(1vh + 5px)',
+        alignItems: 'center'
       }}>
             <div className='hours_over_text'>
               มีชั่วโมงที่เกินมาในระบบ 1 Hr. 0 Sec.

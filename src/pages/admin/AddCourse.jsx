@@ -20,7 +20,12 @@ const AddCourse = () => {
                 />
                 <div>รายละเอียดคอร์ส</div>
                 <textarea type="text" placeholder={'เรียนวันพฤหัส 17.30 - 19.30 น. \nคอร์สที่ 2 : เรียน 10 ครั้ง 2000 บาท'}/>
-                <Button onClick={()=>setPopUp1(!popUp1)}  name="ยืนยัน" type='ok'></Button>
+                <Button 
+                  onClick={()=>setPopUp1(!popUp1)}  
+                  name="ยืนยัน" 
+                  type='ok'
+                  typeButton='button'
+                  ></Button>
             </form>
       {popUp1 || popUp2 ?
         <PopUp
