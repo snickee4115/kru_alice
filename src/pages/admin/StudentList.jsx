@@ -8,13 +8,22 @@ import Button from '../../components/Button'
 import PopUp from '../../components/PopUp'
 import { Link, useNavigate } from 'react-router-dom'
 import DataContext from '../../data/DataContext'
+import { AuthContext } from '../../context/auth'
 
 const StudentList = () => {
+    const {user} = useContext(AuthContext);
     const [popUp, setPopUp] = useState(false);
     const navigate = useNavigate();
     const toggleModal = () => {
         setPopUp(!popUp);
     }
+    useEffect(() => {
+        // console.log(user); 
+        
+
+    }, [])
+    
+
     const { setUndo } = useContext(DataContext);
     useEffect(() => {
         setUndo(false);

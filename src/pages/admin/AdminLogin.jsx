@@ -59,6 +59,10 @@ const AdminLogin = () => {
           setData({ ...data, error: "อีเมลหรือรหัสผ่านไม่ถูกต้อง", loading: false });
         } else if (err.code == 'auth/too-many-requests'){
           setData({ ...data, error: "มีการเข้าสู่ระบบมากเกินไปกรุณาลองใหม่ในอีกซักครู่", loading: false });
+        } else if (err.code == 'auth/user-not-found') {
+          setData({ ...data, error: "ไม่พบอีเมลนี้ในระบบกรุณาลองใหม่อีกครั้ง", loading: false });
+        } else if (err.code == 'auth/invalid-email') {
+          setData({ ...data, error: "กรุณากรอกอีเมลให้ถูกต้อง", loading: false });
         }
         // console.log(err.code);
       }
@@ -72,9 +76,9 @@ const AdminLogin = () => {
           <img src={AdminLogo} />
         </div>
       <form onSubmit={handleSubmit} className="alogin_form_container">
-        <div>username</div>
+        <div>Email</div>
         <input type="text" name='email' value={email} onChange={handleChange}/>
-        <div>password</div>
+        <div>Password</div>
         <input type="password" name='password' value={password} onChange={handleChange} />
         {error ?
           <div style={{
