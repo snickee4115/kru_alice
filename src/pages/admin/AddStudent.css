@@ -19,6 +19,7 @@
     font-family: 'IBM Plex Sans Thai', sans-serif;
     color: #224DE8;
     margin: 6% auto;
+    margin-bottom: 0;
     font-weight: 400;
     text-align: center;
     font-size: calc(1vw + 17px);
@@ -41,3 +42,4 @@
     margin: 5% auto;
     
 }
+

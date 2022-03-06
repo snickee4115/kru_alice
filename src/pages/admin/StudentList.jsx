@@ -18,43 +18,51 @@ const StudentList = () => {
     const navigate = useNavigate();
     const [students, setStudents] = useState([]);
     const [sp, setSp] = useState('');
+    const { setUndo } = useContext(DataContext);
 
     const toggleModal = () => {
         setPopUp(!popUp);
     }
-    // const authID = auth.currentUser.uid;
     useEffect(() => {
+        setUndo(false);
+
         // console.log(auth);
         // console.log(authID);
-        const timer = setTimeout(() => {
-            console.log('This will run after 1 second!')
+        // const timer = setTimeout(() => {
+        //     console.log('This will run after 1 second!')
+        //     const q = query(collection(db, 'students'), where("adminID", "==", user.uid), orderBy('tel'));
+        //     const unsub = onSnapshot(q, (querySnapshot) => {
+        //         let std = [];
+        //         let index = 0;
+        //         querySnapshot.forEach((doc) => {
+                    
+                    // std.push(doc.data());
+                    // std[index].docid = doc.id;
+                    // console.log(std[index].sid);
+                    // index = index + 1;
+                    
+                    
+        //         });
+        //         setStudents(std);
+        //     })
+        //     return () => unsub();
+        // }, );
+
+        // await waitAuth();
+        
+        if (user) {
             const q = query(collection(db, 'students'), where("adminID", "==", user.uid), orderBy('tel'));
             const unsub = onSnapshot(q, (querySnapshot) => {
                 let std = [];
                 let index = 0;
                 querySnapshot.forEach((doc) => {
-                    
                     std.push(doc.data());
                     std[index].docid = doc.id;
-                    console.log(std[index].sid);
                     index = index + 1;
-                    
-                    
                 });
                 setStudents(std);
-            })
-            return () => unsub();
-        }, );
-        
-        // const q = query(collection(db, 'students'), where("adminID", "==", auth.currentUser.uid), orderBy('tel'));
-        // const unsub = onSnapshot(q, (querySnapshot) => {
-        //     let std = [];
-        //     querySnapshot.forEach((doc) => {
-        //         std.push(doc.data());
-        //     });
-        //     setStudents(std);
-        // })
-        // return () => unsub();
+        })
+        return () => unsub();}
 
 
     }, [user])
@@ -63,11 +71,6 @@ const StudentList = () => {
         await deleteDoc(doc(db, 'students', docid))
     }
     
-
-    const { setUndo } = useContext(DataContext);
-    useEffect(() => {
-        setUndo(false);
-    })
     // const studentss = [
     //     {
     //         "name": "น้อง แมว",
