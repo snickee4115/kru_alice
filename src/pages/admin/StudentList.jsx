@@ -9,39 +9,79 @@ import PopUp from '../../components/PopUp'
 import { Link, useNavigate } from 'react-router-dom'
 import DataContext from '../../data/DataContext'
 import { AuthContext } from '../../context/auth'
+import { collection, deleteDoc, doc, onSnapshot, orderBy, query, where } from 'firebase/firestore'
+import { auth, db } from '../../firebase'
 
 const StudentList = () => {
     const {user} = useContext(AuthContext);
     const [popUp, setPopUp] = useState(false);
     const navigate = useNavigate();
+    const [students, setStudents] = useState([]);
+    const [sp, setSp] = useState('');
+
     const toggleModal = () => {
         setPopUp(!popUp);
     }
+    // const authID = auth.currentUser.uid;
     useEffect(() => {
-        // console.log(user); 
+        // console.log(auth);
+        // console.log(authID);
+        const timer = setTimeout(() => {
+            console.log('This will run after 1 second!')
+            const q = query(collection(db, 'students'), where("adminID", "==", user.uid), orderBy('tel'));
+            const unsub = onSnapshot(q, (querySnapshot) => {
+                let std = [];
+                let index = 0;
+                querySnapshot.forEach((doc) => {
+                    
+                    std.push(doc.data());
+                    std[index].docid = doc.id;
+                    console.log(std[index].sid);
+                    index = index + 1;
+                    
+                    
+                });
+                setStudents(std);
+            })
+            return () => unsub();
+        }, );
         
+        // const q = query(collection(db, 'students'), where("adminID", "==", auth.currentUser.uid), orderBy('tel'));
+        // const unsub = onSnapshot(q, (querySnapshot) => {
+        //     let std = [];
+        //     querySnapshot.forEach((doc) => {
+        //         std.push(doc.data());
+        //     });
+        //     setStudents(std);
+        // })
+        // return () => unsub();
 
-    }, [])
+
+    }, [user])
+
+    const handleDelete = async (docid) => {
+        await deleteDoc(doc(db, 'students', docid))
+    }
     
 
     const { setUndo } = useContext(DataContext);
     useEffect(() => {
         setUndo(false);
     })
-    const students = [
-        {
-            "name": "น้อง แมว",
-            "tel": "0847548568"
-        },
-        {
-            "name": "น้อง Japan",
-            "tel": "0847548568"
-        },
-        {
-            "name": "น้อง ปอร์น",
-            "tel": "0824356485"
-        }
-    ]
+    // const studentss = [
+    //     {
+    //         "name": "น้อง แมว",
+    //         "tel": "0847548568"
+    //     },
+    //     {
+    //         "name": "น้อง Japan",
+    //         "tel": "0847548568"
+    //     },
+    //     {
+    //         "name": "น้อง ปอร์น",
+    //         "tel": "0824356485"
+    //     }
+    // ]
 
   return (
     <div className='student_list_container'>
@@ -54,7 +94,7 @@ const StudentList = () => {
                 <div key={index}>
                     <span>
                         <div onClick={() => navigate('detail_student?'+student.name)}>{student.name}</div>
-                        <img style={{cursor:'pointer'}} onClick={toggleModal} src={Bin} alt="" />
+                        <img style={{cursor:'pointer'}} onClick={()=>{toggleModal();setSp(student);}} src={Bin} alt="" />
                     </span>
                     <span>
                         <div>{student.tel}</div>
@@ -62,9 +102,9 @@ const StudentList = () => {
                     </span>
                     {popUp ?
                         <PopUp
-                                onOk={() => { setPopUp(!popUp) }}
-                                onCancel={() => { setPopUp(!popUp) }}
-                                content={'ยืนยันการลบ '+student.name+' ?'}
+                              onOk={() => { handleDelete(sp.docid);setPopUp(!popUp); }}
+                                onCancel={() => { setPopUp(!popUp); console.log(sp)}}
+                                content={'ยืนยันการลบ '+sp.name+' ?'}
                                 ok='ยืนยัน'
                                 cancel= 'ยกเลิก'
                         />
