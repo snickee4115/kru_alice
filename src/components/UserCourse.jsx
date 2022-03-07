@@ -1,12 +1,13 @@
 import React from 'react'
 import './UserCourse.css'
 import Cat from '../assets/cat.png'
-
+import { Link } from 'react-router-dom'
 
 const UserCourse = ({name,course,course_status}) => {
     return (
         <div className='cat_container'>
             <div >
+
             <div className='student_name'>{name}</div>
             </div>
             <div className='type' >COURSE</div>

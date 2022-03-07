@@ -3,6 +3,7 @@ import './Datalist.css'
 import Undo from '../../assets/undo.png'
 import { Link } from 'react-router-dom'
 import Name from '../../components/Name.jsx'
+import Button from '../../components/Button.jsx'
 
 
 const Datalist = () => {
@@ -18,13 +19,16 @@ const Datalist = () => {
         {date:"SAT 12/06/2021 ",tim:"1 H. 0 S."},
         {date:"SAT 12/06/2021 ",tim:"1 H. 0 S."}
     ]
-    const re = [{result:"5 Hr. 0 Sec",remain:"5 Hr. 0 Sec."}]
-    
+  
+    const na = "น้องเจแปน"
+    const re = "5 Hr. 0 Sec"
+    const rem = "5 Hr. 0 Sec."
+    const ap = "SAT 12/06/2021"
     return (
         
         <div className='datalist_main'>
             <div className='datalist_name' >
-                <Name name='น้องเจแปน'/>
+                <Name name={na}/>
             </div>
             
             
@@ -32,7 +36,7 @@ const Datalist = () => {
             <img className='datalist_undo' src={Undo}></img>
              </Link>
              
-
+                
             <div className='course_name' >คอร์สเตรียมสอบอังกฤษประถมต้น</div>
 
             <div className='datalist_title'>
@@ -49,22 +53,38 @@ const Datalist = () => {
                         <div className='datalist_time'>{ti.map((value,index) => <div>{value.tim} </div>)}</div>
                     </div> */}
                     {ti.map((value,index ) => <div className='list_data'> 
-                        <div className='datalist_count'>ครั้งที่{index+1}</div>  
+                        <div className='datalist_count'>{index+1}</div>  
                         <div className='datalist_date'>{value.date}</div>    
                         <div className='datalist_time'>{value.tim} </div>    </div>)}
-                    <div className='datalist_result'> 
-                        {re.map((value,index) => <div>รวม{value.result}</div>)}
-                        {re.map((value,index) => <div>เหลือ{value.result}</div>)}
+
+
+                    <div className='datalist_result'>
+                        <div className='dr1'>รวม<a>{re}</a></div>
+                        <div className='dr2'>เหลือ<a>{re}</a></div>
+                        </div>
+
+
+                        <div className='datalist_ap'>
+                        <div >ขาด</div> 
+                        <div></div>
+                        <div><a > {ap} </a><a> {ap} </a></div>
+                        
+                    
                     </div>
 
-                    <div className='datalist_infomation'>
-                        ddd
+                    <div className='datalist_alert'>
+                           <div>กรณีดังต่อไปนี้ <a style={{color:"red"}}>ไม่นับเป็นขาด</a></div>
+                           <div>1.ครูยกเลิกคลาสเอง</div>
+                           <div>2.คุณครูเลื่อนคลาสไปเวลาอื่่นและนักเรียน
+                               ขาด</div>
+                           <div>3.นักเรียนขาดในคลาสเสาร์อาทิตย์ แต่สามารถชดเชยได้ในวันธรรมดาช่วงเวลาที่คุณครูว่าง</div>
                     </div>
-
-
-
             </div>
-
+           
+            <div className='datalist_cf'>
+                ยังไม่ชำระเงิน
+            </div>
+            
 
         </div>
     )
