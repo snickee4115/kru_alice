@@ -20,6 +20,8 @@
     padding: 20px;
 
 }
+
+
 .detail_logout .logout_button{
     position: relative;
     bottom: 5%;
@@ -57,6 +59,17 @@
     width: 180px;
     height: 69px;
 }
+.type{
+    
+    display: flex;
+    flex-direction: row;
+    padding-top: 25px;
+    padding-left: 30px;
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    font-size: 30px;
+    
+    
+}
 
 @media screen and (min-width : 0px) and (max-width : 800px){
     .app_container{
@@ -76,6 +89,15 @@
         left: 75%;  /*standart undo*/
         padding: 20px;
     
+    }
+    .type{
+        display: flex;
+        flex-direction: row;
+        padding-top: 25px;
+        padding-left: 25px;
+        font-family: 'IBM Plex Sans Thai', sans-serif;
+        font-weight: bold;
+        font-size: 18px;  
     }
     
 
@@ -97,16 +119,4 @@
     flex-direction: column;
     margin-bottom: 60px;
 
-}
-.type{
-    
-    display: flex;
-    flex-direction: row;
-    padding-top: 25px;
-    padding-left: 25px;
-    font-family: 'IBM Plex Sans Thai', sans-serif;
-    font-weight: bold;
-    font-size: 30px;
-    
-    
 }
