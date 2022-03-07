@@ -11,13 +11,14 @@ import DataContext from '../../data/DataContext'
 import { AuthContext } from '../../context/auth'
 import { collection, deleteDoc, doc, onSnapshot, orderBy, query, where } from 'firebase/firestore'
 import { auth, db } from '../../firebase'
+import toast, { Toaster } from 'react-hot-toast';
 
 const StudentList = () => {
     const {user} = useContext(AuthContext);
     const [popUp, setPopUp] = useState(false);
     const navigate = useNavigate();
     const [students, setStudents] = useState([]);
-    const [sp, setSp] = useState('');
+    const [stdPopup, setStdPopup] = useState('');
     const { setUndo } = useContext(DataContext);
 
     const toggleModal = () => {
@@ -67,8 +68,9 @@ const StudentList = () => {
 
     }, [user])
 
-    const handleDelete = async (docid) => {
-        await deleteDoc(doc(db, 'students', docid))
+    const handleDelete = async (stdPopup) => {
+        await deleteDoc(doc(db, 'students', stdPopup.docid));
+        toast.success('ลบข้อมูล '+stdPopup.name+' สำเร็จ');
     }
     
     // const studentss = [
@@ -97,17 +99,17 @@ const StudentList = () => {
                 <div key={index}>
                     <span>
                         <div onClick={() => navigate('detail_student?'+student.name)}>{student.name}</div>
-                        <img style={{cursor:'pointer'}} onClick={()=>{toggleModal();setSp(student);}} src={Bin} alt="" />
+                        <img style={{cursor:'pointer'}} onClick={()=>{toggleModal();setStdPopup(student);}} src={Bin} alt="" />
                     </span>
                     <span>
                         <div>{student.tel}</div>
-                        <img onClick={()=> navigate('edit_tel?'+student.name)} style={{cursor:'pointer'}} src={Edit} alt="" />
+                        <img onClick={()=> navigate('edit_tel/'+student.docid)} style={{cursor:'pointer'}} src={Edit} alt="" />
                     </span>
                     {popUp ?
                         <PopUp
-                              onOk={() => { handleDelete(sp.docid);setPopUp(!popUp); }}
-                                onCancel={() => { setPopUp(!popUp); console.log(sp)}}
-                                content={'ยืนยันการลบ '+sp.name+' ?'}
+                              onOk={() => { handleDelete(stdPopup);setPopUp(!popUp); }}
+                                onCancel={() => { setPopUp(!popUp)}}
+                                content={'ยืนยันการลบ '+stdPopup.name+' ?'}
                                 ok='ยืนยัน'
                                 cancel= 'ยกเลิก'
                         />
@@ -122,7 +124,7 @@ const StudentList = () => {
               <Button to='add_student' type='add' name="เพิ่มนักเรียน" />
               <Button to='/admin_login' type='logout' name="Log out" />
           </div>
-
+          <Toaster />
     </div>
   )
 }

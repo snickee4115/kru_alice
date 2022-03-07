@@ -37,7 +37,7 @@ function App() {
                   <Route path='admin_login' element={<AdminLogin/>}/>
                   <Route path='student_list' element={<Admin/>}>
                     <Route index element={<StudentList/>}/>
-                    <Route  path='edit_tel' element={<EditTel/>}/>
+                    <Route  path='edit_tel/:stdid' element={<EditTel/>}/>
                     <Route  path='add_student' element={<AddStudent/>}/>
                     <Route  path='detail_student' element={<DetailStudentRoutes/>}>
                       <Route  index element={<DetailStudent/>}/>
