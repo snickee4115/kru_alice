@@ -73,11 +73,7 @@
 
 @media screen and (min-width : 0px) and (max-width : 800px){
     .app_container{
-        background-color: #A8CFD4;
-        min-height: 100vh;
-        position: relative;
-        display: flex;
-        flex-direction: column;
+       
     }
     .detail_logo .logo_name{
         position: relative;
