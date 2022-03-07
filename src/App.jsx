@@ -46,6 +46,7 @@ function App() {
                     </Route>
                     <Route  path='detail_student/edit_course_title' element={<EditCourseTitle/>}/>
                     <Route  path='detail_student/add_course' element={<AddCourse/>}/>
+                    
         
                   </Route>
         

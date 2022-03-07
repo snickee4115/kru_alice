@@ -1,7 +1,7 @@
 .datalist_main {
     background-color: #FFCCCE;
-    height: 260vh;
     position: flex;
+    min-height: 100vh;
     
 }
 .datalist_name{
@@ -213,7 +213,6 @@ padding: 10px;
     position: relative;
     display: flex;
     justify-content: center;
-    display: flex;
     text-decoration: none;
     margin-top: 350px;
     padding: 20px;
