@@ -39,7 +39,7 @@ function App() {
                     <Route index element={<StudentList/>}/>
                     <Route  path='edit_tel/:stdid' element={<EditTel/>}/>
                     <Route  path='add_student' element={<AddStudent/>}/>
-                    <Route  path='detail_student' element={<DetailStudentRoutes/>}>
+                    <Route  path='detail_student/:stdid' element={<DetailStudentRoutes/>}>
                       <Route  index element={<DetailStudent/>}/>
                       <Route  path='edit_course_title' element={<EditCourseTitle/>}/>
                       <Route  path='add_course' element={<AddCourse/>}/>

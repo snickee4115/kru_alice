@@ -9,7 +9,7 @@ import PopUp from '../../components/PopUp'
 import { Link, useNavigate } from 'react-router-dom'
 import DataContext from '../../data/DataContext'
 import { AuthContext } from '../../context/auth'
-import { collection, deleteDoc, doc, onSnapshot, orderBy, query, where } from 'firebase/firestore'
+import { collection, deleteDoc, doc, getDocs, onSnapshot, orderBy, query, where, writeBatch } from 'firebase/firestore'
 import { auth, db } from '../../firebase'
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -18,7 +18,7 @@ const StudentList = () => {
     const [popUp, setPopUp] = useState(false);
     const navigate = useNavigate();
     const [students, setStudents] = useState([]);
-    const [stdPopup, setStdPopup] = useState('');
+    const [stdPopUp, setstdPopUp] = useState('');
     const { setUndo } = useContext(DataContext);
 
     const toggleModal = () => {
@@ -68,9 +68,23 @@ const StudentList = () => {
 
     }, [user])
 
-    const handleDelete = async (stdPopup) => {
-        await deleteDoc(doc(db, 'students', stdPopup.docid));
-        toast.success('ลบข้อมูล '+stdPopup.name+' สำเร็จ');
+    const handleDelete = async (stdPopUp) => {
+        const batch = writeBatch(db);
+        
+        // await deleteDoc(doc(db, 'students', stdPopUp.docid));
+
+        const q1 = await getDocs(collection(db, 'students', stdPopUp.docid, 'courses'));
+        q1.forEach((docSnap) => {
+            batch.delete(doc(db, "students", stdPopUp.docid, "courses", docSnap.id));
+        })
+
+        batch.delete(doc(db, 'students', stdPopUp.docid));
+
+        await batch.commit();
+        
+
+
+        toast.success('ลบข้อมูล '+stdPopUp.name+' สำเร็จ');
     }
     
     // const studentss = [
@@ -98,8 +112,8 @@ const StudentList = () => {
               {students.map((student, index) => 
                 <div key={index}>
                     <span>
-                        <div onClick={() => navigate('detail_student?'+student.name)}>{student.name}</div>
-                        <img style={{cursor:'pointer'}} onClick={()=>{toggleModal();setStdPopup(student);}} src={Bin} alt="" />
+                        <div onClick={() => navigate('detail_student/'+student.docid)}>{student.name}</div>
+                        <img style={{cursor:'pointer'}} onClick={()=>{toggleModal();setstdPopUp(student);}} src={Bin} alt="" />
                     </span>
                     <span>
                         <div>{student.tel}</div>
@@ -107,9 +121,9 @@ const StudentList = () => {
                     </span>
                     {popUp ?
                         <PopUp
-                              onOk={() => { handleDelete(stdPopup);setPopUp(!popUp); }}
+                              onOk={() => { handleDelete(stdPopUp);setPopUp(!popUp); }}
                                 onCancel={() => { setPopUp(!popUp)}}
-                                content={'ยืนยันการลบ '+stdPopup.name+' ?'}
+                                content={'ยืนยันการลบ '+stdPopUp.name+' ?'}
                                 ok='ยืนยัน'
                                 cancel= 'ยกเลิก'
                         />

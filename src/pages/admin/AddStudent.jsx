@@ -45,7 +45,7 @@ const AddStudent = () => {
                     // setStdID(e.id)
                     // id = e.id;
                     // console.log(id)
-                    await addDoc(collection(db, "courses"), {
+                    await addDoc(collection(db, 'students', e.id, "courses"), {
                         ownerCourseID: e.id,
                         cName: course,
                         sumHours: 0,
