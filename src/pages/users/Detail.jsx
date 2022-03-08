@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import UserCourse from '../../components/UserCourse'
 import './Detail.css'
 import Undo from '../../assets/undo.png'
 import Cat from '../../assets/cat.png'
@@ -17,6 +16,7 @@ const dek = [
 
 const Detail = ({ setDisabledLogo }) => {
   const [goBack, setGoBack] = useState(false);
+  const ab = "  "
   return (
     
     <motion.div
@@ -40,26 +40,28 @@ const Detail = ({ setDisabledLogo }) => {
             </motion.div>
           </div>
         </Link>
+        <div className='emty'></div>
         
         {dek.map((value,index) =>
         <div className='detail_wrapper'>
+          
             <div className='cat_container'>
+
               <div >
-               <div className='student_name'>{value.name}</div>
+               <div className='detail_student_name'>{value.name}</div>
+
                </div>
-                <div className='type' >
+               <img className='catty' src={Cat} ></img>
+                <div className='detail_type' >
                   COURSE
                 </div>
-            <div className='type'>
-            <Link to ='/datalist'>
+            <div className='detail_type'>
+            <Link to ='/datalist' >
                 {value.coe}
             </Link>
-                <div> 
-                  {value.tre}</div>
-
-
+                <a className='remaint'>{value.tre}</a>
                </div >         
-            <img className='cat' src={Cat} ></img>
+          
             </div>
         </div>)
         }

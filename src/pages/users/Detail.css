@@ -5,21 +5,47 @@
     display: flex;
     flex-direction: column;
 }
+.detail_student_name{
+    position: relative;
+    background: #C4C4C4 ;
+    display: inline-block;
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    font-weight: bold;
+    color: #3F27F5;
+    padding: 20px;
+    font-size: 35px;
+    left: 20px;
+    top:10px;
+    border-radius: 30px 30px 30px 30px;
+}
 
+.emty{
+    padding-bottom: 140px;
+}
 
 .detail_wrapper .cat_container{
     width: 95%;
     top: 50px; 
 }
 .detail_undo{
-    position: relative;
-    width: 120px;
-    height: 120px;
-    top: 1%;
+    position: absolute;
+    width: 60px;
+    height: 50px;
+    top: 4%;
     left: 85%;  /*standart undo*/
-    padding: 20px;
+    display: flex;
 
 }
+.catty{
+    width: 250px;
+    height: 150px;
+    position: absolute;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    
+    right: -3%;
+    top: -50px;
+ }
 
 
 .detail_logout .logout_button{
@@ -42,7 +68,7 @@
     font-size: 50px;
 }
 .detail_logo{
-    position: absolute;
+    position: fixed;
     top: 5%;
     left: 3%;
 
@@ -70,30 +96,35 @@
     
     
 }
+.detail_type{
+    display: flex;
+    flex-direction: row;
+    padding-top: 25px;
+    padding-left: 30px;
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    font-weight: bold;
+    font-size: 30px;
+    
+    
+}
+
+.remaint{
+    position: absolute;
+    left: 580px;
+        
+    }
 
 @media screen and (min-width : 0px) and (max-width : 800px){
-    .app_container{
-        background-color: #A8CFD4;
-        min-height: 100vh;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-    }
+   
+    
+    
     .detail_logo .logo_name{
         position: relative;
         width: 280px;
         height: 50px;
         font-size: 70px;
     }
-    .detail_undo{
-        position: relative;
-        width: 100px;
-        height: 100px;
-        top: 1%;
-        left: 75%;  /*standart undo*/
-        padding: 20px;
-    
-    }
+ 
     .type{
         display: flex;
         flex-direction: row;
@@ -102,6 +133,40 @@
         font-family: 'IBM Plex Sans Thai', sans-serif;
         font-weight: bold;
         font-size: 18px;  
+    }
+  
+    .detail_type{
+        font-size: 20px;
+        padding-left: 15px;
+        
+    }
+    .detail_undo{
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        top: 5%;
+        left: 80%;  /*standart undo*/
+        display: flex;
+        box-sizing:border-box; 
+      
+    
+    }
+    .catty{
+        width: 150px;
+        height: 100px;
+        right: 15px;
+        top: -20px;
+        display: flex;
+    }
+    .detail_student_name{
+        font-size: 25px;
+        
+    
+    }
+    .remaint{
+   
+    left: 270px;
+        
     }
     
 
@@ -120,5 +185,8 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 60px;
+    
 
 }
+
+
