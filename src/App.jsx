@@ -41,8 +41,8 @@ function App() {
                     <Route  path='add_student' element={<AddStudent/>}/>
                     <Route  path='detail_student/:stdid' element={<DetailStudentRoutes/>}>
                       <Route  index element={<DetailStudent/>}/>
-                      <Route  path='edit_course_title' element={<EditCourseTitle/>}/>
-                      <Route  path='add_course' element={<AddCourse/>}/>
+                      <Route  path='edit_course_title/:courseid' element={<EditCourseTitle/>}/>
+                      <Route  path='add_course/' element={<AddCourse/>}/>
                     </Route>
                     <Route  path='detail_student/edit_course_title' element={<EditCourseTitle/>}/>
                     <Route  path='detail_student/add_course' element={<AddCourse/>}/>

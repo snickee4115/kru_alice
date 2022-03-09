@@ -6,7 +6,7 @@ import Button from '../../components/Button'
 import AdminLogo from '../../assets/admin_logo.png'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
-
+import toast, { Toaster } from 'react-hot-toast';
 
 const AdminLogin = () => {
 
@@ -31,6 +31,7 @@ const AdminLogin = () => {
     setData({ ...data, error: null, loading: true });
     if (!email || !password) {
       setData({ ...data, error: 'กรุณากรอกข้อมูลให้ครบ' });
+      toast.error('กรุณากรอกข้อมูลให้ครบ');
       console.log(error);
     } else {
       try {
@@ -57,14 +58,20 @@ const AdminLogin = () => {
         setData({ ...data, error: err.message, loading: false });
         if (err.code == 'auth/wrong-password') {
           setData({ ...data, error: "อีเมลหรือรหัสผ่านไม่ถูกต้อง", loading: false });
+          toast.error("อีเมลหรือรหัสผ่านไม่ถูกต้อง");
         } else if (err.code == 'auth/too-many-requests'){
           setData({ ...data, error: "มีการเข้าสู่ระบบมากเกินไปกรุณาลองใหม่ในอีกซักครู่", loading: false });
+          toast.error("มีการเข้าสู่ระบบมากเกินไปกรุณาลองใหม่ในอีกซักครู่");
         } else if (err.code == 'auth/user-not-found') {
           setData({ ...data, error: "ไม่พบอีเมลนี้ในระบบกรุณาลองใหม่อีกครั้ง", loading: false });
+          toast.error("ไม่พบอีเมลนี้ในระบบกรุณาลองใหม่อีกครั้ง");
         } else if (err.code == 'auth/invalid-email') {
           setData({ ...data, error: "กรุณากรอกอีเมลให้ถูกต้อง", loading: false });
+          toast.error("กรุณากรอกอีเมลให้ถูกต้อง");
         }
         // console.log(err.code);
+        
+        
       }
     }
   }
@@ -80,7 +87,7 @@ const AdminLogin = () => {
         <input type="text" name='email' value={email} onChange={handleChange}/>
         <div>Password</div>
         <input type="password" name='password' value={password} onChange={handleChange} />
-        {error ?
+        {/* {error ?
           <div style={{
             position: 'relative',
             color: 'red',
@@ -94,10 +101,11 @@ const AdminLogin = () => {
             fontSize: 'calc(1vw + 11px)',
             top: '10px',
             visibility:'hidden'
-          }}>ข้อความที่ซ่อน</div>}
+          }}>ข้อความที่ซ่อน</div>} */}
         <Button typeButton={'submit'} type='login' name={loading ? 'กำลังเข้าสู่ระบบ ...' :'ลงชื่อเข้าใช้'} />
         
       </form>
+      <Toaster />
     </div>
   )
 }

@@ -7,6 +7,7 @@ export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
     
     const [user, setUser] = useState(null);
+    const [moreHours, setMoreHours] = useState();
     
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
@@ -14,7 +15,7 @@ const AuthProvider = ({ children }) => {
         })
     }, [])
     
-    return <AuthContext.Provider value={{ user }}>
+    return <AuthContext.Provider value={{ user, moreHours, setMoreHours }}>
         {children}
     </AuthContext.Provider>
 }

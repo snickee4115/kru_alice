@@ -19,7 +19,7 @@
     font-family: 'IBM Plex Sans Thai', sans-serif;
     color: #224DE8;
     margin: 6% auto;
-    margin-bottom: 0;
+    /* margin-bottom: 0; */
     font-weight: 400;
     text-align: center;
     font-size: calc(1vw + 17px);
@@ -39,7 +39,7 @@
 }
 
 .form_add_student .ok_button{
-    margin: 5% auto;
+    margin: 10% auto 5% auto;
     
 }
 

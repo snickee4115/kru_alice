@@ -74,13 +74,16 @@ const StudentList = () => {
         // await deleteDoc(doc(db, 'students', stdPopUp.docid));
 
         const q1 = await getDocs(collection(db, 'students', stdPopUp.docid, 'courses'));
-        q1.forEach((docSnap) => {
-            batch.delete(doc(db, "students", stdPopUp.docid, "courses", docSnap.id));
+        q1.forEach(async (docSnap) => {
+            // await batch.delete(doc(db, "students", stdPopUp.docid, "courses", docSnap.id));
+            await deleteDoc(doc(db, "students", stdPopUp.docid, "courses", docSnap.id));
+            console.log(docSnap.id);
         })
 
-        batch.delete(doc(db, 'students', stdPopUp.docid));
+        // await batch.delete(doc(db, 'students', stdPopUp.docid));
+        await deleteDoc(doc(db, 'students', stdPopUp.docid));
 
-        await batch.commit();
+        // await batch.commit();
         
 
 
@@ -119,19 +122,19 @@ const StudentList = () => {
                         <div>{student.tel}</div>
                         <img onClick={()=> navigate('edit_tel/'+student.docid)} style={{cursor:'pointer'}} src={Edit} alt="" />
                     </span>
-                    {popUp ?
-                        <PopUp
-                              onOk={() => { handleDelete(stdPopUp);setPopUp(!popUp); }}
-                                onCancel={() => { setPopUp(!popUp)}}
-                                content={'ยืนยันการลบ '+stdPopUp.name+' ?'}
-                                ok='ยืนยัน'
-                                cancel= 'ยกเลิก'
-                        />
-                        : null}
+                    
                 </div>
               )}
         </div>
- 
+        {popUp ?
+            <PopUp
+                    onOk={() => { handleDelete(stdPopUp);setPopUp(!popUp); }}
+                    onCancel={() => { setPopUp(!popUp)}}
+                    content={'ยืนยันการลบ '+stdPopUp.name+' ?'}
+                    ok='ยืนยัน'
+                    cancel= 'ยกเลิก'
+            />
+            : null}
               {/* <Button name="เพิ่มนักเรียน" /> */}
 
           <div className='foot_student_list'>

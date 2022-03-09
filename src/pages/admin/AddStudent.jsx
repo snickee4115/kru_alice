@@ -1,10 +1,11 @@
-import { addDoc, collection, doc, getDoc, orderBy, query, updateDoc, Timestamp, onSnapshot, limit } from 'firebase/firestore'
+import { setDoc,addDoc, collection, doc, getDoc, orderBy, query, updateDoc, Timestamp, onSnapshot, limit } from 'firebase/firestore'
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate,  } from 'react-router-dom'
 import Button from '../../components/Button'
 import { auth, db } from '../../firebase'
 import './AddStudent.css'
 import toast, { Toaster } from 'react-hot-toast';
+import { v4 as uuid } from 'uuid';
 
 const AddStudent = () => {
 
@@ -27,33 +28,23 @@ const AddStudent = () => {
         e.preventDefault();
         setDataUser({...dataUser, error:null})
         if (!name || !tel || !course) { 
-            setDataUser({ ...dataUser, error: "กรุณากรอกข้อมูลให้ครบ" })
-            console.log(error)
+            toast.error('กรุณากรอกข้อมูลให้ครบ');
         }else{
-            await addDoc(collection(db, "students"), {
+            let id = uuid().slice(0, 8);
+            const addstd = await setDoc(doc(db, "students", id), {
                 adminID: auth.currentUser.uid,
                 name: name,
                 tel: tel,
                 course: [course],
                 createAt: Timestamp.fromDate(new Date()),
             })
-
-            const q = query(collection(db, 'students'), orderBy('createAt', 'desc'), limit(1));
-            let id;
-            onSnapshot(q, (querySnapshot) => {
-                querySnapshot.forEach(async e => {
-                    // setStdID(e.id)
-                    // id = e.id;
-                    // console.log(id)
-                    await addDoc(collection(db, 'students', e.id, "courses"), {
-                        ownerCourseID: e.id,
-                        cName: course,
-                        sumHours: 0,
-                        createAt: Timestamp.fromDate(new Date()),
-                    })
-                });
+            await addDoc(collection(db, 'students', id, "courses"), {
+                ownerCourseID: id,
+                courseName: course,
+                sumHours: 0,
+                detail:'',
+                createAt: Timestamp.fromDate(new Date()),
             })
-            // console.log(stdID);
             setDataUser({
                 name: '',
                 tel: '',
@@ -61,8 +52,9 @@ const AddStudent = () => {
                 error: null,
             });
             notify();
+            // navigate('/student_list');
         }
-        // navigate('/student_list')
+        
     };
 
     const notify = () => toast.success('บันทึกข้อมูลสำเร็จ');
@@ -76,7 +68,7 @@ const AddStudent = () => {
               <input name='tel' value={tel} onChange={handleChange} type="number" />
               <div>ชื่อคอร์สแรก</div>
               <input name='course' value={course} onChange={handleChange} type="text" />
-              {error ?
+              {/* {error ?
                   <div style={{
                     display:'flex',
                     justifyContent:'center',
@@ -93,7 +85,7 @@ const AddStudent = () => {
                     fontSize: 'calc(1vw + 11px)',
                     top: '13px',
                     visibility:'hidden'
-                }}>ข้อความที่ซ่อน</div>}
+                }}>ข้อความที่ซ่อน</div>} */}
               <Button name="ยืนยัน" type='ok'></Button>
           </form>
           

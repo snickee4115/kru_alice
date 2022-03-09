@@ -1,16 +1,16 @@
 import React from 'react'
 import './PopUp.css'
 
-const PopUp = ({content, ok, cancel, onOk , onCancel}) => {
+const PopUp = ({content, ok, cancel, onOk , onCancel, typeButton, style}) => {
   return (
-    <div className='popup_container'>
+    <div style={{visibility:style ? 'hidden' : 'visible'}}  className='popup_container'>
         <div className="popup_box">
               <div className='popup_content'>
                 {content}
               </div>
               <div className='popup_button_container'>
-                <button onClick={onOk} className='popup_ok'>{ok}</button>
-                <button onClick={onCancel} className='popup_cancel'>{cancel}</button>
+                <button type={typeButton} onClick={onOk} className='popup_ok'>{ok}</button>
+                <button type='button' onClick={onCancel} className='popup_cancel'>{cancel}</button>
               </div>
         </div>
     </div>
