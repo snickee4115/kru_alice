@@ -19,6 +19,7 @@ const AddCourse = () => {
   const [dataCourse, setDataCourse] = useState({courseName:'', courseDetail:''});
   const { courseName, courseDetail } = dataCourse;
   const { moreHours } = useContext(AuthContext);
+  const { nameStudent } = useContext(AuthContext);
 
   useEffect(() => {
     console.log(stdid)
@@ -34,15 +35,21 @@ const AddCourse = () => {
 
   
   const handleSubmit = async (e) => {
-    await addDoc(collection(db, 'students', stdid, 'courses'), {
+    const addCourse = addDoc(collection(db, 'students', stdid, 'courses'), {
       ownerCourseID: stdid,
       courseName: dataCourse.courseName,
       sumHours: 0,
       detail:dataCourse.courseDetail,
       createAt: Timestamp.fromDate(new Date()),
     })
-    toast.success('บันทึกข้อมูลสำเร็จ');
-    setDataCourse({courseName:'', courseDetail:''});
+    toast.promise(addCourse, {
+      loading: 'กำลังดำเนินการ',
+      success: 'เพิ่มข้อมูลคอร์สสำเร็จ',
+      error: 'เพิ่มข้อมูลคอร์สไม่สำเร็จ'
+    }).then(() => {
+      setDataCourse({courseName:'', courseDetail:''});
+  })
+    
 
   }
 
@@ -80,8 +87,8 @@ const AddCourse = () => {
                           [
                           <div>
                               <div>ต้องการเพิ่มคอร์สชื่อ</div>
-                              <div>เตรียมสอบมัธยมปลาย</div>
-                              <div>ให้กับ น้องแมว ?</div>
+                              <div>{courseName}</div>
+                              <div>ให้กับ {nameStudent} ?</div>
                           </div>
                           ] : 
                           <div>

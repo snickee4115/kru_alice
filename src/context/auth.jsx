@@ -8,14 +8,15 @@ const AuthProvider = ({ children }) => {
     
     const [user, setUser] = useState(null);
     const [moreHours, setMoreHours] = useState();
-    
+    const [nameStudent, setNameStudent] = useState();
+
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             setUser(user);
         })
     }, [])
     
-    return <AuthContext.Provider value={{ user, moreHours, setMoreHours }}>
+    return <AuthContext.Provider value={{ user, moreHours, setMoreHours, nameStudent, setNameStudent }}>
         {children}
     </AuthContext.Provider>
 }

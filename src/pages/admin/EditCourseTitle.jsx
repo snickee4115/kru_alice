@@ -29,10 +29,14 @@ const EditCourseTitle = () => {
     if (!titleCourse) {
       
     } else {
-      await updateDoc(doc(db, 'students', stdid, 'courses', courseid), {
+      const updateCourse = updateDoc(doc(db, 'students', stdid, 'courses', courseid), {
         courseName: titleCourse,
       })
-      toast.success('แก้ไขชื่อคอร์สสำเร็จ');
+      toast.promise(updateCourse, {
+        loading: 'กำลังดำเนินการแก้ไข',
+        success: 'แก้ไขชื่อคอร์สสำเร็จ',
+        error: 'แก้ไขชื่อคอร์สไม่สำเร็จ'
+      })
       
     }
   }

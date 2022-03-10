@@ -11,6 +11,7 @@
     justify-content: center;
     font-size: calc(1vw + 22px);
     margin-bottom: 5%;
+    text-align: center;
 }
 
 .detail_student_routes_container .namestu{

@@ -24,10 +24,16 @@ const EditTel = () => {
     
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await updateDoc(doc(db, 'students', stdid), {
+        const updataTel = updateDoc(doc(db, 'students', stdid), {
             tel: student.tel,
         });
-        toast.success('แก้ไขเบอร์โทรสำเร็จ');
+        // toast.loading();
+        // toast.success('แก้ไขเบอร์โทรสำเร็จ');
+        toast.promise(updataTel, {
+            loading: 'กำลังดำเนิการแก้ไข',
+            success: 'แก้ไขเบอร์โทรสำเร็จ',
+            error: 'แก้ไขเบอร์โทรไม่สำเร็จ',
+        })
     }
   return (
       <div className='edit_tel_container'>

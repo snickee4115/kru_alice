@@ -20,13 +20,14 @@ const StudentList = () => {
     const [students, setStudents] = useState([]);
     const [stdPopUp, setstdPopUp] = useState('');
     const { setUndo } = useContext(DataContext);
+    const { setNameStudent } = useContext(AuthContext);
 
     const toggleModal = () => {
         setPopUp(!popUp);
     }
     useEffect(() => {
         setUndo(false);
-
+        setNameStudent('');
         // console.log(auth);
         // console.log(authID);
         // const timer = setTimeout(() => {
@@ -81,13 +82,16 @@ const StudentList = () => {
         })
 
         // await batch.delete(doc(db, 'students', stdPopUp.docid));
-        await deleteDoc(doc(db, 'students', stdPopUp.docid));
+        const deleteStudent = deleteDoc(doc(db, 'students', stdPopUp.docid));
 
         // await batch.commit();
         
+        toast.promise(deleteStudent, {
+            loading: 'กำลังลบข้อมูล',
+            success: 'ลบข้อมูล ' + stdPopUp.name + ' สำเร็จ',
+            error: 'ลบข้อมูลไม่สำเร็จ'
+        })
 
-
-        toast.success('ลบข้อมูล '+stdPopUp.name+' สำเร็จ');
     }
     
     // const studentss = [

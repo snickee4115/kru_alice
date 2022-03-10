@@ -31,33 +31,54 @@ const AddStudent = () => {
             toast.error('กรุณากรอกข้อมูลให้ครบ');
         }else{
             let id = uuid().slice(0, 8);
-            const addstd = await setDoc(doc(db, "students", id), {
+            const addstd = setDoc(doc(db, "students", id), {
                 adminID: auth.currentUser.uid,
                 name: name,
                 tel: tel,
                 course: [course],
                 createAt: Timestamp.fromDate(new Date()),
+            }).then(() => {
+                addDoc(collection(db, 'students', id, "courses"), {
+                    ownerCourseID: id,
+                    courseName: course,
+                    sumHours: 0,
+                    detail:'',
+                    createAt: Timestamp.fromDate(new Date()),
+                })
             })
-            await addDoc(collection(db, 'students', id, "courses"), {
-                ownerCourseID: id,
-                courseName: course,
-                sumHours: 0,
-                detail:'',
-                createAt: Timestamp.fromDate(new Date()),
+            // toast.promise(addstd, {
+            //     loading: null,
+            //     success: null,
+            //     error: 'บันทึกข้อมูลล้มเหลว'
+            // })
+            // const addFirstCourse = addDoc(collection(db, 'students', id, "courses"), {
+            //     ownerCourseID: id,
+            //     courseName: course,
+            //     sumHours: 0,
+            //     detail:'',
+            //     createAt: Timestamp.fromDate(new Date()),
+            // })
+            toast.promise(addstd, {
+                loading: 'กำลังดำเนินการ',
+                success: 'เพิ่มข้อมูลนักเรียนสำเร็จ',
+                error: 'เพิ่มข้อมูลนักเรียนไม่สำเร็จ'
+            }).then(() => {
+                setDataUser({
+                    name: '',
+                    tel: '',
+                    course: '',
+                    error: null,
+                });
             })
-            setDataUser({
-                name: '',
-                tel: '',
-                course: '',
-                error: null,
-            });
-            notify();
+            
+            
+            
             // navigate('/student_list');
         }
         
     };
 
-    const notify = () => toast.success('บันทึกข้อมูลสำเร็จ');
+
 
   return (
       <div className='add_student_container'>

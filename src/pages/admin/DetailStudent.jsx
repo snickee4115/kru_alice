@@ -42,8 +42,13 @@ const DetailStudent = () => {
   }, [user])
   
   const handleDelete = async (coursePopUp) =>{
-    await deleteDoc(doc(db, 'students', stdid, 'courses', coursePopUp.id));
-    toast.success('ลบคอร์ส '+coursePopUp.data().courseName+' สำเร็จ');
+    const deleteCourse =  deleteDoc(doc(db, 'students', stdid, 'courses', coursePopUp.id));
+    toast.promise(deleteCourse, {
+      loading: 'กำลังลบข้อมูล',
+      success: 'ลบคอร์ส '+coursePopUp.data().courseName+' สำเร็จ',
+      error: 'ลบข้อมูลไม่สำเร็จ'
+  })
+    // toast.success('ลบคอร์ส '+coursePopUp.data().courseName+' สำเร็จ');
   }
 
 

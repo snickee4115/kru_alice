@@ -1,13 +1,15 @@
 import { doc, getDoc } from 'firebase/firestore'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Outlet, useParams } from 'react-router-dom'
 import Name from '../../components/Name'
+import { AuthContext } from '../../context/auth'
 import { db } from '../../firebase'
 import './DetailStudentRoutes.css'
 
 const DetailStudentRoutes = () => {
   const { stdid } = useParams();
-  const [nameStudent, setNameStudent] = useState();
+  const { nameStudent, setNameStudent } = useContext(AuthContext);
+
   useEffect(() => {
     getDoc(doc(db, 'students', stdid)).then(docSnap => {
       setNameStudent(docSnap.data().name);

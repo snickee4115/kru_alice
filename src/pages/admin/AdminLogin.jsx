@@ -35,23 +35,49 @@ const AdminLogin = () => {
       console.log(error);
     } else {
       try {
-        const result = await signInWithEmailAndPassword(auth, email, password);
-        const docSnap = await getDoc(doc(db, 'admin', result.user.uid));
-        if (!(docSnap && docSnap.data()?.uid == result.user.uid)) {
-            await setDoc(doc(db, 'admin', auth.currentUser.uid), {
-            uid: auth.currentUser.uid,
-            email: email,
-            password: password,
-            createAt: Timestamp.fromDate(new Date()),
-          })
-        }
-        setData({
-          email: '',
-          password: '',
-          error: null,
-          loading: false,
-        });
-        navigate("/student_list");
+        // const result = await signInWithEmailAndPassword(auth, email, password);
+        // const docSnap = await getDoc(doc(db, 'admin', result.user.uid));
+        // if (!(docSnap && docSnap.data()?.uid == result.user.uid)) {
+        //     await setDoc(doc(db, 'admin', auth.currentUser.uid), {
+        //     uid: auth.currentUser.uid,
+        //     email: email,
+        //     password: password,
+        //     createAt: Timestamp.fromDate(new Date()),
+        //   })
+        // }
+        const result = new Promise((resolve) => {
+          resolve(signInWithEmailAndPassword(auth, email, password));
+        }).then((result) => {
+          return getDoc(doc(db, 'admin', result.user.uid));
+        }).then((docSnap) => {
+          if (docSnap?.get('uid') == undefined) {
+            // console.log(docSnap.);
+              return setDoc(doc(db, 'admin', auth.currentUser.uid), {
+              uid: auth.currentUser.uid,
+              email: email,
+              password: password,
+              createAt: Timestamp.fromDate(new Date()),
+            })
+          }
+          return ;
+        }).then(() => {
+          setData({
+            email: '',
+            password: '',
+            error: null,
+            loading: false,
+          });
+          
+        })
+        toast.promise(result, {
+          loading: 'กำลังเข้าสู่ระบบ',
+          success: 'เข้าสู่ระบบสำเร็จ',
+          error: 'เข้าสู่ระบบไม่สำเร็จ'
+        }).then(() => {
+          navigate("/student_list");
+      })
+        
+        // navigate("/student_list");
  
         
       } catch (err) {
