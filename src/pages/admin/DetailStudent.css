@@ -32,6 +32,10 @@
     /* display: inline-flex;
     flex-direction: column; */
 }
+.detail_student_container .wrapper_student_course div:nth-child(1) {
+    /* border: 1px solid; */
+    word-break: break-word;
+}
 .detail_student_container .wrapper_student_course div:nth-child(2) img:nth-child(1){
     margin-right: 8%;
 }
@@ -47,12 +51,17 @@
     margin: 5% auto;
     margin-top: 15%;
 }
-
+.detail_student_container .popup_content {
+    width: 95%;
+    margin: 5%;
+}
 .detail_student_container .popup_content div{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
     font-size: calc(0.5vw + 19px);
+    word-break: break-word;
     /* margin: 0 1%; */
 }

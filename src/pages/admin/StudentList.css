@@ -42,13 +42,18 @@
 
 .student_list_container .student_detail span:nth-child(1) div{
     cursor: pointer;
+    word-break: break-word;
+}
+.student_list_container .student_detail span:nth-child(2) div{
+    word-break: break-word;
 }
 
 .student_list_container .student_detail span:nth-child(1) img{
-
+    margin-left: 10px;
     object-fit: contain;
 }
 .student_list_container .student_detail span:nth-child(2) img{
+    margin-left: 10px;
     object-fit: contain;
 }
 .student_list_container .student_detail span:nth-child(1) {
@@ -73,4 +78,16 @@
 
 .foot_student_list .logout_button{
     margin: 10px 0 20px 0;
+}
+
+.student_list_container .popup_content{
+    width: 95%;
+    word-break: break-word;
+    margin: 5%;
+    /* border: 1px solid; */
+}
+
+.student_list_container .popup_button_container{
+    /* border: 1px solid; */
+    /* margin-bottom: 5%; */
 }

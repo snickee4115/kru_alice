@@ -37,6 +37,8 @@
     border-radius: 30px;
     border: 0;
     outline: none;
+    padding-right: 5%;
+    padding-left: 5%;
 }
 
 .form_edit_course input::-webkit-inner-spin-button{
@@ -45,5 +47,6 @@
 
 .form_edit_course .ok_button{
     margin: 0 auto;
+    margin-bottom: 5%;
     
 }

@@ -51,6 +51,8 @@
     border: 0;
     margin-bottom: 10px;
     outline: none;
+    padding-right: 5%;
+    padding-left: 5%;
 }
 
 .alogin_form_container input::-webkit-inner-spin-button{

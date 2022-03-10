@@ -69,7 +69,8 @@
     border: 0px;
     margin-bottom: 5%;
     padding: 2.5% 0;
-    
+    padding-right: 5%;
+    padding-left: 5%;
 }
 .login_form_container input::-webkit-inner-spin-button{
     -webkit-appearance: none;

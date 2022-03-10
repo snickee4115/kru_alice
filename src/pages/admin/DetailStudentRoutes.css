@@ -15,4 +15,5 @@
 
 .detail_student_routes_container .namestu{
     font-size: calc(1vw + 30px);
+    left: 0px;
 }

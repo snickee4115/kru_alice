@@ -87,7 +87,7 @@ const DetailStudent = () => {
             [
             <div>
                 <div>ยืนยันการลบ</div>
-                <div>เตรียมสอบอังกฤษประถมต้นหรือไม่ ?</div>
+                <div>{coursePopUp.data().courseName} หรือไม่ ?</div>
             </div>
             ]
           }
