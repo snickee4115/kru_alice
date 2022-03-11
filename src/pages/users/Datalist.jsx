@@ -3,10 +3,10 @@ import './Datalist.css'
 import Undo from '../../assets/undo.png'
 import { Link } from 'react-router-dom'
 import Name from '../../components/Name.jsx'
-import Button from '../../components/Button.jsx'
 
 
-const Datalist = () => {
+
+export const Datalist = () => {
     const ti = [
         {date:"SAT 12/06/2021 ",tim:"1 H. 0 S."},
         {date:"SAT 12/06/2021 ",tim:"1 H. 0 S."},

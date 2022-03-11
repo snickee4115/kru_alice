@@ -1,30 +1,35 @@
-.datalist_main {
+.admin_data_main{
     background-color: #FFCCCE;
     position: relative;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-
+   
 }
-.datalist_name{
+.admin_data_name{
     position: relative;
     display: flex;
-    border:  2px solid#84C2F4;
     justify-content: center;
- 
 }
-.datalist_undo{
-position: absolute;
-width: 90px;
-height: 90px;
-top: 1%;
-left: 85%;  /*standart undo*/
-padding: 10px;
-
+.admin_data_undo{
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    top: 1%;
+    left: 85%;  /*standart undo*/
+    padding: 10px;
+    
 }
-
-.datalist_title{
+.admin_data_course_name{
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    position: absolute;
+    left: 250px;
+    margin-top: 120px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.admin_data_title{
     display: flex;
     position: relative;
     flex-direction: column;
@@ -33,51 +38,42 @@ padding: 10px;
     background-color: #A8CFD4;
     border-radius: 30px 30px 30px 0px;
     padding: 25px;
-    margin-top: 120px;
+    margin-top: 100px;
     font-size: 25px;
     font-family: 'IBM Plex Sans Thai', sans-serif;
     font-weight: bold;
-    
-}
-.datalist_type{
+}   
+.admin_data_type{
     padding-top: 5px;
     display: flex;
     justify-content: center;
     font-family: 'IBM Plex Sans Thai', sans-serif;
     
 }
-.course_name{
-    font-family: 'IBM Plex Sans Thai', sans-serif;
-    position: absolute;
-    left: 250px;
-    top: 120px;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.datalist_data{
+.admin_data_data{
     display: flex;
     flex-direction: column;
    /* top: 450px; */
-    top:300px;
+    margin-top: 100px;
     width: 95%;
     position: relative;
     border: 5px solid #EAD2D2;
     border-radius: 30px 30px 30px 30px;
     font-size: 20px;
     background-color: #CFE6CA;
-    height: 82%; 
-     
-    
-}
-.list_data{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-   
+    height: 170vh;
 
 }
-.datalist_count {
+.admin_list_data{
+    
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+       
+    
+    
+}
+.admin_data_count {
     
     position: relative;
     background: #C6B6D1 ;
@@ -94,8 +90,9 @@ padding: 10px;
     width: 19.5%;
     height: 98%;
     align-items: center;
+    margin-top: 4px;
     }
-.datalist_date{
+.admin_data_date{
     position: relative;
     background: #84C2F4;
     display: flex;
@@ -112,9 +109,10 @@ padding: 10px;
     width: 50%;
     height: 98%;
     align-items: center;
+    margin-top: 4px;
 
 }
-.datalist_time{
+.admin_data_time{
     position: relative;
     background: #84C2F4 ;
     display: flex;
@@ -130,8 +128,11 @@ padding: 10px;
     width: 25%;
     height: 98%;
     align-items: center;
+    margin-top: 4px;
 }
-.datalist_result{
+
+
+.admin_data_result{
     position: relative;
     margin-top: 80px;
     display: flex;
@@ -141,7 +142,7 @@ padding: 10px;
     font-family: 'IBM Plex Sans Thai', sans-serif;
     font-weight: bold;
 }
-.datalist_result a{
+.admin_data_result a{
     background-color: #84C2F4;
     border-radius: 30px 30px 30px 30px;
     margin-left: 50px;
@@ -149,14 +150,14 @@ padding: 10px;
     
 }
 
-.dr1{
-
-        left: 27px;
+.admin_dr1{
+        padding-left: 25px;
         position: relative;
         flex-direction: row;
         display: flex;
+       
 }
-.dr1 a{
+.admin_dr1 a{
     position: relative;  
     display: flex;
     justify-content: center;
@@ -164,14 +165,14 @@ padding: 10px;
     
     
 }
-.dr2{
-        margin-top: 80px;
+.admin_dr2{  
+        padding-top: 8px;
         position: relative;
         margin-left: 23px;
         flex-direction: row;
         display: flex;
 }
-.dr2 a{ 
+.admin_dr2 a{ 
         position: relative;  
         display: flex;
         justify-content: center;
@@ -179,145 +180,42 @@ padding: 10px;
         margin-left: 35px;
         
 }
-.datalist_ap{
-    position: relative;
-    padding-top: 25px;
-    font-size: 80px;
-    font-family: 'IBM Plex Sans Thai', sans-serif;
-    flex-direction: column;
-    font-weight: bold;
-    left: 30px;
-   
-}
-
-.datalist_ap a{
-    position: relative;
-    left: 15px;
-    background-color: #84C2F4 ;
-    margin-left: 15px;
-    border-radius: 30px 30px 30px 30px;
-    padding: 10px;
-    font-size: 40px;
-  
-}
-
-.datalist_alert{
-    position: relative;
-    flex-direction: column;
-    display: flex;
-    margin-top: 60px;
-    font-size: 40px;
-    left: 30px;
-}
-.datalist_alert div{
-    padding-top: 30px;
-    font-family: 'IBM Plex Sans Thai', sans-serif;
-}
-.datalist_cf{
+.admin_data_cf{
     background-color: red;
     position: relative;
     display: flex;
     justify-content: center;
     text-decoration: none;
-    margin-top: 350px;
+    margin-top: 40px;
     padding: 20px;
     width: 100%;
     font-size: 45px;
     font-family: 'IBM Plex Sans Thai', sans-serif;
     color: white;
 }
-@media screen and (min-width : 0px) and (max-width : 800px){
-   .datalist_main{
+.admin_time{
+    display: flex;
     position: relative;
-   }
+    justify-content: center;
    
-    .datalist_name{
-        right: -15%;
-        font-size: smaller;
-    }
-    .datalist_undo{
-      
-        width: 50px;
-        height: 50px;
-    }
-    .course_name{
-        top: 35px;
-        display: flex;
-        left: 12%;
-        position: relative;
-    }
-    .datalist_title{
-        position: relative;
-    }
-    .datalist_title{
-        top: 100px;
-        right: 1px;
-        font-size: 19px;
-    }
-   .datalist_data div{
-      
-   }
-   .datalist_data{
-       left: 1px;
-       top:150px;
-       width: 99%;
-       height: 220vh;
-       
-   }
-   .datalist_count{
-       font-size: 15px;
-     
-   }
-   .datalist_date{
-       font-size: 15px;
-       left: 13px;
-   }
-   .datalist_time{
-       font-size: 10px;
-        width: 25%;
-        left: 15px;
-       
-   }
-   .datalist_result{
-       margin-top: 55px;
-   }
-   .datalist_result .dr1{
-       font-size: smaller;
-   }
-   .datalist_result .dr1 a{
-       top: 1px;
-       font-size: 20px;
-       padding: 15px;
-
-   }
-   .datalist_result .dr2{
-    margin-top: 30px;
-    font-size: smaller;
+    flex-direction: column;
+    align-items: center;
 }
-.datalist_result .dr2 a{
-    top: 1px;
-    font-size: 20px;
+.admin_button_main{
+    margin-top: 25px;
+    width: 130%;
+    justify-content: center;
+    display: flex;
+    color: #CFE6CA;
+    
+}
+.plus_wraper{
+    margin-top: 50px;
+    flex-direction: row;
+    position: relative;
+    display: flex;
+}
+.plus_img{
+    margin-top: 20px;
     margin-left: 35px;
-    width: 50%;
-
-}
-.datalist_ap{
-    font-size: 35px;
-    left: 5px;
-
-}
-.datalist_ap a{
-    font-size: 18px;
-    left: 1px;
-    margin-left: 1px;
-}
-.datalist_alert{
-    font-size: 19px;
-    margin-top: 10px;
-    left: 1px;
-}
-.datalist_cf{
-    margin-top: 200px;
-}
-
 }

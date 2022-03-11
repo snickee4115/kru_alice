@@ -17,7 +17,8 @@ import EditCourseTitle from './pages/admin/EditCourseTitle'
 import AddCourse from './pages/admin/AddCourse'
 import DetailStudentRoutes from './pages/admin/DetailStudentRoutes'
 import AuthProvider from './context/auth'
-
+import EditData from './pages/admin/EditDatalist'
+import AdminDatalist from './pages/admin/AdminDatalist'
 
 function App() {
   const location = useLocation();
@@ -34,7 +35,10 @@ function App() {
                   <Route path='login' element={<Login/>}/>
                   <Route path='detail' element={<Detail setDisabledLogo={setDisabledLogo}/>}/>
                   <Route path='datalist' element={<Datalist/>}/>
+
                   <Route path='admin_login' element={<AdminLogin/>}/>
+                  <Route path='edit_data' element={<EditData/>}/>
+                  <Route path='Admin_datalist' element={<AdminDatalist/>}/>
                   <Route path='student_list' element={<Admin/>}>
                     <Route index element={<StudentList/>}/>
                     <Route  path='edit_tel/:stdid' element={<EditTel/>}/>
@@ -46,9 +50,9 @@ function App() {
                     </Route>
                     <Route  path='detail_student/edit_course_title' element={<EditCourseTitle/>}/>
                     <Route  path='detail_student/add_course' element={<AddCourse/>}/>
-                    
-        
+                
                   </Route>
+                  
         
             </Routes>
         
