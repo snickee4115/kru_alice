@@ -4,12 +4,65 @@ import Img_nerd from '../../assets/nerd_image.png'
 import Logo from '../../components/Logo'
 import {motion} from 'framer-motion'
 import { Link, useNavigate } from 'react-router-dom'
+import { collection, doc, getDocs, onSnapshot, query, where } from 'firebase/firestore'
+import { db } from '../../firebase'
+import { async } from '@firebase/util'
+import toast, { Toaster } from 'react-hot-toast';
 
 const Login = () => {
     const [tel, setTel] = useState();
     const navigate = useNavigate();
     const [go, setGo] = useState(false);
-    console.log(go);
+  
+
+    
+    
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        let stdid;
+
+        // const q = query(collection(db, 'students'), where('tel', '==', tel));
+        // const querySnapshot = getDocs(q).then((data) => {
+        //     data.forEach((doc) => {
+        //         stdid = doc.id;
+        //         // if (id.exists) {
+        //         //     return id;
+        //         // }
+        //         return stdid;
+        //     })
+        // });
+
+        // toast.promise(querySnapshot, {
+        //     loading: 'กำลังเข้าสู่ระบบ',
+        //     success: 'เข้าสู่ระบบสำเร็จ',
+        //     error: 'เข้าสู่ระบบไม่สำเร็จ'
+        // }).then(()=>{
+        //     navigate('/detail?telstd='+stdid)
+        // })
+        // const q = query(collection(db, 'students'), where('tel', '==', tel));
+        // const querySnapshot = (await getDocs(q)).size;
+        const login = new Promise(async (resolve, reject) => {
+            const q = query(collection(db, 'students'), where('tel', '==', tel));
+            const querySnapshot = (await getDocs(q)).size;
+            if (querySnapshot > 0) {
+                resolve();
+            } else {
+                reject();
+            }
+        })
+      
+        toast.promise(login, {
+            loading: 'กำลังเข้าสู่ระบบ',
+            success: 'เข้าสู่ระบบสำเร็จ',
+            error: 'ไม่พบหมายเลขนี้ในระบบ'
+        }).then(()=>{
+            navigate('/detail?telstd='+tel)
+        })
+
+
+        
+    }
+
     return (
             <motion.div
                 
@@ -31,27 +84,29 @@ const Login = () => {
                                 <img className='login_img' src={Img_nerd} />
                         </div>
                     </Link>
-                    <form className="login_form_container">
+                    <form onSubmit={handleSubmit} className="login_form_container">
                         <div>เบอร์โทรศัพท์</div>
                     <input
                         type="number"
                         onChange={(e) => 
                         setTel(e.target.value)} 
                     />
-                    </form>
                     <motion.button
                             transition={{ duration: 1 }}
                             layoutId='log_button'
                             onClick={() =>{ 
                                 setGo(!go);
-                                navigate('/detail/')
+                                // navigate('/detail/')
                             }}
                             className='login_button'
                     
                         >
                             ลงชื่อเข้าใช้
                     </motion.button>
+                    </form>
+                    
                 </div>
+                <Toaster />
             </motion.div>
     )
 }
