@@ -13,7 +13,7 @@
     font-weight: bold;
     color: #3F27F5;
     padding: 20px;
-    font-size: 35px;
+    font-size: calc(1vw + 25px);
     left: 20px;
     top:10px;
     border-radius: 30px 30px 30px 30px;
@@ -92,7 +92,7 @@
     padding-top: 25px;
     padding-left: 30px;
     font-family: 'IBM Plex Sans Thai', sans-serif;
-    font-size: 30px;
+    font-size: calc(1vw + 10px);
     
     
 }
@@ -103,14 +103,15 @@
     padding-left: 30px;
     font-family: 'IBM Plex Sans Thai', sans-serif;
     font-weight: bold;
-    font-size: 30px;
+    font-size: calc(1vw + 10px);
     
     
 }
 
 .remaint{
     position: absolute;
-    left: 580px;
+    left: 420px;
+    font-size: calc(1vw + 10px);
         
     }
 
@@ -132,11 +133,11 @@
         padding-left: 25px;
         font-family: 'IBM Plex Sans Thai', sans-serif;
         font-weight: bold;
-        font-size: 18px;  
+        font-size: 1px;  
     }
   
     .detail_type{
-        font-size: 20px;
+        
         padding-left: 15px;
         
     }
@@ -165,13 +166,14 @@
     }
     .remaint{
    
-    left: 270px;
-        
+    left: 210px;
+    
     }
     
 
     
 }
+
 
 .cat_container{
     position: relative;

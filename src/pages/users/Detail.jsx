@@ -10,12 +10,11 @@ import toast, { Toaster } from 'react-hot-toast';
 import { collection, getDocs, onSnapshot, query, QuerySnapshot, where } from 'firebase/firestore'
 import { db } from '../../firebase'
 import { async } from '@firebase/util'
+import { AuthContext } from '../../context/auth'
 
 
-const dek = [
-            {name:'น้องเจแปน',coe:'คอสเรียนประถมต้น',tre:"เกิน 1 ชม"},
-            {name:'น้องแมว',coe:'คอสเรียนมัธยมต้น',tre:"เหลือ 1 ชม."}
-            ]
+
+
 
 const Detail = ({ setDisabledLogo }) => {
   const [goBack, setGoBack] = useState(false);
@@ -185,13 +184,23 @@ let std = [];
                   </Link>
                 )}
               </div>
+       
               <div className='remaint'>
                 {value.hours.map((hours, index ) => 
                   <div key={index}>
-                    {hours}
+                    <span style={{ color: hours > 10 ? '#D91919' : '#3C00E9'  }}>
+                      { hours <= 10 ?
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{hours}/10 hr.</span>
+                        :
+                      <span>เกิน {parseInt(hours - 10) } hr. {Math.round(((((hours) - 10)*10))%10*6)} min.</span>
+                      }
+                      </span>
                   </div>
-                )}
-              </div>
+                  
+                 
+                )}  
+                </div>
+                
             </div >         
           
             </div>
