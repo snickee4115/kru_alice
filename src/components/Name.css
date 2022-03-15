@@ -6,7 +6,7 @@
     font-weight: bold;
     color: #3F27F5;
     padding: 20px;
-    font-size: 35px;
+    font-size:  calc(1vw + 30px);
     top:10px;
     border-radius: 30px 30px 30px 30px;
 }

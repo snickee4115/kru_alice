@@ -11,15 +11,14 @@
 .datalist_name{
     display: flex;
     justify-content: center;
-    border: 3px solid #84C2F4;
-    font-size:  calc(1vw + 30px);
+    font-size:  calc(1vw + 50px);
 }
 .datalist_undo{
 position: absolute;
 width: 90px;
 height: 90px;
-top: 1%;
-left: 85%;  /*standart undo*/
+top: 0.8%;
+left: 10px;  /*standart undo*/
 padding: 10px;
 
 }
@@ -34,7 +33,7 @@ padding: 10px;
     border-radius: 30px 30px 30px 0px;
     padding: 25px;
     margin-top: 100px;
-    font-size:  calc(1vw + 18px);
+    font-size:  calc(1vw + 14px);
     font-family: 'IBM Plex Sans Thai', sans-serif;
     font-weight: bold;
     
@@ -53,7 +52,7 @@ padding: 10px;
     margin-top: 80px;
     font-size:  calc(1vw + 20px);
     font-weight: bold;
-    border: 3px solid #84C2F4;
+   
     justify-content: center;
     align-items: center;
 }
@@ -71,17 +70,13 @@ padding: 10px;
     background-color: #CFE6CA;
     height: 82%;
     padding: 20px;
-    
 
-     
-    
 }
 .list_data{
     display: flex;
     flex-direction: row;
     width: 100%;
-   
-
+    justify-content: center;
 }
 .datalist_count {
     margin-top: 12px;
@@ -93,13 +88,13 @@ padding: 10px;
     font-weight: bold;
     color: black;
     padding: 20px;
-    font-size:  calc(1vw + 9px);
-    left: 10px;
-    top:25px;
+    font-size:  calc(1vw + 7px);
     border-radius: 30px 30px 30px 30px;
-    width: 19.5%;
+    width: 42%;
     height: 98%;
     align-items: center;
+    margin-left: 10px;
+    margin-top: 10px;
     }
 .datalist_date{
     margin-top: 12px;
@@ -111,14 +106,14 @@ padding: 10px;
     font-weight: bold;
     color: black;
     padding: 20px;
-    font-size:  calc(1vw + 9px);
-    left: 20px;
-    bottom: 20px;
-    top:25px;
+    font-size:  calc(1vw + 7px);
     border-radius: 30px 30px 30px 30px;
-    width: 50%;
+    width: 75%;
     height: 98%;
     align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    margin-top: 10px;
 
 }
 .datalist_time{
@@ -131,13 +126,13 @@ padding: 10px;
     font-weight: bold;
     color: #3F27F5;
     padding: 20px;
-    font-size:  calc(1vw + 9px);
-    left: 29px;
-    top:25px;
+    font-size:  calc(1vw + 6px);
     border-radius: 30px 30px 30px 30px;
-    width: 25%;
+    width: 56%;
     height: 98%;
     align-items: center;
+    margin-left: 10px;
+    margin-top: 10px;
 }
 .datalist_result{
     position: relative;
@@ -145,101 +140,129 @@ padding: 10px;
     display: flex;
     flex-direction: column;
     font-size:  calc(1vw + 20px);
-    margin-left: 10px;
+    margin-left: 50px;
     font-family: 'IBM Plex Sans Thai', sans-serif;
     font-weight: bold;
+    
 }
 .datalist_result a{
+    
     background-color: #84C2F4;
-    border-radius: 30px 30px 30px 30px;
-    margin-left: 50px;
+    border-radius: 30px 30px 30px 30px;   
+}
+.d1{
+    display: flex;   
+    justify-content: center;
+}
+.d1 a{ 
+    padding: 15px; 
+    padding-right: 65px;
+    margin-left: 107px;
+}
+.d2{
+    margin-top: 55px;
+    display: flex;   
+    justify-content: center;
     
-    margin-top: 12px;
-    
-    
 }
-
-.dr1{   
+.d2 a{  
+    padding: 15px; 
+    padding-right: 65px;   
+    margin-left: 85px; 
 }
-.dr1 a{  
-}
-.dr2{
-}
-.dr2 a{      
+.nt{
+    display: flex;
+   
 }
 .datalist_ap{
     position: relative;
     padding-top: 25px;
-    font-size: 80px;
+    font-size:  calc(1vw + 20px);
     font-family: 'IBM Plex Sans Thai', sans-serif;
+    display: flex;
     flex-direction: column;
     font-weight: bold;
-    left: 30px;
-   
-}
+    margin-left: 50px;
 
-.datalist_ap a{
-    position: relative;
-    left: 15px;
+}
+.datalist_ap span{
+    
+    position: relative; 
     background-color: #84C2F4 ;
-    margin-left: 15px;
     border-radius: 30px 30px 30px 30px;
     padding: 10px;
-    font-size: 40px;
-  
+    margin-top: 20px;
+    font-size:  calc(1vw + 15px);
+    
 }
 
 .datalist_alert{
     position: relative;
     flex-direction: column;
     display: flex;
-    margin-top: 60px;
-    font-size: 40px;
-    left: 30px;
+    margin-top:px;
+    font-size:  calc(1vw + 25px);
+   padding-left: 1px;
 }
 .datalist_alert div{
-    padding-top: 30px;
+    padding-top: 40px;
     font-family: 'IBM Plex Sans Thai', sans-serif;
 }
 .datalist_cf{
-    background-color: red;
+    background-color: #C70C2E;
     position: relative;
     display: flex;
     justify-content: center;
     text-decoration: none;
-    padding: 20px;
+    padding: 20px 0;
     width: 100%;
-    margin-top: 50px;
-   
-    font-size: calc(1vw + 24px);
+    font-size: 45px;
+    margin-top: -1%;
     font-family: 'IBM Plex Sans Thai', sans-serif;
     color: white;
+    bottom: 0;
+    margin-top: 50px;
+    
 }
-.datalist_result .dr2 a{
-    top: 1px;
-    font-size: 20px;
-    margin-left: 35px;
-    width: 50%;
 
-}
-.datalist_ap{
-    font-size: 35px;
-    left: 5px;
 
-}
-.datalist_ap a{
-    font-size: 18px;
-    left: 1px;
-    margin-left: 1px;
-}
-.datalist_alert{
-    font-size: 19px;
-    margin-top: 10px;
-    left: 1px;
-}
-.datalist_cf{
-    margin-top: 200px;
-}
+
 @media screen and (min-width : 0px) and (max-width : 800px){
-   
+   .datalist_undo{
+      width: 70px;
+      height: 70px;
+   }
+   .datalist_title{
+    margin-top: 10px;
+
+   }
+   .course_name{
+       margin-top: 40px;
+   }
+   .datalist_count {
+       margin-left: 0px;
+   }
+   .datalist_date
+   {
+       margin-left: 0.1px;
+   }
+   .datalist_time{
+       margin-left: 0.1px;
+   }
+   .datalist_result{
+       margin-left: 0px;
+       margin-top: 25px;
+   }
+   .d1 a{
+       margin-left: 35px;
+   }
+   .d2{
+    margin-top: 10px;
+   }
+   .d2 a{
+    margin-left: 25px;
+   }
+   .datalist_ap{
+    margin-left: 0px;
+   }
 }

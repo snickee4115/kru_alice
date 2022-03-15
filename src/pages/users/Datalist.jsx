@@ -8,16 +8,16 @@ import Name from '../../components/Name.jsx'
 
 export const Datalist = () => {
     const ti = [
-        {date:"SAT 12/06/2021 ",tim:"1 H. 0 S."},
-        {date:"SAT 12/06/2021 ",tim:"1 H. 0 S."},
-        {date:"SAT 12/06/2021 ",tim:"1 H. 0 S."},
-        {date:"SAT 12/06/2021 ",tim:"1 H. 0 S."},
-        {date:"SAT 12/06/2021 ",tim:"1 H. 0 S."},
-        {date:"SAT 12/06/2021 ",tim:"1 H. 0 S."},
-        {date:"SAT 12/06/2021 ",tim:"1 H. 0 S."},
-        {date:"SAT 12/06/2021 ",tim:"1 H. 0 S."},
-        {date:"SAT 12/06/2021 ",tim:"1 H. 0 S."},
-        {date:"SAT 12/06/2021 ",tim:"1 H. 0 S."}
+        {date:"SAT 12/06/2021 ",tim:"1 H. 0 min."},
+        {date:"SAT 12/06/2021 ",tim:"1 H. 0 min."},
+        {date:"SAT 12/06/2021 ",tim:"1 H. 0 min."},
+        {date:"SAT 12/06/2021 ",tim:"1 H. 0 min."},
+        {date:"SAT 12/06/2021 ",tim:"1 H. 25 min."},
+        {date:"SAT 12/06/2021 ",tim:"1 H. 0 min."},
+        {date:"SAT 12/06/2021 ",tim:"1 H. 0 min."},
+        {date:"SAT 12/06/2021 ",tim:"1 H. 0 min."},
+        {date:"SAT 12/06/2021 ",tim:"1 H. 0 min."},
+        {date:"SAT 12/06/2021 ",tim:"1 H. 0 min."}
     ]
   
     const na = "น้องเจแปน"
@@ -34,7 +34,7 @@ export const Datalist = () => {
             
             <Link  to ='/detail'>
             <img className='datalist_undo' src={Undo}></img>
-             </Link>
+            </Link>
              
                 
             <div className='course_name' >คอร์สเตรียมสอบอังกฤษประถมต้น</div>
@@ -53,25 +53,25 @@ export const Datalist = () => {
                         <div className='datalist_time'>{ti.map((value,index) => <div>{value.tim} </div>)}</div>
                     </div> */}
                     {ti.map((value,index ) => <div key={index} className='list_data'> 
-                        <div className='datalist_count'>{index+1}</div>  
+                        <div className='datalist_count'>ครั้งที่{index+1}</div>  
                         <div className='datalist_date'>{value.date}</div>    
                         <div className='datalist_time'>{value.tim} </div>    </div>)}
 
-
+                <div className='nt'>
                     <div className='datalist_result'>
-                        <div className='dr1'>รวม<a>{re}</a></div>
-                        <div className='dr2'>เหลือ<a>{re}</a></div>
+                        <div className='d1'>รวม<a>{re}</a></div>
+                        <div className='d2'>เหลือ<a>{re}</a></div>
                         </div>
-
-
+                </div>        
+                    <div className='nt'>
                         <div className='datalist_ap'>
                         <div >ขาด</div> 
-                        <div></div>
-                        <div><a > {ap} </a><a> {ap} </a></div>
+                        <span >{ap} </span>
+                        <span>{ap} </span>
                         
                     
-                    </div>
-
+                         </div>
+                         </div>
                     <div className='datalist_alert'>
                            <div>กรณีดังต่อไปนี้ <a style={{color:"red"}}>ไม่นับเป็นขาด</a></div>
                            <div>1.ครูยกเลิกคลาสเอง</div>
@@ -81,9 +81,9 @@ export const Datalist = () => {
                     </div>
             </div>
            
-            <div className='datalist_cf'>
+            <span className='datalist_cf'>
                 ยังไม่ชำระเงิน
-            </div>
+            </span>
             
 
         </div>
