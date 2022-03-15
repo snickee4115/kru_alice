@@ -6,7 +6,7 @@ import PopUp from '../../components/PopUp'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { async } from '@firebase/util'
 import toast, { Toaster } from 'react-hot-toast';
-import { addDoc, collection, Timestamp } from 'firebase/firestore'
+import { addDoc, collection, deleteField, doc, FieldValue, Timestamp, updateDoc } from 'firebase/firestore'
 import { db } from '../../firebase'
 import { AuthContext } from '../../context/auth'
 
@@ -18,7 +18,7 @@ const AddCourse = () => {
   const navigate = useNavigate();
   const [dataCourse, setDataCourse] = useState({courseName:'', courseDetail:''});
   const { courseName, courseDetail } = dataCourse;
-  const { moreHours } = useContext(AuthContext);
+  const { allOverHours } = useContext(AuthContext);
   const { nameStudent } = useContext(AuthContext);
 
   useEffect(() => {
@@ -31,17 +31,30 @@ const AddCourse = () => {
   
   const handleChange = (e) => {
     setDataCourse({ ...dataCourse, [e.target.name]: e.target.value });
+    console.log(e.target.value);
   }
 
   
   const handleSubmit = async (e) => {
+    
     const addCourse = addDoc(collection(db, 'students', stdid, 'courses'), {
       ownerCourseID: stdid,
       courseName: dataCourse.courseName,
       sumHours: 0,
       detail:dataCourse.courseDetail,
       createAt: Timestamp.fromDate(new Date()),
+      stamp: allOverHours.hours && [{
+        hours: allOverHours.hours,
+        date: allOverHours.lastStamp,
+        status: false
+      }]
+      
+    }).then(() => {
+      updateDoc(doc(db, 'students', stdid), {
+        overHours: deleteField(),
+      })
     })
+
     toast.promise(addCourse, {
       loading: 'กำลังดำเนินการ',
       success: 'เพิ่มข้อมูลคอร์สสำเร็จ',
@@ -92,7 +105,7 @@ const AddCourse = () => {
                           </div>
                           ] : 
                           <div>
-                              <div>มีเวลาค้างอยู่ในระบบ {parseInt(moreHours)} ชม. {(parseInt(moreHours*10))%10*6} นาที</div>
+                              <div>มีเวลาค้างอยู่ในระบบ {parseInt(allOverHours.hours)} ชม. {Math.round((allOverHours.hours*60)-parseInt(allOverHours.hours)*60)} นาที</div>
                               <div>ต้องการให้ลงในคอร์สใหม่หรือไม่ ?</div>
                           </div>
                         }
@@ -102,7 +115,7 @@ const AddCourse = () => {
                       typeButton='button'
                       onOk={() => {
                         if (popUp1) {
-                          if (moreHours <= 0) {
+                          if (!allOverHours.hours) {
                             setPopUp1(false);
                             handleSubmit();
                           } else {

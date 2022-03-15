@@ -7,10 +7,12 @@ import './Admin.css'
 
 const Admin = () => {
     const [undo, setUndo] = useState(true);
+    const [home, setHome] = useState(false);
+    const [uback, setUback] = useState();
   return (
-    <DataContext.Provider value={{setUndo:setUndo}}>
+    <DataContext.Provider value={{setUndo:setUndo, setHome, home, uback, setUback}}>
         <div className='admin_container'>
-            <AdminHeader useUndo={undo}/>
+            <AdminHeader useHome={home} useUndo={undo}/>
             <Outlet />
         </div>
     </DataContext.Provider>

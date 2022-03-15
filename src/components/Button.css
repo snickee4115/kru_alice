@@ -59,7 +59,7 @@
 }
 .sub_button{
     display: flex;
-    background-color: #D19090;
+    background-color: #F48491;
     border-radius: 30px;
     /* min-height: 100px; */
     padding: 2% 0;
@@ -79,6 +79,7 @@
     
 }
 .ap_button{
+    background-color: #F48491;
     justify-content: center;
     margin-top: 80px;
     color: #000;

@@ -72,19 +72,34 @@ const AdminLogin = () => {
         toast.promise(result, {
           loading: 'กำลังเข้าสู่ระบบ',
           success: 'เข้าสู่ระบบสำเร็จ',
-          error: 'เข้าสู่ระบบไม่สำเร็จ'
+          error: (err) => {
+            if (err.code == 'auth/wrong-password') {
+              setData({ ...data, error: "กรุณากรอกรหัสผ่านให้ถูกต้อง", loading: false });
+              return"กรุณากรอกรหัสผ่านให้ถูกต้อง";
+            } else if (err.code == 'auth/too-many-requests'){
+              setData({ ...data, error: "มีการเข้าสู่ระบบมากเกินไปกรุณาลองใหม่ในอีกซักครู่", loading: false });
+              return"มีการเข้าสู่ระบบมากเกินไปกรุณาลองใหม่ในอีกซักครู่";
+            } else if (err.code == 'auth/user-not-found') {
+              setData({ ...data, error: "ไม่พบอีเมลนี้ในระบบกรุณาลองใหม่อีกครั้ง", loading: false });
+              return"ไม่พบอีเมลนี้ในระบบกรุณาลองใหม่อีกครั้ง";
+            } else if (err.code == 'auth/invalid-email') {
+              setData({ ...data, error: "กรุณากรอกอีเมลให้ถูกต้อง", loading: false });
+              return"กรุณากรอกอีเมลให้ถูกต้อง";
+            }
+          }
         }).then(() => {
           navigate("/student_list");
+        }).catch(() => {
+          setData({ ...data, loading: false });
       })
-        
+
         // navigate("/student_list");
- 
-        
+
       } catch (err) {
         setData({ ...data, error: err.message, loading: false });
         if (err.code == 'auth/wrong-password') {
-          setData({ ...data, error: "อีเมลหรือรหัสผ่านไม่ถูกต้อง", loading: false });
-          toast.error("อีเมลหรือรหัสผ่านไม่ถูกต้อง");
+          setData({ ...data, error: "กรุณากรอกรหัสผ่านให้ถูกต้อง", loading: false });
+          toast.error("กรุณากรอกรหัสผ่านให้ถูกต้อง");
         } else if (err.code == 'auth/too-many-requests'){
           setData({ ...data, error: "มีการเข้าสู่ระบบมากเกินไปกรุณาลองใหม่ในอีกซักครู่", loading: false });
           toast.error("มีการเข้าสู่ระบบมากเกินไปกรุณาลองใหม่ในอีกซักครู่");
