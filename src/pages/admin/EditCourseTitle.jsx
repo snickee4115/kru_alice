@@ -12,17 +12,24 @@ const EditCourseTitle = () => {
   const { pathname } = useLocation();
   const stdid = pathname.split('/')[3];
   const { courseid } = useParams();
-  const [ titleCourse, setTitleCourse ] = useState();
+  // const [titleCourse, setTitleCourse] = useState();
+  const [dataCourse, setDataCourse] = useState({ titleCourse: '', detailCourse: '' });
+  const { titleCourse, detailCourse } = dataCourse;
 
   useEffect(() => {
     getDoc(doc(db, 'students', stdid, 'courses', courseid)).then(docSnap => {
       if (docSnap.exists) {
-        setTitleCourse(docSnap.data().courseName);
+        // setTitleCourse(docSnap.data().courseName);
+        setDataCourse({titleCourse: docSnap.data().courseName, detailCourse: docSnap.data().detail})
       }
     })
     
     console.log(titleCourse);
   }, [])
+
+  const handleChange = (e) => {
+    setDataCourse({...dataCourse, [e.target.name] : e.target.value})
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,6 +38,7 @@ const EditCourseTitle = () => {
     } else {
       const updateCourse = updateDoc(doc(db, 'students', stdid, 'courses', courseid), {
         courseName: titleCourse,
+        detail: detailCourse
       })
       toast.promise(updateCourse, {
         loading: 'กำลังดำเนินการแก้ไข',
@@ -51,7 +59,14 @@ const EditCourseTitle = () => {
             </div>
             <form onSubmit={handleSubmit} className="form_edit_course">
                 <div className='title_form_edit_course'>ชื่อคอร์ส</div>
-                <input onChange={(e)=>setTitleCourse(e.target.value)} value={titleCourse} type="text" />
+                <input name='titleCourse' onChange={handleChange} value={titleCourse} type="text" />
+                <div className='edit_course_text'>รายละเอียดคอร์ส</div>
+                <textarea 
+                    type="text" 
+                    name='detailCourse'
+                    value={detailCourse}
+                    onChange={handleChange}
+                    placeholder={'เรียนวันพฤหัส 17.30 - 19.30 น. \nคอร์สที่ 2 : เรียน 10 ครั้ง 2000 บาท'}/>
                 <Button name="ยืนยัน" type='ok'></Button>
             </form>
             <Toaster />

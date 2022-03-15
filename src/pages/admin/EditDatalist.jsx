@@ -43,7 +43,7 @@ const titlee = {day:"เรียนวันพฤหัส 17.30 - 19.30 น."
 
             <div className='editdatalist_data'>
                    
-                    {ti.map((value,index ) => <div className='editdatalist_list_data'> 
+                    {ti.map((value,index ) => <div key={index} className='editdatalist_list_data'> 
                         <div className='editdatalist_count'>{index+1}</div>  
                         <div className='editdatalist_date'>{value.date}</div>    
                         <div className='editdatalist_time'>{value.tim} </div>    </div>)}

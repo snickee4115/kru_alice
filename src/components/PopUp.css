@@ -9,7 +9,7 @@
     top: 0;
     width: 100%;
     height: 100vh;
-    
+    z-index: 1000;
 }
 
 .app_container .popup_continer{
@@ -29,6 +29,7 @@
     min-height: calc(7vw + 250px);
     font-size: calc(1vw + 20px);
     font-weight: 400;
+    border-radius: 30px;
 }
 
 .popup_box .popup_content{
@@ -39,6 +40,9 @@
     justify-content: center;
     text-align: center;
     flex-grow: 1;
+    width: 100%;
+    height: 100%;
+    
 }
 
 .popup_button_container{

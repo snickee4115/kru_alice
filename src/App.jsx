@@ -38,7 +38,7 @@ function App() {
 
                   <Route path='admin_login' element={<AdminLogin/>}/>
                   <Route path='edit_data' element={<EditData/>}/>
-                  <Route path='Admin_datalist' element={<AdminDatalist/>}/>
+                  {/* <Route path='admin_datalist' element={<AdminDatalist/>}/> */}
                   <Route path='student_list' element={<Admin/>}>
                     <Route index element={<StudentList/>}/>
                     <Route  path='edit_tel/:stdid' element={<EditTel/>}/>
@@ -47,12 +47,12 @@ function App() {
                       <Route  index element={<DetailStudent/>}/>
                       <Route  path='edit_course_title/:courseid' element={<EditCourseTitle/>}/>
                       <Route  path='add_course/' element={<AddCourse/>}/>
+                      <Route path='admin_datalist/:courseid' element={<AdminDatalist/>}/>
                     </Route>
-                    <Route  path='detail_student/edit_course_title' element={<EditCourseTitle/>}/>
-                    <Route  path='detail_student/add_course' element={<AddCourse/>}/>
-                
+               
+                    
                   </Route>
-                  
+                  {/* <Route path='/student_list/detail_student/:stdid/admin_datalist/:cid' element={<AdminDatalist/>}/> */}
         
             </Routes>
         

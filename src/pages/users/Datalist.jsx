@@ -52,7 +52,7 @@ export const Datalist = () => {
                         <div className='datalist_date'>{ti.map((value,index) => <div>{value.date} </div>)}</div>
                         <div className='datalist_time'>{ti.map((value,index) => <div>{value.tim} </div>)}</div>
                     </div> */}
-                    {ti.map((value,index ) => <div className='list_data'> 
+                    {ti.map((value,index ) => <div key={index} className='list_data'> 
                         <div className='datalist_count'>{index+1}</div>  
                         <div className='datalist_date'>{value.date}</div>    
                         <div className='datalist_time'>{value.tim} </div>    </div>)}
