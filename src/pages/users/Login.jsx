@@ -56,7 +56,7 @@ const Login = () => {
             success: 'เข้าสู่ระบบสำเร็จ',
             error: 'ไม่พบหมายเลขนี้ในระบบ'
         }).then(()=>{
-            navigate('/detail?telstd='+tel)
+            navigate('/detail/'+tel)
         })
 
 

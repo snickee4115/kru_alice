@@ -4,7 +4,7 @@ import Undo from '../../assets/undo.png'
 import Cat from '../../assets/cat.png'
 import Button from '../../components/Button'
 import Logo from '../../components/Logo'
-import { Link, useParams, useSearchParams } from 'react-router-dom'
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import toast, { Toaster } from 'react-hot-toast';
 import { collection, getDocs, onSnapshot, query, QuerySnapshot, where } from 'firebase/firestore'
@@ -17,18 +17,24 @@ import { AuthContext } from '../../context/auth'
 
 
 const Detail = ({ setDisabledLogo }) => {
+  const navigate = useNavigate();
   const [goBack, setGoBack] = useState(false);
   const ab = "  "
-  const [studentList, setStudetList] = useState([{ id: '', name: '', course: [], hours: [] }]);
+  const [studentList, setStudetList] = useState([{
+    id: '', name: '',
+    courses: [],
+    hours: []
+  }]);
   // const [course, setCourse] = useState([{course: [], hours: 0 }]);
-  const [course, setCourse] = useState([]);
+
   // const {}
-  const [searchParams] = useSearchParams();
-  const telstd = searchParams.get('telstd');
+  // const [searchParams] = useSearchParams();
+  // const telstd = searchParams.get('telstd');
+  const {telstd} = useParams();
 
   useEffect(async () => {
     // const q = await query(collection(db, 'students'), where('tel', '==', telstd));
-    
+
     // const unsub = await onSnapshot(q, (querySnapshot) => {
     //   let std = [];
     //   let index = 0;
@@ -43,7 +49,7 @@ const Detail = ({ setDisabledLogo }) => {
     //     std[index].id = docSnap.id;
 
     //     const q = await query(collection(db, 'students', docSnap.id, 'courses'));
-        
+
     //     await onSnapshot(q, async (querySnapshot) => {
     //       if (querySnapshot) {
     //         await querySnapshot.forEach(docSnap => {
@@ -51,14 +57,14 @@ const Detail = ({ setDisabledLogo }) => {
     //           std[index].course.push(docSnap.data().courseName);
     //           std[index].hours = docSnap.data().sumHours;
     //           courses[index].course.push(docSnap.data().courseName);
-            
+
     //         })
     //         index++
     //       }
-          
+
     //     })
     //     // index = index+1;
-        
+
     //   })
     //   // let courses = [{ course: [], hours: 0 }];
     //   // std.forEach(async (student) => {
@@ -73,37 +79,38 @@ const Detail = ({ setDisabledLogo }) => {
     //   //     })
     //   //     index = index+1;
     //   //   })
-        
+
     //   // })
-let std = [];
+    let std = [];
     new Promise(async (resolve) => {
       const q = await query(collection(db, 'students'), where('tel', '==', telstd));
-      
+
       (await getDocs(q)).forEach(async (docSnap) => {
         await std.push({
           id: docSnap.id,
           name: docSnap.data().name,
-          course: [],
+          courses: [],
           hours: [],
         })
       })
-      
+
       resolve(std)
     }).then(async (std) => {
       // setStudetList(std)
       console.log(std.length);;
       let index = 0;
-      let newstd = [];;;
-      for (let i = 0; i < std.length; i++){
+      // let newstd = [];;;
+      for (let i = 0; i < std.length; i++) {
         const q = query(collection(db, 'students', std[i].id, 'courses'));
         // setCourse([]);
         (await getDocs(q)).forEach(async (docSnap) => {
-          newstd.push(docSnap.data().courseName);
-          std[i].course.push(docSnap.data().courseName);
-          std[i].hours.push(docSnap.data().sumHours);
+          // newstd.push(docSnap.data().courseName);
+          std[i].courses.push(docSnap);
+
         });
       }
-      setCourse(newstd);;;
+      console.log(std);
+      // setCourse(newstd);;;
       setStudetList(std);
       // let index = 0;
       // let newstd = [];;;
@@ -115,111 +122,146 @@ let std = [];
       //     setCourse(...course, newstd);
       //   })
       // });
-      
-      
+
+
       // // console.log(std[0].course.length);
-      return newstd;
+      // return newstd;
     }).then((std) => {
       // console.log(std.length);;
       // std.forEach((e) => {
       //   console.log("e");
       // })
-      
+
       // setCourse(std);
       // console.log(course[0].course[0]);
       // setStudetList(std);
       // console.log(course)
     })
-    
+
     // });
     // setStudetList(std);
     //   setCourse(courses);
     //   console.log(studentList);
     //   console.log(course)
-      // return () => unsub();
+    // return () => unsub();
   }, [])
 
   return (
-    
+
     <motion.div
-      style={{position:'absolute', width: '100%'}}
+      style={{ position: 'absolute', width: '100%' }}
       initial={{ opacity: 0, x: '25%' }}
       animate={{ opacity: 1, x: 0 }}
       exit={goBack ? null : { opacity: 0, x: '25%' }}
-      transition={{duration: 1 }}
+      transition={{ duration: 1 }}
       className='detail_container'>
-        <Link to ='/login'>
-          <img className='detail_undo' src={Undo}></img>
-        </Link>
-        <Link to ='/'>
-          <div className='detail_logo'>
-            <motion.div
-                transition={{ duration: 0.5 }}
-                layoutId='logo'
-            >
-              <Logo/>
-            </motion.div>
-          </div>
-        </Link>
-        <div className='emty'></div>
-        
-        {studentList.map((value,index) =>
+      <Link to='/login'>
+        <img className='detail_undo' src={Undo}></img>
+      </Link>
+      <Link to='/'>
+        <div className='detail_logo'>
+          <motion.div
+            transition={{ duration: 0.5 }}
+            layoutId='logo'
+          >
+            <Logo />
+          </motion.div>
+        </div>
+      </Link>
+      <div className='emty'></div>
+
+      {studentList.map((student, index) =>
         <div key={index} className='detail_wrapper'>
-          
-            <div className='cat_container'>
 
-              <div >
-                <div className='detail_student_name'>{value.name}</div>
+          <div className='cat_container'>
 
-               </div>
-               <img className='catty' src={Cat} ></img>
-                <div className='detail_type' >
-                  COURSE
-                </div>
-            <div className='detail_type'>
-              <div style={{ display:'flex', flexDirection:'column'}}>
-                {value.course.map((course, index ) => 
-                  <Link to='/datalist'  key={index}>
-                    {course}
-                  </Link>
-                )}
-              </div>
-       
-              <div className='remaint'>
-                {value.hours.map((hours, index ) => 
-                  <div key={index}>
-                    <span style={{ color: hours > 10 ? '#D91919' : '#3C00E9'  }}>
-                      { hours <= 10 ?
-                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{hours}/10 hr.</span>
-                        :
-                      <span>เกิน {parseInt(hours - 10) } hr. {Math.round(((((hours) - 10)*10))%10*6)} min.</span>
-                      }
-                      </span>
-                  </div>
-                  
-                 
-                )}  
-                </div>
-                
-            </div >         
-          
+            <div >
+              <div className='detail_student_name'>{student.name}</div>
+
             </div>
-        </div>)
-        }
-        
+            <img className='catty' src={Cat} ></img>
+            <div className='detail_type' >
+              COURSE
+            </div>
+            <div className='detail_type'>
+              {student.courses.map((course, index) =>
+                <div className='remaint' key={index}>
+                  <div style={{
+                    // border: '1px solid',
+                    flex: '4',
+                  }}>
+                    <div
+                      onClick={()=>{navigate('datalist/stdid='+student.id+'?courseid='+course.id);}}
+                      style={{
+                      cursor: 'pointer',
+                      display: 'inline-flex',
+                    }}>{course.data().courseName}</div>
+                  </div>
+                  <div style={{
+                    // display:'inline-flex',
+                    // border: '1px solid',
+                    flex: 
+                      course.data().overHours ?
+                      course.data().finished ?
+                        '3'
+                        :
+                        '3'
+                      :
+                      '3'
+                    ,
+                    textAlign:'center',
+                    color:
+                      course.data().overHours ?
+                        course.data().finished ?
+                          '#986363'
+                          :
+                          '#D91919'
+                        :
+                        '#3C00E9'
 
-        
-        
-      <Link onClick={() => { setGoBack(!goBack); setDisabledLogo(true); }} to ='/' style={{textDecoration:'none', color:'#000'}}>
+                  }} >
+                    {
+                      course.data().overHours ?
+                        course.data().finished ?
+                          <span>ครบแล้ว</span>
+                          :
+                          <span>
+                            {"เกิน " +
+                              parseInt(course.data().overHours) +
+                              " ชม. " +
+                              Math.round(
+                                course.data().overHours * 60 -
+                                parseInt(course.data().overHours) * 60
+                              ) +
+                              " นาที"}
+                          </span>
+                        :
+                        <span>{course.data().sumHours}/10 hr.</span>
+                    }</div>
+                </div>)
+              }
+     
+
+
+            </div >
+
+          </div>
+        </div>)
+      }
+
+
+
+
+      <Link onClick={() => { setGoBack(!goBack); setDisabledLogo(true); }} to='/' style={{ textDecoration: 'none', color: '#000' }}>
         <motion.div
           // transition={{duration: 1 }}
           layoutId='log_button'
           className='detail_logout'
         >
-          <Button type='logout' name='ลงชื่อออก'/>
+          <Button type='logout' name='ลงชื่อออก' />
         </motion.div>
-        </Link>
-        <Toaster />
+      </Link>
+      <Toaster />
     </motion.div>
   )
 }

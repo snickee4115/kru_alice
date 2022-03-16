@@ -33,8 +33,8 @@ function App() {
               <Routes key={location.pathname} location={location}>
                   <Route exact path='/' element={<Main disabledLogo={disabledLogo} setDisabledLogo={setDisabledLogo}/>}/>
                   <Route path='login' element={<Login/>}/>
-                  <Route path='detail' element={<Detail setDisabledLogo={setDisabledLogo}/>}/>
-                  <Route path='datalist' element={<Datalist/>}/>
+                  <Route path='detail/:telstd' element={<Detail setDisabledLogo={setDisabledLogo}/>}/>
+                  <Route path='detail/:telstd/datalist/stdid=:stdid' element={<Datalist/>}/>
 
                   <Route path='admin_login' element={<AdminLogin/>}/>
                   <Route path='edit_data' element={<EditData/>}/>

@@ -23,19 +23,24 @@
     font-size: calc(1vw + 22px);
     margin-bottom: 5%;
     text-align: center;
+    word-break: break-word;
 }
 
 .detail_student_routes_container_home .name_label{
-    display: flex;
+    display: inline-block;
     justify-content: center;
     /* font-size: calc(1vw + 22px); */
     margin-bottom: 5%;
     text-align: center;
+    word-break: break-word;
+    /* width: 100%; */
+    /* border: 1px solid; */
 }
 
 .detail_student_routes_container .name_label .namestu{
     font-size: calc(1vw + 30px);
     left: 0px;
+    width: 100%;
 }
 
 .detail_student_routes_container_home .name_label .namestu{
@@ -43,4 +48,6 @@
     font-size: calc(1.5vw + 12px);
     left: 0px;
     top: 0px;
+    /* border: 1px solid; */
+    width: 50%;
 }

@@ -24,8 +24,8 @@ const AdminHeader = ({ useUndo, useHome }) => {
               useUndo ?
                 <img style={{ cursor: 'pointer' }}
                   onClick={() => {
-                    navigate(uback)
-                    // navigate(-1);
+                    // navigate(uback)
+                    navigate(-1);
                   }}
                   src={UndoButton} />
                 : null

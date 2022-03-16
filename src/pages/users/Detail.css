@@ -75,22 +75,22 @@
 }
 .detail_logo .logo_name{
     position: relative;
-    width: 280px;
-    height: 50px;
+    /* width: 280px;
+    height: 50px; */
     font-size: 70px;
+    font-size: calc(3vw + 40px);
+    
 }
-.detail_logo .logo_highlight{
+/* .detail_logo .logo_highlight{
     display: flex;
 
     width: 180px;
     height: 69px;
-}
+} */
 .type{
     
     display: flex;
     flex-direction: row;
-    padding-top: 25px;
-    padding-left: 30px;
     font-family: 'IBM Plex Sans Thai', sans-serif;
     font-size: calc(1vw + 10px);
     
@@ -98,21 +98,21 @@
 }
 .detail_type{
     display: flex;
-    flex-direction: row;
-    padding-top: 25px;
-    padding-left: 30px;
+    flex-direction: column;
+    margin: 5% 0 0 5%;
     font-family: 'IBM Plex Sans Thai', sans-serif;
     font-weight: bold;
     font-size: calc(1vw + 10px);
-    
+    /* border: 1px solid; */
     
 }
 
 .remaint{
-    position: absolute;
-    left: 420px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
     font-size: calc(1vw + 10px);
-        
+    /* border: 1px solid; */
     }
 
 @media screen and (min-width : 0px) and (max-width : 800px){
@@ -121,9 +121,9 @@
     
     .detail_logo .logo_name{
         position: relative;
-        width: 280px;
-        height: 50px;
-        font-size: 70px;
+        /* width: 280px;
+        height: 50px; */
+        /* font-size: 70px; */
     }
  
     .type{
