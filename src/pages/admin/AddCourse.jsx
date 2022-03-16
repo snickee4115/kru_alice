@@ -6,7 +6,7 @@ import PopUp from '../../components/PopUp'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { async } from '@firebase/util'
 import toast, { Toaster } from 'react-hot-toast';
-import { addDoc, collection, deleteField, doc, FieldValue, Timestamp, updateDoc } from 'firebase/firestore'
+import { addDoc, collection, collectionGroup, deleteField, doc, FieldValue, getDocs, onSnapshot, orderBy, query, QuerySnapshot, startAt, Timestamp, updateDoc, where, writeBatch } from 'firebase/firestore'
 import { db } from '../../firebase'
 import { AuthContext } from '../../context/auth'
 
@@ -15,18 +15,32 @@ const AddCourse = () => {
   const [popUp2, setPopUp2] = useState(false);
   const { pathname } = useLocation();
   const stdid = pathname.split('/')[3];
+
   const navigate = useNavigate();
   const [dataCourse, setDataCourse] = useState({courseName:'', courseDetail:''});
   const { courseName, courseDetail } = dataCourse;
-  const { allOverHours } = useContext(AuthContext);
-  const { nameStudent } = useContext(AuthContext);
+  const { nameStudent} = useContext(AuthContext);
+  const [allOverHours, setAllOverHours] = useState();
+  const [allCourse, setAllCourse] = useState([]);
 
   useEffect(() => {
     console.log(stdid)
+    const unsub = onSnapshot(doc(db, 'students', stdid), (docSnap) => {
+      setAllOverHours(docSnap.data().overHours);
+
+    })
+    // const q = query(collection(db, 'students', stdid, 'courses'), where('finished', '==', null))
+    //     onSnapshot(q, (querySnapshot) => {
+    //       querySnapshot.forEach(async(docSnap) => {
+    //         console.log(docSnap.id);
+            
+    //       })
+    //   })
     // if (!state) {
     //   // navigate('/student_list');
     //   // console.log("objectzzzz");
     // }
+    return () => unsub();
   }, []);
   
   const handleChange = (e) => {
@@ -36,23 +50,72 @@ const AddCourse = () => {
 
   
   const handleSubmit = async (e) => {
+
+    
     
     const addCourse = addDoc(collection(db, 'students', stdid, 'courses'), {
       ownerCourseID: stdid,
       courseName: dataCourse.courseName,
-      sumHours: 0,
+      sumHours: allOverHours.hours ? Number(allOverHours.hours) : Number(0),
       detail:dataCourse.courseDetail,
       createAt: Timestamp.fromDate(new Date()),
+      overHours: allOverHours.hours > 10 ? Number(allOverHours.hours - 10) : Number(0),
+      finished:null,
       stamp: allOverHours.hours && [{
         hours: allOverHours.hours,
         date: allOverHours.lastStamp,
         status: false
       }]
       
-    }).then(() => {
-      updateDoc(doc(db, 'students', stdid), {
-        overHours: deleteField(),
-      })
+    }).then(async () => {
+      if (allOverHours.hours) {
+        
+        const q = query(collection(db, 'students', stdid, 'courses'), where('overHours', '>', 0));
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((docSnap) => {
+          if (!docSnap.data().finished) {
+            updateDoc(doc(db, 'students', stdid, 'courses', docSnap.id), {
+              finished: Timestamp.fromDate(new Date()),
+            })
+          }
+          console.log('docSnap.id');
+          console.log(docSnap.id);
+        });
+        // const unsub = onSnapshot(q, (querySnapshot) => {
+        //   querySnapshot.forEach( (docSnap) => {
+            // if (!docSnap.data().finished) {
+            //   updateDoc(doc(db, 'students', stdid, 'courses', docSnap.id), {
+            //     finished: Timestamp.fromDate(new Date()),
+            //   })
+            // }
+            
+        //     console.log('docSnap.id');
+        //     console.log(docSnap.id);
+        //   })
+        // })
+        // const querySnapshot = await getDocs(q);
+        // querySnapshot.forEach((docSnap) => {
+        //   updateDoc(doc(db, 'students', stdid, 'courses', docSnap.id), {
+        //     finished: Timestamp.fromDate(new Date()),
+        //   })
+        //   console.log('docSnap.id');
+        //   console.log(docSnap.id);
+        // });
+
+        // onSnapshot(q, (querySnapshot) => {
+        //   querySnapshot.forEach(async(docSnap) => {
+        //     updateDoc(doc(db, 'students', stdid, 'courses', docSnap.id), {
+        //       finished: Timestamp.fromDate(new Date()),
+        //     })
+        //     console.log('docSnap.id');
+        //     console.log(docSnap.id);
+        //   })
+        // })
+        updateDoc(doc(db, 'students', stdid), {
+          overHours: {hours: 0, lastStamp: null},
+        })
+        return () => unsub();
+      }
     })
 
     toast.promise(addCourse, {

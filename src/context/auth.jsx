@@ -7,7 +7,8 @@ export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
     
     const [user, setUser] = useState(null);
-    const [allOverHours, setAllOverHours] = useState();
+    // const [allOverHours, setAllOverHours] = useState();
+    // const [allCourse, setAllCourse] = useState([]);
     const [nameStudent, setNameStudent] = useState();
     const [stdid, setStdid] = useState();
 
@@ -17,7 +18,7 @@ const AuthProvider = ({ children }) => {
         })
     }, [])
     
-    return <AuthContext.Provider value={{ user, allOverHours, setAllOverHours, nameStudent, setNameStudent, stdid, setStdid }}>
+    return <AuthContext.Provider value={{ user, nameStudent, setNameStudent, stdid, setStdid }}>
         {children}
     </AuthContext.Provider>
 }

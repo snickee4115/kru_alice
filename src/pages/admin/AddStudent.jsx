@@ -1,6 +1,6 @@
-import { setDoc,addDoc, collection, doc, getDoc, orderBy, query, updateDoc, Timestamp, onSnapshot, limit } from 'firebase/firestore'
+import { setDoc, addDoc, collection, doc, getDoc, orderBy, query, updateDoc, Timestamp, onSnapshot, limit } from 'firebase/firestore'
 import React, { useState } from 'react'
-import { useNavigate,  } from 'react-router-dom'
+import { useNavigate, } from 'react-router-dom'
 import Button from '../../components/Button'
 import { auth, db } from '../../firebase'
 import './AddStudent.css'
@@ -16,8 +16,8 @@ const AddStudent = () => {
         course: '',
         error: null,
     });
-    
-    const { name, tel, course, error} = dataUser;
+
+    const { name, tel, course, error } = dataUser;
     const handleChange = (e) => {
         setDataUser({ ...dataUser, [e.target.name]: e.target.value });
     };
@@ -26,10 +26,10 @@ const AddStudent = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setDataUser({...dataUser, error:null})
-        if (!name || !tel || !course) { 
+        setDataUser({ ...dataUser, error: null })
+        if (!name || !tel || !course) {
             toast.error('กรุณากรอกข้อมูลให้ครบ');
-        }else{
+        } else {
             let id = uuid().slice(0, 8);
             const addstd = setDoc(doc(db, "students", id), {
                 adminID: auth.currentUser.uid,
@@ -37,13 +37,17 @@ const AddStudent = () => {
                 tel: tel,
                 course: [course],
                 createAt: Timestamp.fromDate(new Date()),
+                overHours: { hours: 0, lastStamp: null }
             }).then(() => {
                 addDoc(collection(db, 'students', id, "courses"), {
                     ownerCourseID: id,
                     courseName: course,
-                    sumHours: 0,
-                    detail:'',
+                    sumHours: Number(0),
+                    detail: '',
                     createAt: Timestamp.fromDate(new Date()),
+                    overHours: Number(0),
+                    finished: null,
+                    stamp: []
                 })
             })
             // toast.promise(addstd, {
@@ -70,26 +74,26 @@ const AddStudent = () => {
                     error: null,
                 });
             })
-            
-            
-            
+
+
+
             // navigate('/student_list');
         }
-        
+
     };
 
 
 
-  return (
-      <div className='add_student_container'>
-          <form onSubmit={handleSubmit} className="form_add_student">
-              <div>ชื่อ</div>
-              <input name='name' value={name} onChange={handleChange} type="text" />
-              <div>เบอร์มือถือ</div>
-              <input name='tel' value={tel} onChange={handleChange} type="number" />
-              <div>ชื่อคอร์สแรก</div>
-              <input name='course' value={course} onChange={handleChange} type="text" />
-              {/* {error ?
+    return (
+        <div className='add_student_container'>
+            <form onSubmit={handleSubmit} className="form_add_student">
+                <div>ชื่อ</div>
+                <input name='name' value={name} onChange={handleChange} type="text" />
+                <div>เบอร์มือถือ</div>
+                <input name='tel' value={tel} onChange={handleChange} type="number" />
+                <div>ชื่อคอร์สแรก</div>
+                <input name='course' value={course} onChange={handleChange} type="text" />
+                {/* {error ?
                   <div style={{
                     display:'flex',
                     justifyContent:'center',
@@ -107,13 +111,13 @@ const AddStudent = () => {
                     top: '13px',
                     visibility:'hidden'
                 }}>ข้อความที่ซ่อน</div>} */}
-              <Button name="ยืนยัน" type='ok'></Button>
-          </form>
-          
-          <Toaster />
-          
-      </div>
-  )
+                <Button name="ยืนยัน" type='ok'></Button>
+            </form>
+
+            <Toaster />
+
+        </div>
+    )
 }
 
 export default AddStudent

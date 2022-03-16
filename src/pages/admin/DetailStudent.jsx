@@ -25,7 +25,9 @@ const DetailStudent = () => {
   const [listCourses, setListCourses] = useState([]);
   const [coursePopUp, setCoursePopUp] = useState();
   // const [moreHours, setMoreHours] = useState();
-  const { allOverHours, setAllOverHours } = useContext(AuthContext);
+  const [allOverHours, setAllOverHours] = useState({hours: 0, lastStamp: null});
+  const [allCourse, setAllCourse] = useState([]);
+  const [hasLoaded, setHasLoaded] = useState();
 
   useEffect(() => {
     const q = query(
@@ -47,9 +49,9 @@ const DetailStudent = () => {
       onSnapshot(doc(db, 'students', stdid), (docSnap) => {
         setAllOverHours(docSnap.data().overHours);
       })
-      setListCourses(temp);
-      console.log(listCourses);
-    });
+      setAllCourse(temp);
+      console.log(allCourse);
+    })
     return () => unsub();
   }, [user]);
 
@@ -75,7 +77,7 @@ const DetailStudent = () => {
     <div className="detail_student_container">
       <div className="course_label_text">COURSE</div>
       <div className="student_list_course">
-        {listCourses.map((course, index) => (
+        {allCourse.map((course, index) => (
           <div key={index} className="wrapper_student_course">
             <div
               onClick={() => navigate("admin_datalist/" + course.id)}
@@ -100,7 +102,7 @@ const DetailStudent = () => {
               <span
                 style={{
                   // color: course.data().sumHours > 10 ? "#D91919" : "#3C00E9",
-                  color: course.data().overHours >= 0 ?
+                  color: course.data().overHours ?
                     course.data().finished ?
                       "#986363"
                       :
@@ -109,7 +111,7 @@ const DetailStudent = () => {
                     "#3C00E9"
                 }}
               >
-                {course.data().overHours >= 0 ? (
+                {course.data().overHours ? (
                   course.data().finished ? (
                     <span>ครบแล้ว</span>
                   ) : (
@@ -162,7 +164,7 @@ const DetailStudent = () => {
           alignItems: "center",
         }}
       >
-        {allOverHours ? (
+        {allOverHours.hours ? (
           <div className="hours_over_text">
             มีชั่วโมงที่เกินมาในระบบ {parseInt(allOverHours.hours)} Hr.{" "}
             {Math.round(
