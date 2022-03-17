@@ -1,6 +1,6 @@
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import AdminHeader from '../../components/AdminHeader'
 import Button from '../../components/Button'
 import { db } from '../../firebase'
@@ -11,6 +11,7 @@ import { async } from '@firebase/util'
 const EditTel = () => {
     const { stdid } = useParams();
     const [ student, setStudent ] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         getDoc(doc(db, 'students', stdid)).then(docSnap => {
@@ -31,6 +32,8 @@ const EditTel = () => {
             loading: 'กำลังดำเนิการแก้ไข',
             success: 'แก้ไขเบอร์โทรสำเร็จ',
             error: 'แก้ไขเบอร์โทรไม่สำเร็จ',
+        }).then(()=> {
+            navigate('/admin')
         })
     }
   return (

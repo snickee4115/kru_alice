@@ -34,7 +34,7 @@
 }
 .detail_student_container .wrapper_student_course div:nth-child(1) {
     /* border: 1px solid; */
-    word-break: break-word;
+    word-break: break-all;
 }
 .detail_student_container .wrapper_student_course div:nth-child(2) img:nth-child(1){
     margin-right: 8%;

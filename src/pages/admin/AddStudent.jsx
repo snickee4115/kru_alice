@@ -11,13 +11,14 @@ const AddStudent = () => {
 
     const navigate = useNavigate();
     const [dataUser, setDataUser] = useState({
-        name: '',
+        name: 'น้อง',
         tel: '',
-        course: '',
+        course: 'เตรียมสอบ',
+        detail:'เรียนวันพฤหัส 17.30 - 19.30 น. \nคอร์สที่ 2 : เรียน 10 ครั้ง 2000 บาท',
         error: null,
     });
 
-    const { name, tel, course, error } = dataUser;
+    const { name, tel, course, error,detail } = dataUser;
     const handleChange = (e) => {
         setDataUser({ ...dataUser, [e.target.name]: e.target.value });
     };
@@ -43,7 +44,7 @@ const AddStudent = () => {
                     ownerCourseID: id,
                     courseName: course,
                     sumHours: Number(0),
-                    detail: '',
+                    detail: 'เรียนวันพฤหัส 17.30 - 19.30 น.\n คอร์สที่ 2 : เรียน 10 ครั้ง 2000 บาท',
                     createAt: Timestamp.fromDate(new Date()),
                     overHours: Number(0),
                     finished: null,
@@ -74,12 +75,19 @@ const AddStudent = () => {
         <div className='add_student_container'>
             <form onSubmit={handleSubmit} className="form_add_student">
                 <div>ชื่อ</div>
-                <input name='name' value={name} onChange={handleChange} type="text" />
+                <input name='name' placeholder='น้องกี้' value={name} onChange={handleChange} type="text" />
                 <div>เบอร์มือถือ</div>
-                <input name='tel' value={tel} onChange={handleChange} type="number" />
+                <input name='tel' placeholder='0959618438' value={tel} onChange={handleChange} type="number" />
                 <div>ชื่อคอร์สแรก</div>
-                <input name='course' value={course} onChange={handleChange} type="text" />
-            
+                <input name='course' placeholder='เตรียมสอบมัธยมปลาย' value={course} onChange={handleChange} type="text" />
+                <div>รายละเอียดคอร์สแรก</div>
+                <textarea 
+                    type="text" 
+                    name='detail'
+                    value={detail}
+                    onChange={handleChange}
+                    placeholder={'เรียนวันพฤหัส 17.30 - 19.30 น.\n คอร์สที่ 2 : เรียน 10 ครั้ง 2000 บาท'}
+                    />
                 <Button name="ยืนยัน" type='ok'></Button>
             </form>
 

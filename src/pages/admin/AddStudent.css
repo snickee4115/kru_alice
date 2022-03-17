@@ -31,7 +31,22 @@
     padding-right: 5%;
     padding-left: 5%;
 }
-
+.form_add_student textarea{
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    color: #224DE8;
+    margin: 6% auto;
+    font-weight: 400;
+    text-align: center;
+    font-size: calc(1vw + 13px);
+    padding: 2vh 5%;
+    width: 100%;
+    border-radius: 30px;
+    border: 0;
+    outline: none;
+    height: calc(6vw + 75px);
+    /* padding-right: 5%;
+    padding-left: 5%; */
+}
 .form_add_student input:nth-child(6){
     width: 100%;
 }

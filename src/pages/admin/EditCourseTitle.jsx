@@ -1,7 +1,7 @@
 import { async } from '@firebase/util';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Button from '../../components/Button'
 import { db } from '../../firebase';
 import './EditCourseTitle.css'
@@ -15,7 +15,7 @@ const EditCourseTitle = () => {
   // const [titleCourse, setTitleCourse] = useState();
   const [dataCourse, setDataCourse] = useState({ titleCourse: '', detailCourse: '' });
   const { titleCourse, detailCourse } = dataCourse;
-
+  const navigate = useNavigate()
   useEffect(() => {
     getDoc(doc(db, 'students', stdid, 'courses', courseid)).then(docSnap => {
       if (docSnap.exists) {
@@ -42,7 +42,9 @@ const EditCourseTitle = () => {
         loading: 'กำลังดำเนินการแก้ไข',
         success: 'แก้ไขชื่อคอร์สสำเร็จ',
         error: 'แก้ไขชื่อคอร์สไม่สำเร็จ'
-      })
+      }).then(()=>{
+        navigate('../')
+      }) 
       
     }
   }

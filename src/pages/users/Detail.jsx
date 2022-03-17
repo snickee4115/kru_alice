@@ -11,7 +11,8 @@ import { collection, getDocs, onSnapshot, query, QuerySnapshot, where } from 'fi
 import { db } from '../../firebase'
 import { async } from '@firebase/util'
 import { AuthContext } from '../../context/auth'
-
+import Name from '../../components/Name'
+import Loading from '../../components/Loading'
 
 
 
@@ -25,62 +26,14 @@ const Detail = ({ setDisabledLogo }) => {
     courses: [],
     hours: []
   }]);
-  // const [course, setCourse] = useState([{course: [], hours: 0 }]);
 
-  // const {}
-  // const [searchParams] = useSearchParams();
-  // const telstd = searchParams.get('telstd');
+  const [loading, setLoading] = useState(true);
+  
+  
+
   const {telstd} = useParams();
 
   useEffect(async () => {
-    // const q = await query(collection(db, 'students'), where('tel', '==', telstd));
-
-    // const unsub = await onSnapshot(q, (querySnapshot) => {
-    //   let std = [];
-    //   let index = 0;
-    //   let courses = [{ course: [], hours: 0 }];
-    //   querySnapshot.forEach(async (docSnap) => {
-    //     std.push({
-    //       id: docSnap.id,
-    //       name: docSnap.data().name,
-    //       course: [''],
-    //       hours: '',
-    //     });
-    //     std[index].id = docSnap.id;
-
-    //     const q = await query(collection(db, 'students', docSnap.id, 'courses'));
-
-    //     await onSnapshot(q, async (querySnapshot) => {
-    //       if (querySnapshot) {
-    //         await querySnapshot.forEach(docSnap => {
-    //           // console.log(docSnap.data().courseName);
-    //           std[index].course.push(docSnap.data().courseName);
-    //           std[index].hours = docSnap.data().sumHours;
-    //           courses[index].course.push(docSnap.data().courseName);
-
-    //         })
-    //         index++
-    //       }
-
-    //     })
-    //     // index = index+1;
-
-    //   })
-    //   // let courses = [{ course: [], hours: 0 }];
-    //   // std.forEach(async (student) => {
-    //   //   console.log(index);
-    //   //   const q = await query(collection(db, 'students', student.id, 'courses'));
-    //   //   await onSnapshot(q, async (querySnapshot) => {
-    //   //     await querySnapshot.forEach(docSnap => {
-    //   //       // console.log(docSnap.data().courseName);
-    //   //       std[index].course.push(docSnap.data().courseName);
-    //   //       std[index].hours = docSnap.data().sumHours;
-    //   //       courses[index].course.push(docSnap.data().courseName);
-    //   //     })
-    //   //     index = index+1;
-    //   //   })
-
-    //   // })
     let std = [];
     new Promise(async (resolve) => {
       const q = await query(collection(db, 'students'), where('tel', '==', telstd));
@@ -96,58 +49,30 @@ const Detail = ({ setDisabledLogo }) => {
 
       resolve(std)
     }).then(async (std) => {
-      // setStudetList(std)
       console.log(std.length);;
       let index = 0;
-      // let newstd = [];;;
       for (let i = 0; i < std.length; i++) {
         const q = query(collection(db, 'students', std[i].id, 'courses'));
-        // setCourse([]);
         (await getDocs(q)).forEach(async (docSnap) => {
-          // newstd.push(docSnap.data().courseName);
+          
           std[i].courses.push(docSnap);
 
         });
       }
       console.log(std);
-      // setCourse(newstd);;;
       setStudetList(std);
-      // let index = 0;
-      // let newstd = [];;;
-      // std.forEach(async (student) => {
-      //   const q = query(collection(db, 'students', student, 'courses'));
-      //   setCourse([]);
-      //   (await getDocs(q)).forEach( async (docSnap) => {
-      //      newstd.push(docSnap.data().courseName);
-      //     setCourse(...course, newstd);
-      //   })
-      // });
-
-
-      // // console.log(std[0].course.length);
-      // return newstd;
+      
     }).then((std) => {
-      // console.log(std.length);;
-      // std.forEach((e) => {
-      //   console.log("e");
-      // })
-
-      // setCourse(std);
-      // console.log(course[0].course[0]);
-      // setStudetList(std);
-      // console.log(course)
+      setLoading(false);
     })
 
-    // });
-    // setStudetList(std);
-    //   setCourse(courses);
-    //   console.log(studentList);
-    //   console.log(course)
-    // return () => unsub();
+   
   }, [])
-
+  if (loading) {
+    return <Loading/>
+  } 
   return (
-
+  
     <motion.div
       style={{ position: 'absolute', width: '100%' }}
       initial={{ opacity: 0, x: '25%' }}
@@ -155,10 +80,15 @@ const Detail = ({ setDisabledLogo }) => {
       exit={goBack ? null : { opacity: 0, x: '25%' }}
       transition={{ duration: 1 }}
       className='detail_container'>
-      <Link to='/login'>
-        <img className='detail_undo' src={Undo}></img>
-      </Link>
-      <Link to='/'>
+
+
+        <div style={{
+        // border:'solid 3px',
+        alignItems:'center',
+        marginTop:'7%',
+        display:'flex',
+        justifyContent:'space-between',}}>
+      <Link style={{ textDecoration:'none'}} to='/'>
         <div className='detail_logo'>
           <motion.div
             transition={{ duration: 0.5 }}
@@ -168,6 +98,11 @@ const Detail = ({ setDisabledLogo }) => {
           </motion.div>
         </div>
       </Link>
+      <Link to='/login'>
+        <img  className='detail_undo' src={Undo}></img>
+      </Link>
+      </div>
+     
       <div className='emty'></div>
 
       {studentList.map((student, index) =>
@@ -175,11 +110,15 @@ const Detail = ({ setDisabledLogo }) => {
 
           <div className='cat_container'>
 
-            <div >
-              <div className='detail_student_name'>{student.name}</div>
-
+            <div style={{
+              display:'flex',
+            justifyContent:'space-between',
+            position:'relative'
+            }}>
+              <Name name={student.name}/>
+              <img className='catty' style={{marginTop:'-6%',marginRight:'-3.5%'}} src={Cat} ></img>
             </div>
-            <img className='catty' src={Cat} ></img>
+            
             <div className='detail_type' >
               COURSE
             </div>
@@ -194,7 +133,8 @@ const Detail = ({ setDisabledLogo }) => {
                       onClick={()=>{navigate('datalist/stdid='+student.id+'?courseid='+course.id);}}
                       style={{
                       cursor: 'pointer',
-                      display: 'inline-flex',
+                      display: 'inline-block',
+                      wordBreak: 'break-all'
                     }}>{course.data().courseName}</div>
                   </div>
                   <div style={{

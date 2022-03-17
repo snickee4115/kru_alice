@@ -91,7 +91,7 @@
     width: 90% !important;
     word-break: break-word;
     margin: 5%;
-    border: 1px solid;
+    /* border: 1px solid; */
 }
 
 .student_list_container .popup_button_container{

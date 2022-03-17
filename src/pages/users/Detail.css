@@ -6,43 +6,36 @@
     flex-direction: column;
 }
 .detail_student_name{
-    position: relative;
-    background: #C4C4C4 ;
-    display: inline-block;
-    font-family: 'IBM Plex Sans Thai', sans-serif;
-    font-weight: bold;
-    color: #3F27F5;
-    padding: 20px;
-    font-size: calc(1vw + 25px);
-    left: 20px;
-    top:10px;
-    border-radius: 30px 30px 30px 30px;
+   
+    
 }
 
-.emty{
-    padding-bottom: 140px;
-}
+
 
 .detail_wrapper .cat_container{
     width: 95%;
-    top: 50px; 
+    /* margin-top: calc(1vw + 20px); */
+    word-break: break-word;
 }
 .detail_undo{
-    position: absolute;
-    width: 60px;
-    height: 50px;
-    top: 4%;
-    left: 85%;  /*standart undo*/
+    width: calc(3vw + 25px);
+    object-fit: contain;
+    
+    margin-left: -20%;
     display: flex;
+    align-self: center;
+   
+    
 
 }
 .catty{
-    width: 250px;
-    height: 150px;
-    position: absolute;
+    align-self: flex-start;
+    width: calc(11vw + 98px);
+    object-fit: contain;
+    
+    display: flex;
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
-    
     right: -3%;
     top: -50px;
  }
@@ -68,9 +61,11 @@
     font-size: 50px;
 }
 .detail_logo{
-    position: fixed;
-    top: 5%;
-    left: 3%;
+    position: relative;
+    display: flex;
+    /* margin-top: 11%; */
+    margin-left: 3%;
+   
 
 }
 .detail_logo .logo_name{
@@ -79,7 +74,8 @@
     height: 50px; */
     font-size: 70px;
     font-size: calc(3vw + 40px);
-    
+    text-decoration: none;
+    outline: none;
 }
 /* .detail_logo .logo_highlight{
     display: flex;
@@ -102,7 +98,7 @@
     margin: 5% 0 0 5%;
     font-family: 'IBM Plex Sans Thai', sans-serif;
     font-weight: bold;
-    font-size: calc(1vw + 10px);
+    font-size: calc(1vw + 18px);
     /* border: 1px solid; */
     
 }
@@ -111,11 +107,12 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    font-size: calc(1vw + 10px);
+    font-size: calc(1vw + 13px);
     /* border: 1px solid; */
+    margin-bottom: 1.5%;
     }
 
-@media screen and (min-width : 0px) and (max-width : 800px){
+@media screen and (min-width : 0px) and (max-width : 586px){
    
     
     
@@ -142,19 +139,12 @@
         
     }
     .detail_undo{
-        position: absolute;
-        width: 60px;
-        height: 60px;
-        top: 5%;
-        left: 80%;  /*standart undo*/
-        display: flex;
-        box-sizing:border-box; 
+     
       
     
     }
     .catty{
-        width: 150px;
-        height: 100px;
+        
         right: 15px;
         top: -20px;
         display: flex;
