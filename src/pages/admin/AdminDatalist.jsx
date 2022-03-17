@@ -413,36 +413,40 @@ export const AdminDatalist = () => {
 
                 <div className="admin_data_result">
                     <div className="admin_dr1">
-                        <div style={{ flexGrow: "1" }}>รวม</div>
+                        <div >รวม</div>
                         <div>
-                            {parseInt(courses.sumHours) +
-                                " Hr. " +
-                                Math.round(
-                                    courses.sumHours * 60 - parseInt(courses.sumHours) * 60
-                                ) +
-                                " Minute."}
+                            <div>
+                                {parseInt(courses.sumHours) +
+                                    " Hr. " +
+                                    Math.round(
+                                        courses.sumHours * 60 - parseInt(courses.sumHours) * 60
+                                    ) +
+                                    " Minute."}
+                            </div>
                         </div>
                     </div>
                     <div className="admin_dr2">
-                        <div style={{ flexGrow: "1" }}>เหลือ</div>
-                        <div style={courses.overHours ? { color: "#BD0000" } : null}>
-                            {courses.overHours
-                                ? "เกิน " +
-                                parseInt(courses.overHours) +
-                                " Hr. " +
-                                Math.round(
-                                    courses.overHours * 60 - parseInt(courses.overHours) * 60
-                                ) +
-                                " Minute."
-                                : parseInt(10 - courses.sumHours) +
-                                " Hr. " +
-                                Math.round((
-                                    (10 -
-                                        courses.sumHours -
-                                        Math.floor(10 - courses.sumHours))
-                                ).toFixed(2) *
-                                    60) +
-                                " Minute."}
+                        <div >เหลือ</div>
+                        <div>
+                            <div style={courses.overHours ? { color: "#BD0000" } : null}>
+                                {courses.overHours
+                                    ? "เกิน " +
+                                    parseInt(courses.overHours) +
+                                    " Hr. " +
+                                    Math.round(
+                                        courses.overHours * 60 - parseInt(courses.overHours) * 60
+                                    ) +
+                                    " Minute."
+                                    : parseInt(10 - courses.sumHours) +
+                                    " Hr. " +
+                                    Math.round((
+                                        (10 -
+                                            courses.sumHours -
+                                            Math.floor(10 - courses.sumHours))
+                                    ).toFixed(2) *
+                                        60) +
+                                    " Minute."}
+                            </div>
                         </div>
                     </div>
                 </div>
