@@ -21,26 +21,6 @@ const Login = () => {
         e.preventDefault();
         let stdid;
 
-        // const q = query(collection(db, 'students'), where('tel', '==', tel));
-        // const querySnapshot = getDocs(q).then((data) => {
-        //     data.forEach((doc) => {
-        //         stdid = doc.id;
-        //         // if (id.exists) {
-        //         //     return id;
-        //         // }
-        //         return stdid;
-        //     })
-        // });
-
-        // toast.promise(querySnapshot, {
-        //     loading: 'กำลังเข้าสู่ระบบ',
-        //     success: 'เข้าสู่ระบบสำเร็จ',
-        //     error: 'เข้าสู่ระบบไม่สำเร็จ'
-        // }).then(()=>{
-        //     navigate('/detail?telstd='+stdid)
-        // })
-        // const q = query(collection(db, 'students'), where('tel', '==', tel));
-        // const querySnapshot = (await getDocs(q)).size;
         const login = new Promise(async (resolve, reject) => {
             const q = query(collection(db, 'students'), where('tel', '==', tel));
             const querySnapshot = (await getDocs(q)).size;

@@ -41,8 +41,7 @@ const DetailStudent = () => {
       querySnapshot.forEach((docSnap) => {
         temp.push(docSnap);
         if (docSnap.data().overHours && !docSnap.data().finished) {
-          console.log("a = " + docSnap.data().overHours);
-          console.log("b = " + docSnap.data().finished);
+
           sumAllOverHours = sumAllOverHours + docSnap.data().overHours;
         }
       });
@@ -50,7 +49,7 @@ const DetailStudent = () => {
         setAllOverHours(docSnap.data().overHours);
       })
       setAllCourse(temp);
-      console.log(allCourse);
+
     })
     return () => unsub();
   }, [user]);
@@ -64,15 +63,9 @@ const DetailStudent = () => {
       success: "ลบคอร์ส " + coursePopUp.data().courseName + " สำเร็จ",
       error: "ลบข้อมูลไม่สำเร็จ",
     });
-    // toast.success('ลบคอร์ส '+coursePopUp.data().courseName+' สำเร็จ');
+
   };
 
-  // const list_course = [
-  //   { title: 'เตรียมสอบอังกฤษประถมต้น', hours:'9/10'},
-  //   { title: 'เตรียมสอบอังกฤษประถมปลาย', hours:'5/10'},
-  //   { title: 'เตรียมสอบอังกฤษมัธยมต้น', hours:'เกิน 1 hr. 0 Sec.'},
-
-  // ]
   return (
     <div className="detail_student_container">
       <div className="course_label_text">COURSE</div>

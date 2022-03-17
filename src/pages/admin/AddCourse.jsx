@@ -24,28 +24,15 @@ const AddCourse = () => {
   const [allCourse, setAllCourse] = useState([]);
 
   useEffect(() => {
-    console.log(stdid)
     const unsub = onSnapshot(doc(db, 'students', stdid), (docSnap) => {
       setAllOverHours(docSnap.data().overHours);
 
     })
-    // const q = query(collection(db, 'students', stdid, 'courses'), where('finished', '==', null))
-    //     onSnapshot(q, (querySnapshot) => {
-    //       querySnapshot.forEach(async(docSnap) => {
-    //         console.log(docSnap.id);
-            
-    //       })
-    //   })
-    // if (!state) {
-    //   // navigate('/student_list');
-    //   // console.log("objectzzzz");
-    // }
     return () => unsub();
   }, []);
   
   const handleChange = (e) => {
     setDataCourse({ ...dataCourse, [e.target.name]: e.target.value });
-    console.log(e.target.value);
   }
 
   
@@ -78,39 +65,8 @@ const AddCourse = () => {
               finished: Timestamp.fromDate(new Date()),
             })
           }
-          console.log('docSnap.id');
-          console.log(docSnap.id);
         });
-        // const unsub = onSnapshot(q, (querySnapshot) => {
-        //   querySnapshot.forEach( (docSnap) => {
-            // if (!docSnap.data().finished) {
-            //   updateDoc(doc(db, 'students', stdid, 'courses', docSnap.id), {
-            //     finished: Timestamp.fromDate(new Date()),
-            //   })
-            // }
-            
-        //     console.log('docSnap.id');
-        //     console.log(docSnap.id);
-        //   })
-        // })
-        // const querySnapshot = await getDocs(q);
-        // querySnapshot.forEach((docSnap) => {
-        //   updateDoc(doc(db, 'students', stdid, 'courses', docSnap.id), {
-        //     finished: Timestamp.fromDate(new Date()),
-        //   })
-        //   console.log('docSnap.id');
-        //   console.log(docSnap.id);
-        // });
-
-        // onSnapshot(q, (querySnapshot) => {
-        //   querySnapshot.forEach(async(docSnap) => {
-        //     updateDoc(doc(db, 'students', stdid, 'courses', docSnap.id), {
-        //       finished: Timestamp.fromDate(new Date()),
-        //     })
-        //     console.log('docSnap.id');
-        //     console.log(docSnap.id);
-        //   })
-        // })
+       
         updateDoc(doc(db, 'students', stdid), {
           overHours: {hours: 0, lastStamp: null},
         })
@@ -196,36 +152,7 @@ const AddCourse = () => {
                       }
             </form>
             <Toaster />
-      {/* {popUp1 || popUp2 ?
-        <PopUp
-          content={popUp1 ?
-              [
-              <div>
-                  <div>ต้องการเพิ่มคอร์สชื่อ</div>
-                  <div>เตรียมสอบมัธยมปลาย</div>
-                  <div>ให้กับ น้องแมว ?</div>
-              </div>
-              ] : 
-              <div>
-                  <div>มีเวลาค้างอยู่ในระบบ 1 ชม.</div>
-                  <div>ต้องการให้ลงในคอร์สใหม่หรือไม่ ?</div>
-              </div>
-            }
-          ok='ยืนยัน'
-          cancel='ยกเลิก'
-          onCancel={() => { setPopUp1(false); setPopUp2(false)}}
-          onOk={() => {
-            if (popUp1) {
-              setPopUp1(false);
-              setPopUp2(true);
-            } else if (popUp2) {
-              // setPopUp2(false);
-              handleSubmit();
-            }
-          }}
-        />
-          : null
-          } */}
+  
     </div>
   )
 }

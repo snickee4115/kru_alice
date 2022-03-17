@@ -12,9 +12,10 @@ import { AuthContext } from '../../context/auth'
 import { collection, deleteDoc, doc, getDocs, onSnapshot, orderBy, query, where, writeBatch } from 'firebase/firestore'
 import { auth, db } from '../../firebase'
 import toast, { Toaster } from 'react-hot-toast';
+import { signOut } from 'firebase/auth'
 
 const StudentList = () => {
-    const {user} = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const [popUp, setPopUp] = useState(false);
     const navigate = useNavigate();
     const [students, setStudents] = useState([]);
@@ -28,32 +29,10 @@ const StudentList = () => {
     useEffect(() => {
         setUndo(false);
         setNameStudent('');
-        // console.log(auth);
-        // console.log(authID);
-        // const timer = setTimeout(() => {
-        //     console.log('This will run after 1 second!')
-        //     const q = query(collection(db, 'students'), where("adminID", "==", user.uid), orderBy('tel'));
-        //     const unsub = onSnapshot(q, (querySnapshot) => {
-        //         let std = [];
-        //         let index = 0;
-        //         querySnapshot.forEach((doc) => {
-                    
-                    // std.push(doc.data());
-                    // std[index].docid = doc.id;
-                    // console.log(std[index].sid);
-                    // index = index + 1;
-                    
-                    
-        //         });
-        //         setStudents(std);
-        //     })
-        //     return () => unsub();
-        // }, );
-
-        // await waitAuth();
         
+
         if (user) {
-            const q = query(collection(db, 'students'), where("adminID", "==", user.uid), orderBy('tel'));
+            const q = query(collection(db, 'students'), orderBy('tel'));
             const unsub = onSnapshot(q, (querySnapshot) => {
                 let std = [];
                 let index = 0;
@@ -63,29 +42,24 @@ const StudentList = () => {
                     index = index + 1;
                 });
                 setStudents(std);
-        })
-        return () => unsub();}
+            })
+            return () => unsub();
+        }
 
 
     }, [user])
 
     const handleDelete = async (stdPopUp) => {
-        const batch = writeBatch(db);
-        
-        // await deleteDoc(doc(db, 'students', stdPopUp.docid));
 
         const q1 = await getDocs(collection(db, 'students', stdPopUp.docid, 'courses'));
         q1.forEach(async (docSnap) => {
-            // await batch.delete(doc(db, "students", stdPopUp.docid, "courses", docSnap.id));
             await deleteDoc(doc(db, "students", stdPopUp.docid, "courses", docSnap.id));
-            console.log(docSnap.id);
+
         })
 
-        // await batch.delete(doc(db, 'students', stdPopUp.docid));
         const deleteStudent = deleteDoc(doc(db, 'students', stdPopUp.docid));
 
-        // await batch.commit();
-        
+
         toast.promise(deleteStudent, {
             loading: 'กำลังลบข้อมูล',
             success: 'ลบข้อมูล ' + stdPopUp.name + ' สำเร็จ',
@@ -93,61 +67,67 @@ const StudentList = () => {
         })
 
     }
-    
-    // const studentss = [
-    //     {
-    //         "name": "น้อง แมว",
-    //         "tel": "0847548568"
-    //     },
-    //     {
-    //         "name": "น้อง Japan",
-    //         "tel": "0847548568"
-    //     },
-    //     {
-    //         "name": "น้อง ปอร์น",
-    //         "tel": "0824356485"
-    //     }
-    // ]
 
-  return (
-    <div className='student_list_container'>
-        {/* <AdminHeader useUndo={true}/> */}
-          <div className='hi_alice'>
-              <p>สวัสดีครู <span>อลิส</span></p>
-          </div>
-        <div className="student_detail">
-              {students.map((student, index) => 
-                <div key={index}>
-                    <span>
-                        <div onClick={() => navigate('detail_student/'+student.docid)}>{student.name}</div>
-                        <img style={{cursor:'pointer'}} onClick={()=>{toggleModal();setstdPopUp(student);}} src={Bin} alt="" />
-                    </span>
-                    <span>
-                        <div>{student.tel}</div>
-                        <img onClick={()=> navigate('edit_tel/'+student.docid)} style={{cursor:'pointer'}} src={Edit} alt="" />
-                    </span>
-                    
-                </div>
-              )}
-        </div>
-        {popUp ?
-            <PopUp
-                    onOk={() => { handleDelete(stdPopUp);setPopUp(!popUp); }}
-                    onCancel={() => { setPopUp(!popUp)}}
-                  content={[<div>ยืนยันการลบ <div style={{ display: 'inline-block' }}>{stdPopUp.name}</div></div>]}
+    const handleSingOut = async () => {
+
+        const onSignOut = new Promise((resolve) => {
+            setTimeout(() => {
+                signOut(auth);
+                resolve();
+            }, 1000);
+
+        })
+        toast.promise(onSignOut, {
+            loading: 'กำลังออกจากระบบ',
+            success: 'ออกจากระบบสำเร็จ',
+            error: 'ออกจากระบบไม่สำเร็จ'
+        })
+
+    }
+
+    return (
+        <div className='student_list_container'>
+            {/* <AdminHeader useUndo={true}/> */}
+            <div className='hi_alice'>
+                <p>สวัสดีครู <span>อลิส</span></p>
+            </div>
+            <div className="student_detail">
+                {students.map((student, index) =>
+                    <div key={index}>
+                        <span>
+                            <div onClick={() => navigate('detail_student/' + student.docid)}>{student.name}</div>
+                            <div style={{ cursor: 'unset' }}>
+                                <img style={{ cursor: 'pointer' }} onClick={() => { toggleModal(); setstdPopUp(student); }} src={Bin} alt="" />
+                            </div>
+                        </span>
+                        <span>
+                            <div>{student.tel}</div>
+                            <div>
+                                <img onClick={() => navigate('edit_tel/' + student.docid)} style={{ cursor: 'pointer' }} src={Edit} alt="" />
+                            </div>
+                        </span>
+
+                    </div>
+                )}
+            </div>
+            {popUp ?
+                <PopUp
+                    onOk={() => { handleDelete(stdPopUp); setPopUp(!popUp); }}
+                    onCancel={() => { setPopUp(!popUp) }}
+                    content={[<div>ยืนยันการลบ <div style={{ display: 'inline-block' }}>{stdPopUp.name}</div></div>]}
                     ok='ยืนยัน'
-                    cancel= 'ยกเลิก'
-            />
-            : null}
-              {/* <Button name="เพิ่มนักเรียน" /> */}
+                    cancel='ยกเลิก'
+                />
+                : null}
+            {/* <Button name="เพิ่มนักเรียน" /> */}
 
-          <div className='foot_student_list'>
-              <Button to='add_student' type='add' name="เพิ่มนักเรียน" />
-              <Button to='/admin_login' type='logout' name="Log out" />
-          </div>
-          <Toaster />
-    </div>
-  )
+            <div className='foot_student_list'>
+                <Button to='add_student' type='add' name="เพิ่มนักเรียน" />
+                <Button onClick={handleSingOut} type='logout' name="Log out" />
+            </div>
+            <Toaster />
+        </div>
+    )
 }
 
 export default StudentList

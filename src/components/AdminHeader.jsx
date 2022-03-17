@@ -18,7 +18,7 @@ const AdminHeader = ({ useUndo, useHome }) => {
         {/* <div><img src={UndoButton} /></div> */}
       {useHome ? 
         <div style={{ display: 'flex', justifyContent:'space-between', marginTop:'3%' }}>
-          <div className={'home_img'}><img style={{cursor:'pointer'}} onClick={()=>navigate('/student_list')} src={HomeLogo} /></div>
+          <div className={'home_img'}><img style={{cursor:'pointer'}} onClick={()=>navigate('/admin')} src={HomeLogo} /></div>
           <div className='back_button_home'>
             {
               useUndo ?
@@ -35,7 +35,7 @@ const AdminHeader = ({ useUndo, useHome }) => {
         :
         <>
           <div className='back_button'>{useUndo ? <img style={{cursor:'pointer'}} onClick={()=>navigate(-1)} src={UndoButton} /> : null}</div>
-          <div className={'alogo_img'}><img style={{cursor:'pointer'}} onClick={()=>navigate('/student_list')} src={AdminLogo} /></div>
+          <div className={'alogo_img'}><img style={{cursor:'pointer'}} onClick={()=>navigate('/admin')} src={AdminLogo} /></div>
         </>
         }
         

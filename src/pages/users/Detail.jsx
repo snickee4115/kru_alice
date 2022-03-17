@@ -241,8 +241,6 @@ const Detail = ({ setDisabledLogo }) => {
                 </div>)
               }
      
-
-
             </div >
 
           </div>

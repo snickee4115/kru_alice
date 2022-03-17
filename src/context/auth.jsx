@@ -11,12 +11,18 @@ const AuthProvider = ({ children }) => {
     // const [allCourse, setAllCourse] = useState([]);
     const [nameStudent, setNameStudent] = useState();
     const [stdid, setStdid] = useState();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             setUser(user);
+            setLoading(false);
         })
     }, [])
+
+    if (loading) {
+        return null
+    }
     
     return <AuthContext.Provider value={{ user, nameStudent, setNameStudent, stdid, setStdid }}>
         {children}

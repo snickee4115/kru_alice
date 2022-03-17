@@ -50,18 +50,7 @@ const AddStudent = () => {
                     stamp: []
                 })
             })
-            // toast.promise(addstd, {
-            //     loading: null,
-            //     success: null,
-            //     error: 'บันทึกข้อมูลล้มเหลว'
-            // })
-            // const addFirstCourse = addDoc(collection(db, 'students', id, "courses"), {
-            //     ownerCourseID: id,
-            //     courseName: course,
-            //     sumHours: 0,
-            //     detail:'',
-            //     createAt: Timestamp.fromDate(new Date()),
-            // })
+
             toast.promise(addstd, {
                 loading: 'กำลังดำเนินการ',
                 success: 'เพิ่มข้อมูลนักเรียนสำเร็จ',
@@ -75,9 +64,6 @@ const AddStudent = () => {
                 });
             })
 
-
-
-            // navigate('/student_list');
         }
 
     };
@@ -93,24 +79,7 @@ const AddStudent = () => {
                 <input name='tel' value={tel} onChange={handleChange} type="number" />
                 <div>ชื่อคอร์สแรก</div>
                 <input name='course' value={course} onChange={handleChange} type="text" />
-                {/* {error ?
-                  <div style={{
-                    display:'flex',
-                    justifyContent:'center',
-                    position: 'relative',
-                    color: 'red',
-                    fontSize: 'calc(1vw + 11px)',
-                    top: '13px',
-
-                }}>{error}</div>
-                :
-                <div style={{
-                    position: 'relative',
-                    color: 'red',
-                    fontSize: 'calc(1vw + 11px)',
-                    top: '13px',
-                    visibility:'hidden'
-                }}>ข้อความที่ซ่อน</div>} */}
+            
                 <Button name="ยืนยัน" type='ok'></Button>
             </form>
 

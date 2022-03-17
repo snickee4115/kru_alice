@@ -19,6 +19,7 @@ import DetailStudentRoutes from './pages/admin/DetailStudentRoutes'
 import AuthProvider from './context/auth'
 import EditData from './pages/admin/EditDatalist'
 import AdminDatalist from './pages/admin/AdminDatalist'
+import PrivateRoute from './components/PrivateRoute'
 
 function App() {
   const location = useLocation();
@@ -39,7 +40,7 @@ function App() {
                   <Route path='admin_login' element={<AdminLogin/>}/>
                   <Route path='edit_data' element={<EditData/>}/>
                   {/* <Route path='admin_datalist' element={<AdminDatalist/>}/> */}
-                  <Route path='student_list' element={<Admin/>}>
+                  <Route path='admin' element={<PrivateRoute><Admin/></PrivateRoute>}>
                     <Route index element={<StudentList/>}/>
                     <Route  path='edit_tel/:stdid' element={<EditTel/>}/>
                     <Route  path='add_student' element={<AddStudent/>}/>

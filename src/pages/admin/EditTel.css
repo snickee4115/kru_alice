@@ -10,6 +10,7 @@
     font-family: 'IBM Plex Sans Thai', sans-serif;
     font-weight: 400;
     font-size: calc(1vw + 27px);
+    
 }
 
 .form_edit_tel{
@@ -22,6 +23,8 @@
     font-family: 'IBM Plex Sans Thai', sans-serif;
     font-weight: 400;
     font-size: calc(1vw + 27px);
+    word-break: break-word;
+    text-align: center;
 }
 
 .form_edit_tel input{

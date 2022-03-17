@@ -38,7 +38,7 @@ export const Datalist = () => {
                     new Promise((resolve) => {
                         setStamp(doc.data().stamp);
                         const x = doc.data().stamp.map((member) => !member.status && member.date)
-                        // console.log(x);
+
                         setAbsent(x);
                         resolve();
                     })

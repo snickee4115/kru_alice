@@ -17,7 +17,7 @@ const DetailStudentRoutes = () => {
     await getDoc(doc(db, 'students', stdid)).then(docSnap => {
       setNameStudent(docSnap.data().name);
     })
-    console.log(home);
+
   },[])
   return (
       <div className={home ? 'detail_student_routes_container_home' :'detail_student_routes_container'}>

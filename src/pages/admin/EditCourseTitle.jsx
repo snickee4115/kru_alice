@@ -19,12 +19,10 @@ const EditCourseTitle = () => {
   useEffect(() => {
     getDoc(doc(db, 'students', stdid, 'courses', courseid)).then(docSnap => {
       if (docSnap.exists) {
-        // setTitleCourse(docSnap.data().courseName);
         setDataCourse({titleCourse: docSnap.data().courseName, detailCourse: docSnap.data().detail})
       }
     })
-    
-    console.log(titleCourse);
+
   }, [])
 
   const handleChange = (e) => {

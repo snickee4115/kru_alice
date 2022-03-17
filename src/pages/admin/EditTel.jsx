@@ -16,7 +16,7 @@ const EditTel = () => {
         getDoc(doc(db, 'students', stdid)).then(docSnap => {
             if (docSnap.exists) {
                 setStudent(docSnap.data());
-                console.log(student);
+
             }
         });
         
@@ -27,8 +27,6 @@ const EditTel = () => {
         const updataTel = updateDoc(doc(db, 'students', stdid), {
             tel: student.tel,
         });
-        // toast.loading();
-        // toast.success('แก้ไขเบอร์โทรสำเร็จ');
         toast.promise(updataTel, {
             loading: 'กำลังดำเนิการแก้ไข',
             success: 'แก้ไขเบอร์โทรสำเร็จ',

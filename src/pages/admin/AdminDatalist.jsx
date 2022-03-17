@@ -38,7 +38,6 @@ export const AdminDatalist = () => {
     const [editMinute, setEditMinute] = useState();
     const [editIndex, setEditIndex] = useState();
     const { nameStudent } = useContext(AuthContext);
-    // const [stdid, setStdid] = useState();
     const { pathname } = useLocation();
     const stdid = pathname.split("/")[3];
     const { courseid } = useParams();
@@ -65,14 +64,9 @@ export const AdminDatalist = () => {
         },
     ]);
     const { setUback } = useContext(DataContext);
-    // const dates = new DateObject({
-    //     date: 1647200841*1000,
-    // })
-
-    const dates = new DateObject();
 
     useEffect(async () => {
-        setUback("/student_list/detail_student/" + stdid);
+        setUback("/admin/detail_student/" + stdid);
         const unsub = onSnapshot(
             doc(db, "students", stdid, "courses", courseid),
             (doc) => {
@@ -103,45 +97,14 @@ export const AdminDatalist = () => {
                             setStamp((prevState) => [...prevState, ...temp]);
                         });
                 }
-                // setCourses(doc.data());
-                // console.log(doc.data().stamp);
-                //
-                // if (doc.data().stamp.length < 10) {
-                //     // console.log(ti.length);
-                //     for (let i = 0; i < 10 - doc.data().stamp.length; i++){
-                //         console.log(doc.data().stamp.length);
-                //         // ti.push({ date: 's', tim: 's' });
-
-                //     }
-                //     // setStamp(ti)
-                // }
-                // console.log('ffffffff =' + dates.set({ date: 1647200811 * 1000 }).format());
-                // const x = dates.set('2020/10/19').toUnix()
-                // console.log("object =" + dates.set(x).format());
-                // console.log('ffffffff =' +new DateObject({date:1647200811*1000}).format());
-                // console.log('ffffffff =' +courses.stamp[1].date.seconds);
             }
         );
-        // let getCourse = await getDoc(doc(db, 'students', stdid, 'courses', courseid)).then((getCourse) => {
-        //     setCourses(getCourse.data());
-        // })
-
-        // let q = query(doc(db, 'students', stdid, 'courses', courseid));
-        // let x = (await getDoc(q)).data();
-        // console.log(x);
-
         setHome(true);
-        // setStamp(ti);
 
         return () => unsub();
     }, []);
 
     const onUpdateDate = (value, index) => {
-        // const x = dates.set({date:Timestamp.fromDate(new Date(value.unix*1000)).seconds*1000});
-        // console.log(x.format());
-        // console.log(value.unix);
-        // console.log();
-
         const updateDate = new Promise((resolve) => {
             let newStamp = courses.stamp;
             newStamp[index].date = Timestamp.fromDate(new Date(value.unix * 1000));
@@ -157,13 +120,6 @@ export const AdminDatalist = () => {
             success: "แก้ไขข้อมูลสำเร็จ",
             error: "แก้ไขข้อมูลไม่สำเร็จ",
         });
-
-        // console.log(stamp);
-        // const updateDate = updateDoc(doc(db, 'students', stdid, 'courses', courseid), {
-        //     stamp: {
-        //         [date]: 'r'
-        //     },
-        // })
     };
 
     const onUpdateHours = (hours, minute, index) => {
@@ -189,19 +145,10 @@ export const AdminDatalist = () => {
                         !courses.finished && { finished: Timestamp.fromDate(new Date()) }),
                 });
 
-                // if (oldOverHours > newOverHours) {
-                //     batch.update(doc(db, 'students', stdid), {
-                //         overHours: {
-                //             hours: sumHours >= 10 ? overHours.hours + (hours / 60) : overHours.hours + sumHours + (hours / 60) - 10,
-                //             lastStamp: Timestamp.fromDate(new Date()),
-                //         }
-                //     })
-                // }
                 return { oldOverHours, newOverHours };
             })
             .then(({ oldOverHours, newOverHours }) => {
-                console.log("oldOverHours = " + Number(oldOverHours));
-                console.log("newOverHours = " + Number(newOverHours));
+
                 const qo = getDoc(doc(db, "students", stdid))
                     .then((qo) => {
                         let allOverHours = qo.data().overHours;
@@ -214,9 +161,7 @@ export const AdminDatalist = () => {
                     })
                     .then(({ allOverHours, oldOverHours, newOverHours }) => {
                         if (oldOverHours > 0) {
-                            console.log("oldOverHours > 0");
 
-                            console.log("allOverHours = " + Number(allOverHours.hours));
                             updateDoc(doc(db, "students", stdid), {
                                 overHours: {
                                     hours:
@@ -229,8 +174,7 @@ export const AdminDatalist = () => {
                                 },
                             });
                         } else if (oldOverHours == 0 && newOverHours > 0) {
-                            console.log("oldOverHours == 0 && newOverHours > 0");
-                            console.log("allOverHours = " + Number(allOverHours.hours));
+
                             updateDoc(doc(db, "students", stdid), {
                                 overHours: {
                                     hours:
@@ -255,32 +199,6 @@ export const AdminDatalist = () => {
     };
 
     const onStamp = async (status, hours) => {
-        // const qs = await getDoc(doc(db, 'students', stdid, 'courses', courseid));
-        // let oldStamp = await qs.data().stamp
-        // oldStamp = oldStamp == undefined ? [] : oldStamp;
-        // // let sumHours = 0;
-        // const sumHours = oldStamp.reduce((pre, cur) => pre + cur.hours, 0);
-        // await updateDoc(doc(db, 'students', stdid, 'courses', courseid), {
-        //     stamp: [...oldStamp,{
-        //         date:Timestamp.fromDate(new Date()),
-        //         hours: hours / 60 ,
-        //         status: status == 'present' ? true : false,
-        //     }],
-        //     sumHours: sumHours + hours / 60 ,
-        //     overHours:sumHours + (hours / 60) - 10 > 0 ?sumHours + (hours / 60) - 10: null,
-        //     finished: sumHours + (hours / 60) >= 10 ?Timestamp.fromDate(new Date()): null ,
-        // })
-        // if (sumHours + (hours / 60) - 10 > 0) {
-        //     const qo = await getDoc(doc(db, 'students', stdid));
-        //     let overHours = qo.data().overHours;
-        //     overHours = overHours == undefined ? {hours:0, lastStamp: null} : overHours;
-        //     await updateDoc(doc(db, 'students', stdid), {
-        //         overHours: {
-        //             hours: sumHours >= 10 ? overHours.hours + (hours / 60) : overHours.hours + sumHours + (hours / 60) - 10,
-        //             lastStamp: Timestamp.fromDate(new Date()),
-        //         }
-        //     })
-        // }
 
         const addStamp = getDoc(doc(db, "students", stdid, "courses", courseid))
             .then((qs) => {
@@ -359,31 +277,9 @@ export const AdminDatalist = () => {
         });
     };
 
-    const ti = [
-        { date: "SAT 12/06/2021 ", tim: "1 H. 0 S." },
-        { date: "SAT 12/06/2021 ", tim: "1 H. 0 S." },
-        { date: "SAT 12/06/2021 ", tim: "1 H. 0 S." },
-        { date: "SAT 12/06/2021 ", tim: "1 H. 0 S." },
-        { date: "SAT 12/06/2021 ", tim: "1 H. 0 S." },
-        { date: "SAT 12/06/2021 ", tim: "1 H. 0 S." },
-        { date: "SAT 12/06/2021 ", tim: "1 H. 0 S." },
-        { date: "SAT 12/06/2021 ", tim: "1 H. 0 S." },
-        { date: "SAT 12/06/2021 ", tim: "11 H. 60 S." },
-        // {date:"SAT 12/06/2021 ",tim:"1 H. 0 S."}
-    ];
-
-    const na = "น้องเจแปน";
-    const re = "5 Hr. 0 Min";
-    const rem = "5 Hr. 0 Min.";
-    const ap = "SAT 12/06/2021";
-    const time = "11 Hr. 60 M.";
-    const titlee = {
-        day: "เรียนวันพฤหัส 17.30 - 19.30 น.",
-        cour: "คอร์สที่ 2 : เรียน 10 ครั้ง 2000 บาท",
-        statu: "(ยังไม่ชำระเงิน)",
-    };
-    const textareaRef = useRef();
-    const cursorPosition = 0;
+    function MyPlugin({value}) {
+        return "แก้ไขวันที่ครั้งที่ "+value;
+      }
 
     return (
         <div className="admin_data_main">
@@ -424,6 +320,9 @@ export const AdminDatalist = () => {
                             <div className="admin_data_count">ครั้งที่ {index + 1}</div>
                             <div className="admin_data_date">
                                 <DatePicker
+                                    plugins={[
+                                        <MyPlugin value={index+1} position="top"/>
+                                      ]} 
                                     animations={[
                                         opacity(),
                                         transition({
@@ -600,19 +499,14 @@ export const AdminDatalist = () => {
                 <Popup
                     onOk={() => {
                         if (popup == "addtime") {
-                            // console.log('addtime');
                             onStamp("present", hours);
                             setHours(60);
                             setPopup(null);
                         } else if (popup == "addtimeover") {
-                            // setHours(120);
                             onStamp("absent", 120);
-                            // console.log('addtimeover')
-                            // setHours(60);
                             setPopup(null);
                         } else if (popup == "paycourse") {
                             onPayStatus();
-                            // console.log('paycourse')
                             setPopup(null);
                         } else if (popup == "edithours") {
                             onUpdateHours(editHours, editMinute, editIndex);
@@ -648,6 +542,7 @@ export const AdminDatalist = () => {
                                     : null || popup == "edithours"
                                         ? [
                                             <div className="popup-edithours" key={"key"}>
+                                                
                                                 <input
                                                     type="number"
                                                     min="1"
@@ -656,29 +551,16 @@ export const AdminDatalist = () => {
                                                         if (e.target.value >= 0) {
                                                             setEditHours(e.target.value);
                                                         }
-
-                                                        // setCurStamp({ ...curStamp, hours: parseInt(e.target.value) + parseInt(curStamp.hours - Math.floor(curStamp.hours)) })
-                                                        // console.log(curStamp)
                                                     }}
                                                 />
                                                 &nbsp;Hr&nbsp;
                                                 <input
-                                                    ref={textareaRef}
+                                                    
                                                     type="number"
-                                                    onKeyDown={(e) => {
-                                                        // if (e.key === 'Backspace' && e.target.value == 0) {
-                                                        //     const target = e.currentTarget;
-                                                        //     target.type = 'text';
-                                                        //     target.selectionStart = 0;
-                                                        //     target.type = 'number';
-                                                        //     console.log('object');
-                                                        // }
-                                                    }}
-                                                    // value={((curStamp.hours * 60) - (parseInt(curStamp.hours) * 60))}
                                                     value={editMinute}
                                                     onChange={(e) => {
                                                         if (e.target.value >= 60) {
-                                                            // e.preventDefault();
+                                                            
                                                         } else {
                                                             setEditMinute(e.target.value);
                                                             setCurStamp({
@@ -689,7 +571,7 @@ export const AdminDatalist = () => {
                                                             });
                                                         }
 
-                                                        console.log(curStamp);
+                                                 
                                                     }}
                                                 />
                                                 &nbsp;Min
