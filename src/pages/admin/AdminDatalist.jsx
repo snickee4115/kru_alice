@@ -550,7 +550,7 @@ export const AdminDatalist = () => {
                                 : null || popup == "paycourse"
                                     ? [
                                         <div key={"key"}>
-                                            ยืนยันจ่ายเงินหรือไม่ ?{" "}
+                                            ยืนยันชำระเงินหรือไม่ ?{" "}
                                             <div style={{ display: "inline-block" }}></div>
                                         </div>,
                                     ]
