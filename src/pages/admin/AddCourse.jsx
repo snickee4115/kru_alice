@@ -162,7 +162,7 @@ const AddCourse = () => {
             content={
               popUp1 ? (
                 [
-                  <div>
+                  <div key={'key'}>
                     <div>ต้องการเพิ่มคอร์สชื่อ</div>
                     <div>{courseName}</div>
                     <div>ให้กับ {nameStudent} ?</div>
@@ -170,7 +170,7 @@ const AddCourse = () => {
                 ]
               ) : (
                 <div>
-                  <div>
+                  <div key={'key'}>
                     มีเวลาค้างอยู่ในระบบ {parseInt(allOverHours.hours)} ชม.{" "}
                     {Math.round(
                       allOverHours.hours * 60 -

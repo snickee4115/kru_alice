@@ -24,7 +24,7 @@ const AuthProvider = ({ children }) => {
         return null
     }
     
-    return <AuthContext.Provider value={{ user, nameStudent, setNameStudent, stdid, setStdid }}>
+    return <AuthContext.Provider value={{ setUser,user, nameStudent, setNameStudent, stdid, setStdid }}>
         {children}
     </AuthContext.Provider>
 }

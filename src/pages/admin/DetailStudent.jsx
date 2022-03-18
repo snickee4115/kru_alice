@@ -31,36 +31,53 @@ const DetailStudent = () => {
   const [allCourse, setAllCourse] = useState([]);
   const [hasLoaded, setHasLoaded] = useState();
   const { setLoading, loading } = useContext(DataContext);
+  const [temp, setTemp] = useState([]);
 
+  
+  
+ 
   useEffect(() => {
     const q = query(
       collection(db, "students", stdid, "courses"),
       orderBy("courseName", "asc")
     );
 
-    const unsub = new Promise((resolve)=> onSnapshot(q, (querySnapshot) => {
-      let temp = [];
-      let sumAllOverHours = 0;
-      querySnapshot.forEach((docSnap) => {
-        temp.push(docSnap);
-        if (docSnap.data().overHours && !docSnap.data().finished) {
+      const unsub2 = onSnapshot(q, (querySnapshot) => {
+        let temp = [];
+        let sumAllOverHours = 0;
+        querySnapshot.forEach((docSnap) => {
+          temp.push(docSnap);
+          if (docSnap.data().overHours && !docSnap.data().finished) {
 
-          sumAllOverHours = sumAllOverHours + docSnap.data().overHours;
-        }
-      });
-      onSnapshot(doc(db, 'students', stdid), (docSnap) => {
-        setAllOverHours(docSnap.data().overHours);
+            sumAllOverHours = sumAllOverHours + docSnap.data().overHours;
+          }
         
-      })
+        });
+        setTemp(temp);
+        setTimeout(() => {
+          setLoading(false);;
+        }, 500);
+    })
+     
+   
+    return () => unsub2();
+  }, [user]);
+
+  useEffect(() => {
+    const unsub1 = onSnapshot(doc(db, 'students', stdid), (docSnap) => {
+      setAllOverHours(docSnap.data().overHours);
+      
+    })
+    new Promise(() => {
       setAllCourse(temp);
-      resolve();
-    })).then(() => {
+      
+    }).then(() => {
       setTimeout(() => {
         setLoading(false);;
-    }, 500);
+      }, 500);
     })
-    return () => unsub();
-  }, [user]);
+    return () => unsub1();
+  }, [temp])
 
   const handleDelete = async (coursePopUp) => {
     const deleteCourse = deleteDoc(
@@ -111,7 +128,9 @@ const DetailStudent = () => {
                       "#986363"
                       :
                       "#D91919"
-                    :
+                    : course.data().finished ? (
+                      "#986363"
+                    ) :
                     "#3C00E9"
                 }}
               >
@@ -130,6 +149,8 @@ const DetailStudent = () => {
                         " Minute."}
                     </span>
                   )
+                ) : course.data().finished ? (
+                  <span>ครบแล้ว</span>
                 ) : (
                   <span>{course.data().sumHours}/10 hr.</span>
                 )}
@@ -151,7 +172,7 @@ const DetailStudent = () => {
             setPopUp(!popUp);
           }}
           content={[
-            <div>
+            <div key={'key'}>
               <div>ยืนยันการลบ</div>
               <div>{coursePopUp.data().courseName} หรือไม่ ?</div>
             </div>,

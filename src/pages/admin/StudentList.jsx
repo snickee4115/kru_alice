@@ -16,7 +16,7 @@ import { signOut } from 'firebase/auth'
 import Loading from '../../components/Loading'
 
 const StudentList = () => {
-    const { user } = useContext(AuthContext);
+    const {setUser, user } = useContext(AuthContext);
     const [popUp, setPopUp] = useState(false);
     const navigate = useNavigate();
     const [students, setStudents] = useState([]);
@@ -30,39 +30,53 @@ const StudentList = () => {
     const toggleModal = () => {
         setPopUp(!popUp);
     }
+
     useEffect(async () => {
         
-        setUndo(false);
-        setNameStudent('');
-        const getNameAdmin = (await getDoc(doc(db, 'admin', user.uid))).data().name;
-        setNameAdmin(getNameAdmin);
-
-        if (user) {
-            const q = query(collection(db, 'students'), orderBy('tel'));
-            const unsub = new Promise((resolve)=>onSnapshot(q, (querySnapshot) => {
-                let std = [];
-                let index = 0;
-                querySnapshot.forEach((doc) => {
-                    std.push(doc.data());
-                    std[index].docid = doc.id;
-                    index = index + 1;
-                });
-                setStudents(std);
-                resolve();
-                
-            })).then(() => {
-                setTimeout(() => {
-                    setLoading(false);;
-                }, 500);
-                
-            })
+       
+        
+            setUndo(false);
+            setNameStudent('');
+            const getNameAdmin = (await getDoc(doc(db, 'admin', user.uid))).data().name;
+            setNameAdmin(getNameAdmin);
             
-            return () => unsub();
-        }
+      
+            
+        // return () => {
+        //     // unsub()
+        //     unsub();
+        //     setPopUp(false);
+        //     setStudents([])
+        //     setstdPopUp('')
+        //     setUndo(true)
+        //     setNameStudent()
+        //     setNameAdmin('')
+        // };
+        
         
 
 
     }, [user])
+
+    useEffect(() => {
+        const q = query(collection(db, 'students'), orderBy('tel'));
+      const unsub =onSnapshot(q, (querySnapshot) => {
+        let std = [];
+        let index = 0;
+        querySnapshot.forEach((doc) => {
+            std.push(doc.data());
+            std[index].docid = doc.id;
+            index = index + 1;
+        });
+        setStudents(std);
+        setTimeout(() => {
+            setLoading(false);;
+        }, 500);
+            
+    })
+      return () => unsub();
+    }, [])
+    
 
     const handleDelete = async (stdPopUp) => {
 
