@@ -103,9 +103,10 @@ export const AdminDatalist = () => {
                 resolve();
             }
         )).then(() => {
-            setTimeout(() => {
+           // setTimeout(() => {
+                //     setLoading(false);;
+                // }, 500);
                 setLoading(false);;
-            }, 500);
         })
         setHome(true);
 
@@ -534,17 +535,21 @@ export const AdminDatalist = () => {
                     content={
                         popup == "addtime"
                             ? [
-                                <div key={"key"}>
-                                    ยืนยันลงเวลาเรียน {parseInt(hours / 60)} hr{" "}
+                                <div className="popup-normal" key={"key"}>
+                                    ยืนยันลงเวลาเรียน{} 
+                                    <div>
+                                        {parseInt(hours / 60)} hr{" "}
                                     {hours - parseInt(hours / 60) * 60} Min. ?{" "}
-                                    <div style={{ display: "inline-block" }}></div>
+                                    </div>
                                 </div>,
                             ]
                             : null || popup == "addtimeover"
                                 ? [
-                                    <div key={"key"}>
-                                        ยืนยันขาดเรียนเรียน 2 Hr. ?{" "}
-                                        <div style={{ display: "inline-block" }}></div>
+                                    <div className="popup-normal" key={"key"}>
+                                        ยืนยันขาดเรียนเรียน  {" "}
+                                        <div style={{ display: "inline-block" }}>
+                                            2 Hr. ?
+                                        </div>
                                     </div>,
                                 ]
                                 : null || popup == "paycourse"

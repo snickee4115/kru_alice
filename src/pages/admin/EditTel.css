@@ -18,6 +18,11 @@
     flex-direction: column;
     width: 100%;
 }
+.form_edit_tel div{
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    font-weight: 400;
+    font-size: calc(1vw + 22px);
+}
 
 .form_edit_tel .own_of_tel{
     font-family: 'IBM Plex Sans Thai', sans-serif;

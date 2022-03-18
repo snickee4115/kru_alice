@@ -133,7 +133,7 @@ const StudentList = () => {
                 <PopUp
                     onOk={() => { handleDelete(stdPopUp); setPopUp(!popUp); }}
                     onCancel={() => { setPopUp(!popUp) }}
-                    content={[<div>ยืนยันการลบ <div style={{ display: 'inline-block' }}>{stdPopUp.name}</div></div>]}
+                    content={[<div key={'key'}>ยืนยันการลบ <div style={{ display: 'inline-block' }}>{stdPopUp.name}</div></div>]}
                     ok='ยืนยัน'
                     cancel='ยกเลิก'
                 />

@@ -41,7 +41,9 @@ const AddStudent = () => {
         setDataUser({ ...dataUser, error: null })
         if (!name || !tel || !course) {
             toast.error('กรุณากรอกข้อมูลให้ครบ');
-        } else {
+        } else if (!tel.match('[0]{1}[0-9]{8,9}')) {
+            toast.error('กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง');
+        }else {
             let id = uuid().slice(0, 8);
             const addstd = setDoc(doc(db, "students", id), {
                 adminID: auth.currentUser.uid,
@@ -89,8 +91,22 @@ const AddStudent = () => {
             <form onSubmit={handleSubmit} className="form_add_student">
                 <div>ชื่อ</div>
                 <input name='name' placeholder='น้องกี้' value={name} onChange={handleChange} type="text" />
-                <div>เบอร์มือถือ</div>
-                <input name='tel' placeholder='0959618438' value={tel} onChange={handleChange} type="number" />
+                <div>เบอร์โทรศัพท์มือถือ</div>
+                <input name='number' placeholder='0959618438' value={tel}
+                    onChange={(e) => {
+                        if (e.target.value.length <= 10) {
+                            setDataUser({...dataUser, tel: e.target.value})
+                        }
+                    }}
+                    // onKeyPress={(evt, regex) => {
+                    //     var theEvent = evt || window.event;
+                    //     if ('[0]{1}[0-9]{8,9}'.test(key)) {
+                    //         theEvent.returnValue = false;
+                    //         if (theEvent.preventDefault) theEvent.preventDefault();
+                    //     }
+                    // }}
+                    type="number"
+                />
                 <div>ชื่อคอร์สแรก</div>
                 <input name='course' placeholder='เตรียมสอบมัธยมปลาย' value={course} onChange={handleChange} type="text" />
                 <div>รายละเอียดคอร์สแรก</div>

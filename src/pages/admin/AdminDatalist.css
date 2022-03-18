@@ -413,6 +413,14 @@
     cursor: pointer;
 }
 
+
+.admin_data_main .popup-normal{
+    /* display: flex; */
+    /* border: 1px solid; */
+    width: fit-content;
+    padding: calc(0.5vw + 25px) 15%;
+}
+
 .admin_data_main .popup-edithours{
     display: flex;
     /* border: 1px solid; */
