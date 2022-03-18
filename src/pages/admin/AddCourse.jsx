@@ -26,8 +26,11 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import { AuthContext } from "../../context/auth";
+import DataContext from "../../data/DataContext";
+import Loading from "../../components/Loading";
 
 const AddCourse = () => {
+  const { setLoading, loading } = useContext(DataContext);
   const [popUp1, setPopUp1] = useState(false);
   const [popUp2, setPopUp2] = useState(false);
   const { pathname } = useLocation();
@@ -37,7 +40,7 @@ const AddCourse = () => {
   const [dataCourse, setDataCourse] = useState({
     courseName: "เตรียมสอบภาษาอังกฤษมัธยมปลาย",
     courseDetail:
-      "\nเรียนวันพฤหัส 17.30 - 19.30 น. \nคอร์สที่ 2 : เรียน 10 ครั้ง 2000 บาท",
+      "เรียนวันพฤหัส 17.30 - 19.30 น. \nคอร์สที่ 2 : เรียน 10 ครั้ง 2000 บาท",
   });
   const { courseName, courseDetail } = dataCourse;
   const { nameStudent } = useContext(AuthContext);
@@ -45,11 +48,18 @@ const AddCourse = () => {
   const [allCourse, setAllCourse] = useState([]);
 
   useEffect(() => {
-    const unsub = onSnapshot(doc(db, "students", stdid), (docSnap) => {
+    const unsub =  onSnapshot(doc(db, "students", stdid), (docSnap) => {
       setAllOverHours(docSnap.data().overHours);
+      setTimeout(() => {
+        setLoading(false);;
+    }, 500);
     });
     return () => unsub();
   }, []);
+
+  if (loading) {
+    return <Loading/>
+  }
 
   const handleChange = (e) => {
     setDataCourse({ ...dataCourse, [e.target.name]: e.target.value });
@@ -111,6 +121,8 @@ const AddCourse = () => {
         navigate("../");
       });
   };
+
+  
 
   return (
     <div className="add_course_container">

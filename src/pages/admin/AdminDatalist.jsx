@@ -29,8 +29,10 @@ import "react-multi-date-picker/styles/layouts/mobile.css";
 import transition from "react-element-popper/animations/transition";
 import opacity from "react-element-popper/animations/opacity";
 import ClickAndHoldWrapper from "react-click-and-hold/core";
+import Loading from "../../components/Loading";
 
 export const AdminDatalist = () => {
+    const { setLoading, loading } = useContext(DataContext);
     const navigate = useNavigate();
     const [hours, setHours] = useState(60);
     const [curStamp, setCurStamp] = useState();
@@ -67,7 +69,7 @@ export const AdminDatalist = () => {
 
     useEffect(async () => {
         setUback("/admin/detail_student/" + stdid);
-        const unsub = onSnapshot(
+        const unsub = new Promise((resolve)=>onSnapshot(
             doc(db, "students", stdid, "courses", courseid),
             (doc) => {
                 setCourses(doc.data());
@@ -95,10 +97,16 @@ export const AdminDatalist = () => {
                         })
                         .then((temp) => {
                             setStamp((prevState) => [...prevState, ...temp]);
+                            
                         });
                 }
+                resolve();
             }
-        );
+        )).then(() => {
+            setTimeout(() => {
+                setLoading(false);;
+            }, 500);
+        })
         setHome(true);
 
         return () => unsub();
@@ -279,6 +287,9 @@ export const AdminDatalist = () => {
 
     function MyPlugin({value}) {
         return "แก้ไขวันที่ครั้งที่ "+value;
+    }
+    if (loading) {
+        return <Loading/>
       }
 
     return (

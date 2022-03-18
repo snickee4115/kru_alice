@@ -1,13 +1,16 @@
 import { async } from '@firebase/util';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Button from '../../components/Button'
 import { db } from '../../firebase';
 import './EditCourseTitle.css'
 import toast, { Toaster } from 'react-hot-toast';
+import DataContext from '../../data/DataContext';
+import Loading from '../../components/Loading';
 
 const EditCourseTitle = () => {
+  const { setLoading, loading } = useContext(DataContext);
   const [course, setCourse] = useState("เตรียมสอบภาษาอังกฤษมัธยมปลาย");
   const { pathname } = useLocation();
   const stdid = pathname.split('/')[3];
@@ -21,6 +24,10 @@ const EditCourseTitle = () => {
       if (docSnap.exists) {
         setDataCourse({titleCourse: docSnap.data().courseName, detailCourse: docSnap.data().detail})
       }
+    }).then(() => {
+      setTimeout(() => {
+        setLoading(false);;
+    }, 500);
     })
 
   }, [])
@@ -49,7 +56,9 @@ const EditCourseTitle = () => {
     }
   }
   
-
+  if (loading) {
+    return <Loading/>
+  }
 
 
   return (

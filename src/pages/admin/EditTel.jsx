@@ -1,5 +1,5 @@
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import AdminHeader from '../../components/AdminHeader'
 import Button from '../../components/Button'
@@ -7,11 +7,14 @@ import { db } from '../../firebase'
 import './EditTel.css'
 import toast, { Toaster } from 'react-hot-toast';
 import { async } from '@firebase/util'
+import DataContext from '../../data/DataContext'
+import Loading from '../../components/Loading'
 
 const EditTel = () => {
     const { stdid } = useParams();
     const [ student, setStudent ] = useState('');
     const navigate = useNavigate();
+    const { setLoading, loading } = useContext(DataContext);
 
     useEffect(() => {
         getDoc(doc(db, 'students', stdid)).then(docSnap => {
@@ -19,7 +22,11 @@ const EditTel = () => {
                 setStudent(docSnap.data());
 
             }
-        });
+        }).then(() => {
+            setTimeout(() => {
+                setLoading(false);;
+            }, 500);
+        })
         
     }, [])
     
@@ -36,6 +43,9 @@ const EditTel = () => {
             navigate('/admin')
         })
     }
+    if (loading) {
+        return <Loading/>
+      }
   return (
       <div className='edit_tel_container'>
             {/* <AdminHeader useUndo={true} /> */}

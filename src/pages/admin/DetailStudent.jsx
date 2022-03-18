@@ -16,6 +16,8 @@ import {
 import { db } from "../../firebase";
 import { AuthContext } from "../../context/auth";
 import toast, { Toaster } from "react-hot-toast";
+import DataContext from "../../data/DataContext";
+import Loading from "../../components/Loading";
 
 const DetailStudent = () => {
   const [popUp, setPopUp] = useState(false);
@@ -28,6 +30,7 @@ const DetailStudent = () => {
   const [allOverHours, setAllOverHours] = useState({hours: 0, lastStamp: null});
   const [allCourse, setAllCourse] = useState([]);
   const [hasLoaded, setHasLoaded] = useState();
+  const { setLoading, loading } = useContext(DataContext);
 
   useEffect(() => {
     const q = query(
@@ -35,7 +38,7 @@ const DetailStudent = () => {
       orderBy("courseName", "asc")
     );
 
-    const unsub = onSnapshot(q, (querySnapshot) => {
+    const unsub = new Promise((resolve)=> onSnapshot(q, (querySnapshot) => {
       let temp = [];
       let sumAllOverHours = 0;
       querySnapshot.forEach((docSnap) => {
@@ -47,9 +50,14 @@ const DetailStudent = () => {
       });
       onSnapshot(doc(db, 'students', stdid), (docSnap) => {
         setAllOverHours(docSnap.data().overHours);
+        
       })
       setAllCourse(temp);
-
+      resolve();
+    })).then(() => {
+      setTimeout(() => {
+        setLoading(false);;
+    }, 500);
     })
     return () => unsub();
   }, [user]);
@@ -65,6 +73,9 @@ const DetailStudent = () => {
     });
 
   };
+  if (loading) {
+    return <Loading/>
+  }
 
   return (
     <div className="detail_student_container">

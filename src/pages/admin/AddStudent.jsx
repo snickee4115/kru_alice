@@ -1,14 +1,16 @@
 import { setDoc, addDoc, collection, doc, getDoc, orderBy, query, updateDoc, Timestamp, onSnapshot, limit } from 'firebase/firestore'
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, } from 'react-router-dom'
 import Button from '../../components/Button'
 import { auth, db } from '../../firebase'
 import './AddStudent.css'
 import toast, { Toaster } from 'react-hot-toast';
 import { v4 as uuid } from 'uuid';
+import DataContext from '../../data/DataContext'
+import Loading from '../../components/Loading'
 
 const AddStudent = () => {
-
+    const { setLoading, loading } = useContext(DataContext);
     const navigate = useNavigate();
     const [dataUser, setDataUser] = useState({
         name: 'น้อง',
@@ -24,6 +26,15 @@ const AddStudent = () => {
     };
 
     const [stdID, setStdID] = useState('');
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);;
+        }, 500);
+    
+      
+    }, [])
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -69,7 +80,9 @@ const AddStudent = () => {
 
     };
 
-
+    if (loading) {
+        return <Loading/>
+      }
 
     return (
         <div className='add_student_container'>

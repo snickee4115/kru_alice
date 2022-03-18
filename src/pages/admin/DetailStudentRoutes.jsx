@@ -11,6 +11,7 @@ const DetailStudentRoutes = () => {
   const { stdid } = useParams();
   const { nameStudent, setNameStudent, setStdid } = useContext(AuthContext);
   const { home } = useContext(DataContext);
+  const { setLoading, loading } = useContext(DataContext);
 
   useEffect(async () => {
     await setStdid(stdid);
@@ -20,9 +21,9 @@ const DetailStudentRoutes = () => {
 
   },[])
   return (
-      <div className={home ? 'detail_student_routes_container_home' :'detail_student_routes_container'}>
+      <div className={!loading ? home ? 'detail_student_routes_container_home' :'detail_student_routes_container' : null}>
         <div className={"name_label"}>
-          <Name name={nameStudent}/>
+          {!loading ? <Name name={nameStudent} />: null}
         </div>
         <Outlet/>
       </div>

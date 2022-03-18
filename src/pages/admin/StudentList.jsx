@@ -9,10 +9,11 @@ import PopUp from '../../components/PopUp'
 import { Link, useNavigate } from 'react-router-dom'
 import DataContext from '../../data/DataContext'
 import { AuthContext } from '../../context/auth'
-import { collection, deleteDoc, doc, getDocs, onSnapshot, orderBy, query, where, writeBatch } from 'firebase/firestore'
+import { collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, orderBy, query, where, writeBatch } from 'firebase/firestore'
 import { auth, db } from '../../firebase'
 import toast, { Toaster } from 'react-hot-toast';
 import { signOut } from 'firebase/auth'
+import Loading from '../../components/Loading'
 
 const StudentList = () => {
     const { user } = useContext(AuthContext);
@@ -22,18 +23,23 @@ const StudentList = () => {
     const [stdPopUp, setstdPopUp] = useState('');
     const { setUndo } = useContext(DataContext);
     const { setNameStudent } = useContext(AuthContext);
+    // const [loading, setLoading] = useState(true);
+    const [nameAdmin, setNameAdmin] = useState('');
+    const { setLoading, loading } = useContext(DataContext);
 
     const toggleModal = () => {
         setPopUp(!popUp);
     }
-    useEffect(() => {
+    useEffect(async () => {
+        
         setUndo(false);
         setNameStudent('');
-        
+        const getNameAdmin = (await getDoc(doc(db, 'admin', user.uid))).data().name;
+        setNameAdmin(getNameAdmin);
 
         if (user) {
             const q = query(collection(db, 'students'), orderBy('tel'));
-            const unsub = onSnapshot(q, (querySnapshot) => {
+            const unsub = new Promise((resolve)=>onSnapshot(q, (querySnapshot) => {
                 let std = [];
                 let index = 0;
                 querySnapshot.forEach((doc) => {
@@ -42,9 +48,18 @@ const StudentList = () => {
                     index = index + 1;
                 });
                 setStudents(std);
+                resolve();
+                
+            })).then(() => {
+                setTimeout(() => {
+                    setLoading(false);;
+                }, 500);
+                
             })
+            
             return () => unsub();
         }
+        
 
 
     }, [user])
@@ -85,11 +100,15 @@ const StudentList = () => {
 
     }
 
+    if (loading) {
+        return <Loading/>
+      }
+
     return (
         <div className='student_list_container'>
             {/* <AdminHeader useUndo={true}/> */}
             <div className='hi_alice'>
-                <p>สวัสดีครู <span>อลิส</span></p>
+                <p>สวัสดีครู <span>{nameAdmin}</span></p>
             </div>
             <div className="student_detail">
                 {students.map((student, index) =>
