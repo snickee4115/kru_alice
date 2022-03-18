@@ -87,7 +87,7 @@ export const Datalist = () => {
         }}
       >
         <img
-          style={{ cursor: "pointer", position: "absolute",top:'50%',left:'8%',transform:'translate(-50%,-50%)'}}
+          style={{ cursor: "pointer", position: "absolute",top:'45%',left:'8%',transform:'translate(-50%,-50%)'}}
           onClick={() => {
             navigate("/detail/" + telstd);
           }}
