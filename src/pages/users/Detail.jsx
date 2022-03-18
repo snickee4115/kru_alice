@@ -7,7 +7,7 @@ import Logo from '../../components/Logo'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import toast, { Toaster } from 'react-hot-toast';
-import { collection, getDocs, onSnapshot, query, QuerySnapshot, where } from 'firebase/firestore'
+import { collection, getDocs, query, QuerySnapshot, where } from 'firebase/firestore'
 import { db } from '../../firebase'
 import { async } from '@firebase/util'
 import { AuthContext } from '../../context/auth'
@@ -49,7 +49,6 @@ const Detail = ({ setDisabledLogo }) => {
 
       resolve(std)
     }).then(async (std) => {
-      console.log(std.length);;
       let index = 0;
       for (let i = 0; i < std.length; i++) {
         const q = query(collection(db, 'students', std[i].id, 'courses'));
@@ -59,7 +58,6 @@ const Detail = ({ setDisabledLogo }) => {
 
         });
       }
-      console.log(std);
       setStudetList(std);
       
     }).then((std) => {

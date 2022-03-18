@@ -67,11 +67,8 @@ export const AdminDatalist = () => {
     ]);
     const { setUback } = useContext(DataContext);
 
-    useEffect(async () => {
-        setUback("/admin/detail_student/" + stdid);
-        const unsub = new Promise((resolve)=>onSnapshot(
-            doc(db, "students", stdid, "courses", courseid),
-            (doc) => {
+    useEffect(() => {
+        const unsub = onSnapshot(doc(db, "students", stdid, "courses", courseid),(doc) => {
                 setCourses(doc.data());
                 setPayStatus(doc.data().payStatus);
                 if (!doc.data().stamp) {
@@ -80,6 +77,9 @@ export const AdminDatalist = () => {
                         temp.push({ date: "", hours: "" });
                     }
                     setStamp(temp);
+                    setTimeout(() => {
+                        setLoading(false);;
+                    }, 500);
                 } else if (doc.data().stamp) {
                     new Promise((resolve) => {
                         setStamp(doc.data().stamp);
@@ -97,21 +97,19 @@ export const AdminDatalist = () => {
                         })
                         .then((temp) => {
                             setStamp((prevState) => [...prevState, ...temp]);
-                            
+                            // setTimeout(() => {
+                            //     setLoading(false);;
+                            // }, 500);
                         });
-                }
-                resolve();
             }
-        )).then(() => {
-           // setTimeout(() => {
-                //     setLoading(false);;
-                // }, 500);
+            setHome(true);
+            setTimeout(() => {
                 setLoading(false);;
+            }, 500);
         })
-        setHome(true);
+        return ()=> unsub();        
+    },[])
 
-        return () => unsub();
-    }, []);
 
     const onUpdateDate = (value, index) => {
         const updateDate = new Promise((resolve) => {

@@ -61,9 +61,12 @@ export const Datalist = () => {
             })
             .then((temp) => {
               setStamp((prevState) => [...prevState, ...temp]);
-              setLoading(false);
+              
             });
         }
+        setTimeout(() => {
+            setLoading(false);
+        }, 500);
       }
     );
       
@@ -206,7 +209,7 @@ export const Datalist = () => {
             {absent.map(
               (absent, index) =>
                 absent && (
-                  <span>
+                  <span key={index}>
                     {moment(absent.toDate())
                       .locale("en")
                       .format("ddd")
