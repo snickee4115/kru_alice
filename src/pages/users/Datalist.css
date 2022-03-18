@@ -18,6 +18,8 @@ width: calc(1vw + 60px);
   /*standart undo*/
 padding: 10px;
 
+margin-left: 4%;
+
 }
 
 .datalist_title{
