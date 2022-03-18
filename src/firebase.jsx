@@ -8,13 +8,14 @@ import { getFirestore } from 'firebase/firestore'
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyA58rO2OL52mn-KajbeNKGgSEb__6I7zA4",
-  authDomain: "react-kru-alice-test.firebaseapp.com",
-  databaseURL: "http://react-kru-alice-test.firebaseio.com",
-  projectId: "react-kru-alice-test",
-  storageBucket: "react-kru-alice-test.appspot.com",
-  messagingSenderId: "644073989033",
-  appId: "1:644073989033:web:70489d20b53e43c6c55ab8"
+  apiKey: "AIzaSyAX5MiNcJMO3bGNPVzngHZ3Xtj9jaqNSiE",
+  authDomain: "tutor-alice.firebaseapp.com",
+  databaseURL: "http://tutor-alice.firebaseio.com",
+  projectId: "tutor-alice",
+  storageBucket: "tutor-alice.appspot.com",
+  messagingSenderId: "59473935681",
+  appId: "1:59473935681:web:dff356cc43baf9505f35c0",
+  measurementId: "G-DJ63TTK9PK"
 };
 
 // Initialize Firebase
