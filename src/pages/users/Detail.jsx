@@ -7,7 +7,7 @@ import Logo from '../../components/Logo'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import toast, { Toaster } from 'react-hot-toast';
-import { collection, getDocs, query, QuerySnapshot, where } from 'firebase/firestore'
+import { collection, getDocs, orderBy, query, QuerySnapshot, where } from 'firebase/firestore'
 import { db } from '../../firebase'
 import { async } from '@firebase/util'
 import { AuthContext } from '../../context/auth'
@@ -24,10 +24,13 @@ const Detail = ({ setDisabledLogo }) => {
   const [studentList, setStudetList] = useState([{
     id: '', name: '',
     courses: [],
-    hours: []
+    hours: [],
+    loadMore:false
   }]);
 
+
   const [loading, setLoading] = useState(true);
+  const [loadMore, setLoadMore] = useState(false);
   
   
 
@@ -51,7 +54,7 @@ const Detail = ({ setDisabledLogo }) => {
     }).then(async (std) => {
       let index = 0;
       for (let i = 0; i < std.length; i++) {
-        const q = query(collection(db, 'students', std[i].id, 'courses'));
+        const q = query(collection(db, 'students', std[i].id, 'courses'), orderBy('createAt', 'desc'));
         (await getDocs(q)).forEach(async (docSnap) => {
           
           std[i].courses.push(docSnap);
@@ -66,6 +69,20 @@ const Detail = ({ setDisabledLogo }) => {
 
    
   }, [])
+
+  const handleLoadMore = () => {
+    
+    setLoadMore(!loadMore);
+    console.log(loadMore);
+  }
+
+  useEffect(() => {
+    // let load = handleLoadMore();
+    // return ()=> load();
+  },[])
+
+
+
   if (loading) {
     return <Loading/>
   } 
@@ -104,9 +121,15 @@ const Detail = ({ setDisabledLogo }) => {
       <div className='emty'></div>
 
       {studentList.map((student, index) =>
-        <div key={index} className='detail_wrapper'>
+        <motion.div
+        
+          key={index}
+          className='detail_wrapper'>
 
-          <div className='cat_container'>
+          <motion.div
+            
+            
+            className='cat_container'>
 
             <div style={{
               display:'flex',
@@ -122,7 +145,22 @@ const Detail = ({ setDisabledLogo }) => {
             </div>
             <div className='detail_type'>
               {student.courses.map((course, index) =>
-                <div className='remaint' key={index}>
+                !student.loadMore && index >= 3 ||
+                <motion.div
+                    initial={{opacity: 0}}
+                    animate={index <= 2 ? {opacity: 1} : student.loadMore ? {opacity: 1} : {opacity: 0}}
+                    variants={{
+                      collapsed: { opacity: 0, height: 0 },
+                      open: { opacity: 1, height: "auto" }
+                    }}
+                    transition={{
+                      duration: 0.8,
+                      ease: [0.04, 0.62, 0.23, 0.98]
+                    }}
+                    className='remaint'
+                    key={index}
+
+                  >
                   <div style={{
                     // border: '1px solid',
                     flex: '4',
@@ -154,7 +192,9 @@ const Detail = ({ setDisabledLogo }) => {
                           '#986363'
                           :
                           '#D91919'
-                        :
+                          : course.data().finished ? (
+                            "#986363"
+                          ) :
                         '#3C00E9'
 
                   }} >
@@ -171,18 +211,48 @@ const Detail = ({ setDisabledLogo }) => {
                                 course.data().overHours * 60 -
                                 parseInt(course.data().overHours) * 60
                               ) +
-                              " นาที"}
+                              " นาที"}{course.data().payStatus != undefined
+                                ? <span style={{ color: '#986363' }}>/ชำระเงินแล้ว</span>
+                                : <span style={{color:'#D91919'}}>/ยังไม่ชำระเงิน</span>
+                              }
                           </span>
+                        : course.data().finished ? (
+                          <span>ครบแล้ว</span>
+                        )
                         :
-                        <span>{course.data().sumHours}/10 hr.</span>
+                        <span>{course.data().sumHours}{course.data().payStatus != undefined
+                          ? <span style={{ color: '#986363' }}>/ชำระเงินแล้ว</span>
+                          : <span style={{color:'#D91919'}}>/ยังไม่ชำระเงิน</span>
+                        }
+                        </span>
                     }</div>
-                </div>)
+                </motion.div> 
+              )
               }
-     
+              <motion.div
+                key={index}
+                onClick={() => {
+                  setStudetList(studentList.map((student, i) => {
+                    if (i === index) {
+                      student.loadMore = !student.loadMore;
+                    }
+                    return student;
+                  }));
+              }}
+              className='arrowLoad'
+              initial={{ transformOrigin: 'center' }}
+              animate={student.loadMore ? { rotate: 180 } : { rotate: 0 }}
+              transition={{
+                      duration: 0.0001,
+                      ease: [0.04, 0.62, 0.23, 0.98]
+                    }}
+            >
+            </motion.div>
             </div >
-
-          </div>
-        </div>)
+            
+            
+          </motion.div>
+        </motion.div>)
       }
 
 

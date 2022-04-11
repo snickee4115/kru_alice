@@ -78,6 +78,7 @@ const AddCourse = () => {
           ? Number(allOverHours.hours - 10)
           : Number(0),
       finished: null,
+      payStatus: null,
       stamp: allOverHours.hours &&
         add && [
           {

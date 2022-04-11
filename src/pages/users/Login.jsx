@@ -19,26 +19,32 @@ const Login = () => {
     
     const handleSubmit = async (e) => {
         e.preventDefault();
-        let stdid;
+        if (!tel) { 
+            toast.error('กรุณากรอกเบอร์โทรศัพท์');
+        } else {
+            let stdid;
 
-        const login = new Promise(async (resolve, reject) => {
-            const q = query(collection(db, 'students'), where('tel', '==', tel));
-            const querySnapshot = (await getDocs(q)).size;
-            if (querySnapshot > 0) {
-                resolve();
-            } else {
-                reject();
-            }
-        })
-      
-        toast.promise(login, {
-            loading: 'กำลังเข้าสู่ระบบ',
-            success: 'เข้าสู่ระบบสำเร็จ',
-            error: 'ไม่พบหมายเลขนี้ในระบบ'
-        }).then(()=>{
-            navigate('/detail/'+tel)
-        })
+            const login = new Promise(async (resolve, reject) => {
+                const q = query(collection(db, 'students'), where('tel', '==', tel));
+                const querySnapshot = (await getDocs(q)).size;
+                if (querySnapshot > 0) {
+                    resolve();
+                } else {
+                    reject();
+                }
+            })
+          
+            toast.promise(login, {
+                loading: 'กำลังเข้าสู่ระบบ',
+                success: 'เข้าสู่ระบบสำเร็จ',
+                error: 'ไม่พบหมายเลขนี้ในระบบ'
+            }).then(()=>{
+                navigate('/detail/'+tel)
+            })
+    
+        }
 
+       
 
         
     }

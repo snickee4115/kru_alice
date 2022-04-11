@@ -17,6 +17,22 @@
     /* margin-top: calc(1vw + 20px); */
     word-break: break-word;
 }
+
+.detail_wrapper .arrowLoad{
+    cursor: pointer;
+    margin-top: 5%;
+    width: 0;
+    height: 0;
+    border: 30px solid transparent;
+    border-top-color: black;
+    /* transform-origin: 50% 50%; */
+    transition: transform .25s;
+    align-self: center;
+    
+}
+
+
+
 .detail_undo{
     width: calc(3vw + 25px);
     object-fit: contain;
