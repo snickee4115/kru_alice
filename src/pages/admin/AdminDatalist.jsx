@@ -111,6 +111,20 @@ export const AdminDatalist = () => {
         return ()=> unsub();        
     },[])
 
+    const onUpdateDatePay = (value) => { 
+        const updateDatePay = new Promise((resolve) => {
+            updateDoc(doc(db, 'students', stdid, 'courses', courseid), {
+                payStatus: Timestamp.fromDate(new Date(value.unix * 1000))
+            });
+            resolve();
+        });
+
+        toast.promise(updateDatePay, {
+            loading: "กำลังแก้ไขข้อมูล",
+            success: "แก้ไขข้อมูลสำเร็จ",
+            error: "แก้ไขข้อมูลไม่สำเร็จ",
+        })
+    }
 
     const onUpdateDate = (value, index) => {
         const updateDate = new Promise((resolve) => {
@@ -305,7 +319,7 @@ export const AdminDatalist = () => {
     };
 
     function MyPlugin({value}) {
-        return "แก้ไขวันที่ครั้งที่ "+value;
+        return value;
     }
 
     // useEffect(() => {
@@ -340,16 +354,38 @@ export const AdminDatalist = () => {
                     {courses.detail}
                 </div>
                 {/* <div className='admin_data_type' style={{color: "#5E35B7"}} >{titlee.cour}</div> */}
-                <div
-                    className="admin_data_type"
-                    style={payStatus ? { color: "#009900" } : { color: "#BD0000" }}
-                >
-                    (
-                    {payStatus
-                        ? "ชำระแล้ว " + moment(payStatus.toDate()).locale("th").format("L")
-                        : "ยังไม่ชำระเงิน"}
-                    )
-                </div>
+                
+                    <DatePicker
+                        plugins={[
+                            <MyPlugin value={"แก้ไขวันชำระเงิน"} position="top"/>
+                          ]}
+                        animations={[
+                            opacity(),
+                            transition({
+                                from: 40,
+                                transition:
+                                    "all 400ms cubic-bezier(0.335, 0.010, 0.030, 1.360)",
+                            }),
+                        ]}
+                        className="rmdp-mobile"
+                        mobileLabels={{
+                            CANCEL: "Close",
+                            OK: "Accept",
+                        }}
+                        onChange={(value) => onUpdateDatePay(value)}
+                        render={(value, openCalendar) => {
+                            return (
+                                <div style={payStatus ? { color: "#009900", cursor: 'pointer' } : { color: "#BD0000" }}
+                                    onClick={payStatus && openCalendar}>
+                                    ( {payStatus ? "ชำระแล้ว "+ moment(payStatus.toDate()).locale("th").format("L") : "ยังไม่ชำระเงิน"} )
+                                </div>
+                                   
+                            );
+                        }}
+                    />
+                        
+                    
+                
             </div>
 
             <div className="admin_data_data">
@@ -361,7 +397,7 @@ export const AdminDatalist = () => {
                                 <div className="admin_data_date">
                                     <DatePicker
                                         plugins={[
-                                            <MyPlugin value={index+1} position="top"/>
+                                            <MyPlugin value={"แก้ไขวันที่ครั้งที่ "+ (index+1)} position="top"/>
                                           ]}
                                         animations={[
                                             opacity(),
