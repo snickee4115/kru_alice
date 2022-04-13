@@ -1,10 +1,10 @@
 import React from 'react'
 import './PopUp.css'
 
-const PopUp = ({content, ok, cancel, onOk , onCancel, typeButton, style}) => {
+const PopUp = ({content, ok, cancel, onOk , onCancel, typeButton, style, bgcolor}) => {
   return (
     <div style={{visibility:style ? 'hidden' : 'visible'}}  className='popup_container'>
-        <div className="popup_box">
+        <div className="popup_box" style={bgcolor && {backgroundColor:bgcolor}}>
               <div className='popup_content'>
                 {content}
               </div>

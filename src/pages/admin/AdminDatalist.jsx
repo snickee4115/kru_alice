@@ -32,12 +32,14 @@ import ClickAndHoldWrapper from "react-click-and-hold/core";
 import Loading from "../../components/Loading";
 
 export const AdminDatalist = () => {
+    const inputRef = useRef(null)
     const { setLoading, loading } = useContext(DataContext);
     const navigate = useNavigate();
     const [hours, setHours] = useState(60);
     const [curStamp, setCurStamp] = useState();
     const [editHours, setEditHours] = useState();
     const [editMinute, setEditMinute] = useState();
+    const [editDetail, setEditDetail] = useState();
     const [editIndex, setEditIndex] = useState();
     const { nameStudent } = useContext(AuthContext);
     const { pathname } = useLocation();
@@ -73,9 +75,8 @@ export const AdminDatalist = () => {
                 setPayStatus(doc.data().payStatus);
                 if (!doc.data().stamp) {
                     let temp = [];
-                    for (let i = 0; i < 10; i++) {
-                        temp.push({ date: "", hours: "" });
-                    }
+                    temp.push({ date: "", hours: "" });
+                    
                     setStamp(temp);
                     setTimeout(() => {
                         setLoading(false);;
@@ -88,9 +89,9 @@ export const AdminDatalist = () => {
                         .then(() => {
                             if (doc.data().stamp.length < 10) {
                                 let temp = [];
-                                for (let i = 0; i < 10 - doc.data().stamp.length; i++) {
-                                    temp.push({ date: "", hours: "", status: "" });
-                                }
+                                // for (let i = 0; i < 10 - doc.data().stamp.length; i++) {
+                                //     temp.push({ date: "", hours: "", status: "" });
+                                // }
                                 return temp;
                             }
                             return [];
@@ -128,7 +129,24 @@ export const AdminDatalist = () => {
             error: "แก้ไขข้อมูลไม่สำเร็จ",
         });
     };
+    
+    const onUpdateDetail = async (detail, index) =>{
+        const updateDetail = new Promise((resolve)=>{
+            let newStamp = courses.stamp;
+            newStamp[index].detail = detail;
+            resolve(newStamp);
+        }).then((newStamp)=>{
+            updateDoc(doc(db, "students", stdid, "courses", courseid), {
+                stamp: newStamp,
+            });
+        });
 
+        toast.promise(updateDetail, {
+            loading: "กำลังแก้ไขข้อมูล",
+            success: "แก้ไขข้อมูลสำเร็จ",
+            error: "แก้ไขข้อมูลไม่สำเร็จ",
+        })
+    }
     const onUpdateHours = (hours, minute, index) => {
         const batch = writeBatch(db);
         const updateHours = new Promise((resolve) => {
@@ -151,7 +169,7 @@ export const AdminDatalist = () => {
                     ...(sumHours == 10 &&
                         !courses.finished && { finished: Timestamp.fromDate(new Date()) }),
                 });
-
+                
                 return { oldOverHours, newOverHours };
             })
             .then(({ oldOverHours, newOverHours }) => {
@@ -205,6 +223,7 @@ export const AdminDatalist = () => {
         });
     };
 
+
     const onStamp = async (status, hours) => {
 
         const addStamp = getDoc(doc(db, "students", stdid, "courses", courseid))
@@ -222,6 +241,7 @@ export const AdminDatalist = () => {
                         date: Timestamp.fromDate(new Date()),
                         hours: hours / 60,
                         status: status == "present" ? true : false,
+                        detail: '',
                     }),
                     sumHours: sumHours + hours / 60,
                     // overHours:
@@ -287,6 +307,15 @@ export const AdminDatalist = () => {
     function MyPlugin({value}) {
         return "แก้ไขวันที่ครั้งที่ "+value;
     }
+
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         inputRef.current.focus()
+    //     }, 1000);
+    // },[] )
+    
+
+
     if (loading) {
         return <Loading/>
       }
@@ -326,98 +355,117 @@ export const AdminDatalist = () => {
             <div className="admin_data_data">
                 <div className="admin_list_data_container">
                     {stamp.map((stamp, index) => (
-                        <div key={index} className="admin_list_data">
-                            <div className="admin_data_count">ครั้งที่ {index + 1}</div>
-                            <div className="admin_data_date">
-                                <DatePicker
-                                    plugins={[
-                                        <MyPlugin value={index+1} position="top"/>
-                                      ]} 
-                                    animations={[
-                                        opacity(),
-                                        transition({
-                                            from: 40,
-                                            transition:
-                                                "all 400ms cubic-bezier(0.335, 0.010, 0.030, 1.360)",
-                                        }),
-                                    ]}
-                                    className="rmdp-mobile"
-                                    mobileLabels={{
-                                        CANCEL: "Close",
-                                        OK: "Accept",
-                                    }}
-                                    onChange={(value) => onUpdateDate(value, index)}
-                                    render={(value, openCalendar) => {
-                                        return (
-                                            <ClickAndHoldWrapper
-                                                id={1}
-                                                elmType={"div"}
-                                                onHold={() =>
-                                                    stamp.date != "" ? !courses.finished && openCalendar() : null
-                                                }
-                                                timeOut={300}
-                                            >
-                                                <div
-                                                    style={stamp.date != "" ? {} : { cursor: "unset" }}
-                                                    className="admin_data_datepicker"
+                        <div key={index}>
+                            <div  className="admin_list_data">
+                                <div className="admin_data_count">ครั้งที่ {index + 1}</div>
+                                <div className="admin_data_date">
+                                    <DatePicker
+                                        plugins={[
+                                            <MyPlugin value={index+1} position="top"/>
+                                          ]}
+                                        animations={[
+                                            opacity(),
+                                            transition({
+                                                from: 40,
+                                                transition:
+                                                    "all 400ms cubic-bezier(0.335, 0.010, 0.030, 1.360)",
+                                            }),
+                                        ]}
+                                        className="rmdp-mobile"
+                                        mobileLabels={{
+                                            CANCEL: "Close",
+                                            OK: "Accept",
+                                        }}
+                                        onChange={(value) => onUpdateDate(value, index)}
+                                        render={(value, openCalendar) => {
+                                            return (
+                                                <ClickAndHoldWrapper
+                                                    id={1}
+                                                    elmType={"div"}
+                                                    onHold={() =>
+                                                        stamp.date != "" ? !courses.finished && openCalendar() : null
+                                                    }
+                                                    timeOut={300}
                                                 >
-                                                    {stamp.date
-                                                        ? moment(stamp.date.toDate())
-                                                            .locale("en")
-                                                            .format("ddd")
-                                                            .toUpperCase() +
-                                                        " " +
-                                                        moment(stamp.date.toDate())
-                                                            .locale("th")
-                                                            .format("L")
-                                                        : ""}
-                                                </div>
-                                            </ClickAndHoldWrapper>
-                                        );
-                                    }}
-                                />
-                            </div>
-                            <div className="admin_data_time">
-                                <ClickAndHoldWrapper
-                                    id={1}
-                                    elmType={"div"}
-                                    onHold={() => {
-                                        if (stamp.hours != "") {
-                                            setEditHours(parseInt(stamp.hours));
-                                            setEditMinute(
-                                                Math.round(
-                                                    (stamp.hours - parseInt(Math.floor(stamp.hours))) * 60
-                                                )
+                                                    <div
+                                                        style={stamp.date != "" ? {} : { cursor: "unset" }}
+                                                        className="admin_data_datepicker"
+                                                    >
+                                                        {stamp.date
+                                                            ? moment(stamp.date.toDate())
+                                                                .locale("en")
+                                                                .format("ddd")
+                                                                .toUpperCase() +
+                                                            " " +
+                                                            moment(stamp.date.toDate())
+                                                                .locale("th")
+                                                                .format("L")
+                                                            : ""}
+                                                    </div>
+                                                </ClickAndHoldWrapper>
                                             );
-                                            setEditIndex(index);
-                                            setCurStamp(stamp);
-                                            !courses.finished && setPopup("edithours");
-                                        }
-                                    }}
-                                    timeOut={300}
-                                >
-                                    <div
-                                        className="admin_data_time2"
-                                        style={
-                                            stamp.status
-                                                ? {}
-                                                : { color: "#BD0000" } && stamp.hours != ""
-                                                    ? { color: "#BD0000" }
-                                                    : { cursor: "unset" }
-                                        }
+                                        }}
+                                    />
+                                </div>
+                                <div className="admin_data_time">
+                                    <ClickAndHoldWrapper
+                                        id={1}
+                                        elmType={"div"}
+                                        onHold={() => {
+                                            if (stamp.hours != "") {
+                                                setEditHours(parseInt(stamp.hours));
+                                                setEditMinute(
+                                                    Math.round(
+                                                        (stamp.hours - parseInt(Math.floor(stamp.hours))) * 60
+                                                    )
+                                                );
+                                                setEditIndex(index);
+                                                setCurStamp(stamp);
+                                                !courses.finished && setPopup("edithours");
+                                            }
+                                        }}
+                                        timeOut={300}
                                     >
-                                        {stamp.hours
-                                            ? parseInt(stamp.hours) +
-                                            " Hr " +
-                                            Math.round(
-                                                stamp.hours * 60 - parseInt(stamp.hours) * 60
-                                            ) +
-                                            " Min"
-                                            : ""}
-                                    </div>
-                                </ClickAndHoldWrapper>
+                                        <div
+                                            className="admin_data_time2"
+                                            style={
+                                                stamp.status
+                                                    ? {}
+                                                    : { color: "#BD0000" } && stamp.hours != ""
+                                                        ? { color: "#BD0000" }
+                                                        : { cursor: "unset" }
+                                            }
+                                        >
+                                            {stamp.hours
+                                                ? parseInt(stamp.hours) +
+                                                " Hr " +
+                                                Math.round(
+                                                    stamp.hours * 60 - parseInt(stamp.hours) * 60
+                                                ) +
+                                                " Min"
+                                                : ""}
+                                        </div>
+                                    </ClickAndHoldWrapper>
+                                </div>
+                            </div>
+                            <div  className="admin_data_detail" onClick={() => {
+                                setEditIndex(index);
+                                setCurStamp(stamp);
+                                setPopup('editdetail');
+                                  
+                                setTimeout(() => {
+                                    var box = document.getElementById("box");
+                                    let height = box.offsetHeight;
+                                    // box.style.padding = "3%";
+                                    box.style.height = "auto";
+                                    box.style.height = box.scrollHeight + "px";
+                                    
+                                }, );
+                            }}>
+                                <div >{stamp.detail && String(stamp.detail).split('\n')[0] } </div>       
                             </div>
                         </div>
+                        
                     ))}
                 </div>
 
@@ -525,6 +573,9 @@ export const AdminDatalist = () => {
                         } else if (popup == "edithours") {
                             onUpdateHours(editHours, editMinute, editIndex);
                             setPopup(null);
+                        } else if (popup == "editdetail") { 
+                            onUpdateDetail(curStamp.detail, editIndex);
+                            setPopup(null);
                         }
                     }}
                     onCancel={() => {
@@ -595,8 +646,36 @@ export const AdminDatalist = () => {
                                                 &nbsp;Min
                                             </div>,
                                         ]
+                                        : null || popup == "editdetail"
+                                        ? [
+                                                <textarea
+                                                    
+                                                    id="box"
+                                                    className="popup-editdetail"
+                                                    key={"key"}
+                                                    placeholder={'รายละเอียดการเรียนครั้งที่ ' + (editIndex + 1)}
+                                                    ref={inputRef}
+                                                    // rows={2}
+                                                    value={curStamp.detail}
+                                                    onBlur={()=>{console.log("first")}}
+                                                    onChange={(e) => {
+                                                        // setEditDetail(e.target.value)
+                                                        setCurStamp({...curStamp, detail:e.target.value})
+                                                        // const scrollHeight = inputRef.current.scrollHeight;
+                                                        // inputRef.current.style.height = "auto";
+                                                        // inputRef.current.style.height = scrollHeight + "px";
+                                                        var box = document.getElementById("box");
+                                                        let height = box.offsetHeight;
+                                                        // box.style.padding = "3%";
+                                                        box.style.height = "auto";
+                                                        box.style.height = box.scrollHeight + "px";
+                                                       
+                                                    }} 
+                                                ></textarea>
+                                        ] 
                                         : null
                     }
+                    bgcolor={popup == 'editdetail' ? '#DDE2E7' : null}
                     ok="ยืนยัน"
                     cancel="ยกเลิก"
                 />
