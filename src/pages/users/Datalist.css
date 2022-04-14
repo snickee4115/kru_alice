@@ -13,13 +13,11 @@
     
 }
 .datalist_undo{
-position: relative;
-width: calc(1vw + 60px);
-  /*standart undo*/
-padding: 10px;
-
-margin-left: 4%;
-
+    position: relative;
+    width: calc(1vw + 60px);
+    /*standart undo*/
+    padding: 10px;
+    margin-left: 4%;
 }
 
 .datalist_title{
@@ -243,7 +241,7 @@ margin-left: 4%;
     flex-direction: column;
     display: flex;
     margin-top:5px;
-    font-size:  calc(1vw + 25px);
+    font-size:  calc(1vw + 15px);
    padding-left: 4px;
 }
 .datalist_alert div{
@@ -365,4 +363,23 @@ margin-left: 4%;
 }
 .result_remain div:nth-child(2){ 
     color: #2F00E9;
+}
+
+.datalist_main .popup-detail{
+    box-sizing: border-box;
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    margin: 0 auto;
+    font-weight: 400;
+    text-align: center;
+    font-size: calc(1vw + 13px);
+    padding: 2vh 5%;
+    border-radius: 30px;
+    border: 0;
+    outline: none;
+    resize: none;
+    overflow: hidden;
+    width:100%;
+    height: fit-content;
+    background-color: transparent;
+    word-break: break-word;
 }

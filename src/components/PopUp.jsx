@@ -16,7 +16,7 @@ const PopUp = ({content, ok, cancel, onOk , onCancel, typeButton, style, bgcolor
             backgroundPosition: 'center center'
           }}>
         </div>}
-        <div 
+        {content && <div 
           className={upload ? "popup_box_upload" : "popup_box"}
           style={bgcolor && { backgroundColor: bgcolor }}
           onClick={(e) =>{e.stopPropagation();}}
@@ -28,7 +28,7 @@ const PopUp = ({content, ok, cancel, onOk , onCancel, typeButton, style, bgcolor
                 <button type={typeButton} onClick={onOk} className='popup_ok'>{ok}</button>
                 <button type='button' onClick={onCancel} className='popup_cancel'>{cancel}</button>
               </div>}
-        </div>
+        </div>}
     </div>
   )
 }
