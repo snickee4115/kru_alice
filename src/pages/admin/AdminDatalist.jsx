@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import Name from "../../components/Name.jsx";
 import Button from "../../components/Button";
 import Plus from "../../assets/Plus.png";
+import UploadIcon from '../../assets/upload.png';
 import {
     arrayUnion,
     collection,
@@ -20,7 +21,8 @@ import { AuthContext } from "../../context/auth";
 import DataContext from "../../data/DataContext";
 import EditImg from "../../assets/edit.png";
 import Popup from "../../components/PopUp";
-import { db } from "../../firebase";
+import { db, storage } from "../../firebase";
+import { deleteObject, getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { v4 as uuid } from "uuid";
 import moment from "moment/min/moment-with-locales";
 import toast, { Toaster } from "react-hot-toast";
@@ -33,6 +35,7 @@ import Loading from "../../components/Loading";
 
 export const AdminDatalist = () => {
     const inputRef = useRef(null)
+    const [slipImg, setSlipImg] = useState('')
     const { setLoading, loading } = useContext(DataContext);
     const navigate = useNavigate();
     const [hours, setHours] = useState(60);
@@ -109,7 +112,39 @@ export const AdminDatalist = () => {
             }, 500);
         })
         return ()=> unsub();        
-    },[])
+    }, [])
+    
+    useEffect(() => {
+        if (slipImg) {
+            const updateSlipImg = new Promise(async (resolve) => {
+                if (courses.slipImgPath != undefined) {
+                    deleteObject(ref(storage, courses.slipImgPath));
+                }
+                resolve();
+            }).then(() => {
+                const imgRef = ref(storage, 'slipImg/'+ new Date().getTime() + ' - ' + slipImg.name);
+                const snap = uploadBytes(imgRef, slipImg);
+                return snap;
+            }).then(async (snap) => {
+                const url = await getDownloadURL(ref(storage, snap.ref.fullPath));
+                return {url, snap};
+            }).then(({url, snap}) => {
+                updateDoc(doc(db, "students", stdid, "courses", courseid), {
+                    slipImg: url,
+                    slipImgPath: snap.ref.fullPath,
+                });
+                setSlipImg('');
+                return;
+          })
+            toast.promise(updateSlipImg, {
+                loading: "กำลังแก้ไขข้อมูล",
+                success: "แก้ไขข้อมูลสำเร็จ",
+                error: "แก้ไขข้อมูลไม่สำเร็จ",
+            })
+      }
+      
+    }, [slipImg])
+    
 
     const onUpdateDatePay = (value) => { 
         const updateDatePay = new Promise((resolve) => {
@@ -588,10 +623,11 @@ export const AdminDatalist = () => {
             </div>
             <div
                 style={payStatus ? { backgroundColor: "#BCBCBC", color: "#000" } : null}
-                onClick={() => setPopup("paycourse")}
+                
                 className="admin_data_cf"
             >
-                {payStatus ? "ชำระเงินแล้ว" : "ยังไม่ชำระเงิน"}
+                <div onClick={() => setPopup("paycourse")} >{payStatus ? "ชำระเงินแล้ว" : "ยังไม่ชำระเงิน"}</div>
+                <img onClick={() => setPopup('uploadSlip')} src={UploadIcon}></img>
             </div>
             {popup ? (
                 <Popup
@@ -709,11 +745,29 @@ export const AdminDatalist = () => {
                                                     }} 
                                                 ></textarea>
                                         ] 
-                                        : null
+                                        : null || popup == "uploadSlip"
+                                        ? [
+                                            <div key={"key"}>
+                                                <label htmlFor="slip" className="popup-upload">
+                                                    <div>เลือกไฟล์ของคุณ <img src={UploadIcon} /></div>
+                                                </label>
+                                                <input
+                                                    type='file'
+                                                    accept='image/*'
+                                                    id='slip'
+                                                    style={{ display: 'none' }}
+                                                    onChange={e=>setSlipImg(e.target.files[0])}
+                                                />
+                                            </div>
+                                        ]
+                                        :null
                     }
                     bgcolor={popup == 'editdetail' ? '#DDE2E7' : null}
                     ok="ยืนยัน"
                     cancel="ยกเลิก"
+                    useButton={popup == 'uploadSlip' ? false : true}
+                    upload={popup == 'uploadSlip' ? true : false}
+                    imageSlip={popup =='uploadSlip' ? courses.slipImg : null}
                 />
             ) : null}
             <Toaster />

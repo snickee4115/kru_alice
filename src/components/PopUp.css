@@ -3,6 +3,7 @@
     font-family: 'IBM Plex Sans Thai', sans-serif;
     font-weight: 400;
     display: flex;
+    flex-direction: column;
     position: fixed;
     background-color: rgba(0, 0, 0, 0.5);
     left: 0;
@@ -15,6 +16,7 @@
 .app_container .popup_continer{
     overflow: hidden;
 }
+
 
 .popup_box{
     display: flex;
@@ -30,6 +32,41 @@
     font-size: calc(1vw + 20px);
     font-weight: 400;
     border-radius: 30px;
+}
+.popup_image{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: space-around; */
+    position: relative;
+    margin:auto;
+    background-color: #FFCCCE;
+    /* width: 90%; */
+    width: calc(11vw + 330px);
+    min-height: calc(7vw + 250px);
+    font-size: calc(1vw + 20px);
+    font-weight: 400;
+    border-radius: 30px;
+    /* border: 1px solid; */
+    flex-grow: 0.8;
+    /* margin-bottom: 3%;
+    margin-top: 3%; */
+}
+.popup_box_upload{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin:auto;
+    background-color: #FFCCCE;
+    /* width: 90%; */
+    width: calc(11vw + 330px);
+    min-height: calc(2vw + 100px);
+    font-size: calc(1vw + 20px);
+    font-weight: 400;
+    border-radius: 30px;
+    /* margin-bottom: 5%; */
 }
 
 .popup_box .popup_content{
