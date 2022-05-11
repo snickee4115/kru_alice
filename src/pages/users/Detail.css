@@ -17,6 +17,22 @@
     /* margin-top: calc(1vw + 20px); */
     word-break: break-word;
 }
+
+.detail_wrapper .arrowLoad{
+    cursor: pointer;
+    margin-top: 5%;
+    width: 0;
+    height: 0;
+    border: calc(1vw + 15px) solid transparent;
+    border-top-color: #D87D7D;
+    /* transform-origin: 50% 50%; */
+    transition: transform .25s;
+    align-self: center;
+    
+}
+
+
+
 .detail_undo{
     width: calc(3vw + 25px);
     object-fit: contain;
@@ -107,7 +123,7 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    font-size: calc(1vw + 13px);
+    font-size: calc(0.5vw + 11px);
     /* border: 1px solid; */
     margin-bottom: 1.5%;
     }

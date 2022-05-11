@@ -12,8 +12,9 @@
 }
 
 .logo_highlight{
-    padding: 0 40px 10px 5px;
-    margin-left: -4px;
+    padding: 10px 20px 20px 25px;
+    margin-left: 20px;
     border-radius: 51px 51px 51px 51px / 64px 64px 64px 64px;
     background-color: #DC7373;
+    color: #EFE0E0;
 }

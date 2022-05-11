@@ -5,7 +5,7 @@ const Logo = () => {
     return (
         <div className='logo_container'>
             <div className="logo_name">
-                Kru<div className='logo_highlight'>alice</div>
+                Kru<div className='logo_highlight'>Alice</div>
             </div>
         </div>
     )

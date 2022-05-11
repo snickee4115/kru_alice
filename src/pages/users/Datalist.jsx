@@ -12,6 +12,7 @@ import { doc, getDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebase";
 import moment from "moment";
 import Loading from '../../components/Loading'
+import PopUp from "../../components/PopUp";
 
 export const Datalist = () => {
   const { stdid, telstd } = useParams();
@@ -22,6 +23,9 @@ export const Datalist = () => {
   const [stamp, setStamp] = useState([]);
   const [absent, setAbsent] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [popup, setPopup] = useState(false);
+  const [curStamp, setCurStamp] = useState();
+  const [editIndex, setEditIndex] = useState();
 
   useEffect(async () => {
     await getDoc(doc(db, "students", stdid)).then((doc) => {
@@ -73,6 +77,19 @@ export const Datalist = () => {
     return () => unsub();
   }, []);
   const navigate = useNavigate();
+
+  const handleShowDetail = (stamp)=>{
+    setCurStamp(stamp);
+    setPopup('showDetail')
+    setTimeout(() => {
+      var box = document.getElementById("box");
+      let height = box.offsetHeight;
+      // box.style.padding = "3%";
+      box.style.height = "auto";
+      box.style.height = box.scrollHeight + "px";
+      
+    }, );
+  }
   
   if (loading) {
     return <Loading/>
@@ -113,8 +130,13 @@ export const Datalist = () => {
         >
           (
           {courses.payStatus
-            ? "ชำระแล้ว " +
-              moment(courses.payStatus.toDate()).locale("th").format("L")
+            ? (<div 
+                  style={{cursor:'pointer'}}
+                  onClick={()=>setPopup('showSlip')}
+                
+                >
+              ชำระแล้ว {moment(courses.payStatus.toDate()).locale("th").format("L")}
+            </div>)
             : "ยังไม่ชำระเงิน"}
           )
         </div>
@@ -128,8 +150,16 @@ export const Datalist = () => {
                     </div> */}
         {stamp.map((stamp, index) => (
           <div key={index} className="list_data">
-            <div className="datalist_count">ครั้งที่{index + 1}</div>
-            <div className="datalist_date">
+            <div 
+              onClick={()=>stamp.detail && handleShowDetail(stamp)} 
+              style={stamp.detail ? {cursor:'pointer'} : null}
+              className="datalist_count">
+                ครั้งที่{index + 1}
+              </div>
+            <div 
+              onClick={()=>stamp.detail && handleShowDetail(stamp)} 
+              style={stamp.detail ? {cursor:'pointer'} : null}
+              className="datalist_date">
               {stamp.date
                 ? moment(stamp.date.toDate())
                     .locale("en")
@@ -140,13 +170,16 @@ export const Datalist = () => {
                 : ""}
             </div>
             <div
+              onClick={()=>stamp.detail && handleShowDetail(stamp)} 
+              
               className="datalist_time"
               style={
-                stamp.status
+                (stamp.status
                   ? {}
                   : { color: "#BD0000" } && stamp.hours != ""
                   ? { color: "#BD0000" }
-                  : { cursor: "unset" }
+                  : { cursor: "unset" })
+                  && stamp.detail ? {cursor:'pointer'} : null
               }
             >
               {stamp.hours
@@ -244,6 +277,24 @@ export const Datalist = () => {
       >
         {courses.payStatus ? "ชำระเงินแล้ว" : "ยังไม่ชำระเงิน"}
       </span>
+      {popup 
+        ? (<PopUp 
+            onCancel={()=>setPopup(null)}
+            bgcolor={popup == 'showDetail' ? '#DDE2E7' : null}
+            useButton={popup=='showDetail' ? false : true}
+            imageSlip={popup =='showSlip' ? courses.slipImg : null}
+            content={popup=='showDetail' 
+            && 
+              <div 
+                className="popup-detail"
+                id="box"
+                key={"key"}
+                >
+                {curStamp.detail}
+              </div>
+          }
+        />
+      ) :null}
     </div>
   );
 };

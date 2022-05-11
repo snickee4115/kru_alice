@@ -39,7 +39,7 @@ const DetailStudent = () => {
   useEffect(() => {
     const q = query(
       collection(db, "students", stdid, "courses"),
-      orderBy("courseName", "asc")
+      orderBy("createAt", "desc")
     );
 
       const unsub2 = onSnapshot(q, (querySnapshot) => {
