@@ -258,7 +258,7 @@ const Detail = ({ setDisabledLogo }) => {
 
 
 
-      <Link onClick={() => { setGoBack(!goBack); setDisabledLogo(true); }} to='/' style={{ textDecoration: 'none', color: '#000' }}>
+      <Link onClick={() => { setGoBack(!goBack); setDisabledLogo(true); }} to='/login' style={{ textDecoration: 'none', color: '#000' }}>
         <motion.div
           // transition={{duration: 1 }}
           layoutId='log_button'

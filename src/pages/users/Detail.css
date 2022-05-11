@@ -23,8 +23,8 @@
     margin-top: 5%;
     width: 0;
     height: 0;
-    border: 30px solid transparent;
-    border-top-color: black;
+    border: calc(1vw + 15px) solid transparent;
+    border-top-color: #D87D7D;
     /* transform-origin: 50% 50%; */
     transition: transform .25s;
     align-self: center;
